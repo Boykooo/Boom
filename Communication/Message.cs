@@ -33,12 +33,19 @@ namespace Project2
         {
             
         }
+
+        public bool ok;
     }
 
     [Serializable]
     public class CreateField : Message
     {
+        public CreateField(GameField field)
+        {
+            this.field = field;
+        }
 
+        public GameField field;
     }
 
     [Serializable]
@@ -52,32 +59,86 @@ namespace Project2
     [Serializable]
     public class StartGameMessage : Message
     {
-        public StartGameMessage()
+        public StartGameMessage(GameField you, GameField enemy, bool turn)
         {
-
+            this.you = you;
+            this.enemy = enemy;
+            this.turn = turn;
         }
+
+        public GameField you;
+        public GameField enemy;
+        public bool turn;
     }
 
     [Serializable]
     public class ShootMessage : Message
     {
-
+        public ShootMessage(int x, int y)
+        {
+            this.x = x;
+            this.y = y;
+        }
+        public int x;
+        public int y;
     }
     [Serializable]
     public class FieldStateMessage : Message
     {
-        public FieldStateMessage(GameObject[,] objects)
+        public FieldStateMessage(GameField you, GameField enemy, bool turn)
         {
-            this.objects = objects;
+            this.you = you;
+            this.enemy = enemy;
+            this.turn = turn;
         }
 
-        public GameObject[,] objects;
+        public GameField you;
+        public GameField enemy;
+        public bool turn;
     }
     [Serializable]
 
-    [Serializable]
-    public enum GameObject
+    public class EndOfGameMessage : Message
     {
-        None, Hurt, Dead, Point
+        public EndOfGameMessage(bool win)
+        {
+            this.win = win;
+        }
+
+        public bool win;
+    }
+
+    [Serializable]
+    public enum CellType
+    {
+        None, Point
+    }
+    [Serializable]
+    public enum DeckType
+    {
+        Live, Hurt, Dead
+    }
+    [Serializable]
+
+    public struct Deck
+    {
+        public Point point;
+        public DeckType type;
+    }
+    [Serializable]
+    public class Ship
+    {
+
+        public int count;
+        public List<Deck> palub;
+    }
+
+
+    [Serializable]
+    public class GameField
+    {
+        CellType[,] field;
+
+        List<Ship> ships;
     }
 }
