@@ -29,7 +29,7 @@ namespace Project2
     [Serializable]
     public class RegistrationResultMessage : Message
     {
-        public RegistrationResultMessage()
+        public RegistrationResultMessage(int id)
         {
             
         }

@@ -57,15 +57,5 @@ namespace Server
 
         }
 
-        public static Message ByteToMessage(byte[] bytes)
-        {
-
-
-            BinaryFormatter f = new BinaryFormatter();
-            MemoryStream stream = new MemoryStream(bytes);
-
-            return (Message)f.Deserialize(stream);
-        }
-
     }
 }

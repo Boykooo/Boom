@@ -22,10 +22,6 @@ namespace Server
             Client client = new Client(socket, id++);
             clients.Add(client);
 
-            client.NewRoom += NewRoom;
-            client.RequestAllRooms += AllRooms;
-            client.ConnectToRoom += StartGame;
-
             client.Send(new RegistrationResultMessage(client.Id));
             Task task = new Task(client.Listen);
             task.Start();
@@ -33,21 +29,7 @@ namespace Server
         }
 
 
-        static void NewRoom(GameObject[,] objects, string name)
-        {
-            Game game = new Game(name, objects);
-
-            games.Add(game);
-        }
-
-        static void AllRooms(int i)
-        {
-            List<RoomInfo> rooms = games.Select(x => new RoomInfo(x.Name, x.Count)).ToList();
-
-            clients.First(x => x.Id == i).Send(new ListOfRoomsMessage(rooms));
-        }
-
-        static void StartGame(int i, string room)
+        static void StartGame(int i)
         {
 
         }

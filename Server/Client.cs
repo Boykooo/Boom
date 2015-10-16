@@ -59,33 +59,12 @@ namespace Server
 
             switch (m.GetType().Name)
             {
-                case "MoveMessage":
-                    Step((m as MoveMessage).move, Id);
-                    break;
-                case "RequestAllRoomsMessage":
-                    RequestAllRooms(Id);
-                    break;
-                case "CreateNewRoom":
-                    NewRoom((m as CreateNewRoom).objects, (m as CreateNewRoom).name);
-                    break;
-                case "RegistrationMessage":
-                    if (nick == "")
-                    {
-                        nick = (m as RegistrationMessage).nick;
-                    }
-                    break;
-                case "ConnectToRoomMessage":
-                    ConnectToRoom(Id, (m as ConnectToRoomMessage).roomName);
-                    break;
+              
 
             }
         }
 
-        public event Action<Move, int> Step;
-        public event Action<GameObject[,], string> NewRoom;
-        public event Action<Move, int> Piy;
-        public event Action<int> RequestAllRooms;
-        public event Action<int, string> ConnectToRoom;
+       
        
 
     }
