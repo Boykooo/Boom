@@ -33,6 +33,8 @@ namespace Server
                 gamers[i].client.Step += Step;
                 turn = !turn;
             }
+
+            Start();
         }
         void Step(Message message)
         {
@@ -70,6 +72,14 @@ namespace Server
             }
         }
 
+        void Start()
+        {
+            for (int i = 0; i < gamers.Length; i++)
+            {
+                StartGameMessage message = new StartGameMessage(gamers[i].client.gameField, gamers[(i + 1) % gamers.Length].client.gameField, gamers[i].turn);
+                gamers[i].client.Send(message);
+            }
+        }
         void GameOver()
         {
 
