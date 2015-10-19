@@ -31,17 +31,7 @@ namespace Client6
                 int port = 8888;
                 IPHostEntry host = Dns.GetHostEntry("localhost");
                 IPAddress adress = host.AddressList[0];
-                IPEndPoint endPoint = new IPEndPoint(adress, port);
-                Socket socket = new Socket(adress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-                socket.Connect(endPoint);
-                socket.Send(MessageSerializer.Serialize(new RegistrationMessage(NickName.Text)));
-                byte[] temp = new byte[1000000];
-                socket.Receive(temp);
-                RegistrationResultMessage m = (RegistrationResultMessage)MessageSerializer.Deserialize(temp);
-                if (m.ok)
-                {
-                    this.Close();
-                }
+                
             }
         }
     }
