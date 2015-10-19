@@ -32,7 +32,7 @@ namespace Client6
                 int port = 8888;
                 IPHostEntry host = Dns.GetHostEntry("localhost");
                 IPAddress adress = host.AddressList[0];
-                ServerManager server = new ServerManager(RegForm.ActiveForm);
+                ServerManager server = new ServerManager(this);
                 server.Connect(adress, port, NickName.Text);
                 
             }

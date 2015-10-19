@@ -22,7 +22,7 @@ class ServerManager
     public void Connect(IPAddress ip, int port, string nick)
     {
         IPEndPoint end = new IPEndPoint(ip, port);
-        Socket socket = new Socket(ip.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+        socket = new Socket(ip.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
         socket.Connect(end);
 
         Send(new RegistrationMessage(nick));
@@ -49,9 +49,10 @@ class ServerManager
             switch (m.GetType().Name)
             {
                 case "RegistrationResultMessage":
-                    reg.Close();
-                    MainGameForm game = new MainGameForm();
-                    game.Show();
+                    Action a = () => reg.Close();
+                    reg.Invoke(a);
+                    //MainGameForm game = new MainGameForm();
+                    //game.Show();
                     break;
             }
         }

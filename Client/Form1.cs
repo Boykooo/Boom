@@ -21,7 +21,7 @@ namespace Client
         private void Form1_Load(object sender, EventArgs e)
         {
             RegForm rg = new RegForm();
-            rg.Show(rg);
+            rg.Show();
         }
     }
 }
