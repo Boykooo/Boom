@@ -10,13 +10,13 @@ using System.Threading.Tasks;
 namespace Project2
 {
     [Serializable]
-    public abstract class Message
+    public abstract class Messages
     {
         public int Id { get; set; }
     }
 
     [Serializable]
-    public class RegistrationMessage : Message
+    public class RegistrationMessage : Messages
     {
         public RegistrationMessage(string nick)
         {
@@ -27,7 +27,7 @@ namespace Project2
 
     }
     [Serializable]
-    public class RegistrationResultMessage : Message
+    public class RegistrationResultMessage : Messages
     {
         public RegistrationResultMessage(int id)
         {
@@ -38,7 +38,7 @@ namespace Project2
     }
 
     [Serializable]
-    public class CreateField : Message
+    public class CreateField : Messages
     {
         public CreateField(GameField field)
         {
@@ -49,7 +49,7 @@ namespace Project2
     }
 
     [Serializable]
-    public class SearchMessage : Message
+    public class SearchMessage : Messages
     {
         public SearchMessage()
         {
@@ -57,7 +57,7 @@ namespace Project2
         }
     }
     [Serializable]
-    public class StartGameMessage : Message
+    public class StartGameMessage : Messages
     {
         public StartGameMessage(GameField you, GameField enemy, bool turn)
         {
@@ -72,7 +72,7 @@ namespace Project2
     }
 
     [Serializable]
-    public class ShootMessage : Message
+    public class ShootMessage : Messages
     {
         public ShootMessage(int x, int y)
         {
@@ -83,7 +83,7 @@ namespace Project2
         public int y;
     }
     [Serializable]
-    public class FieldStateMessage : Message
+    public class FieldStateMessage : Messages
     {
         public FieldStateMessage(GameField you, GameField enemy, bool turn)
         {
@@ -98,7 +98,7 @@ namespace Project2
     }
     [Serializable]
 
-    public class EndOfGameMessage : Message
+    public class EndOfGameMessage : Messages
     {
         public EndOfGameMessage(bool win)
         {

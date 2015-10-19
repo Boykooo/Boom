@@ -12,7 +12,7 @@ namespace Server
 
     public class MessageSerializer
     {
-        public byte[] Serialize(Message m)
+        public byte[] Serialize(Messages m)
         {
             MemoryStream stream = new MemoryStream();
             BinaryFormatter b = new BinaryFormatter();
@@ -21,12 +21,12 @@ namespace Server
             return stream.GetBuffer();
         }
 
-        public Message Deserialize(byte[] bytes)
+        public Messages Deserialize(byte[] bytes)
         {
             BinaryFormatter f = new BinaryFormatter();
             MemoryStream stream = new MemoryStream(bytes);
 
-            return (Message)f.Deserialize(stream);
+            return (Messages)f.Deserialize(stream);
         }
     }
 }

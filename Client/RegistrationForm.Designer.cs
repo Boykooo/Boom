@@ -1,6 +1,6 @@
 ﻿namespace Client6
 {
-    partial class RegistrationForm
+    partial class RegForm
     {
         /// <summary>
         /// Required designer variable.
@@ -62,7 +62,7 @@
             this.EndRegistration.UseVisualStyleBackColor = true;
             this.EndRegistration.Click += new System.EventHandler(this.EndRegistration_Click);
             // 
-            // RegistrationForm
+            // RegForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -70,7 +70,7 @@
             this.Controls.Add(this.EndRegistration);
             this.Controls.Add(this.NickName);
             this.Controls.Add(this.label1);
-            this.Name = "RegistrationForm";
+            this.Name = "RegForm";
             this.Text = "RegistrationForm";
             this.Load += new System.EventHandler(this.RegistrationForm_Load);
             this.ResumeLayout(false);

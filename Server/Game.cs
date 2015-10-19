@@ -34,7 +34,7 @@ namespace Server
                 turn = !turn;
             }
         }
-        void Step(Message message)
+        void Step(Messages message)
         {
             ShootMessage shoot = message as ShootMessage;
 

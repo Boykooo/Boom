@@ -8,16 +8,16 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Server;
 using System.Net.Sockets;
 using Project2;
+using Client;
 
 namespace Client6
 {
-    public partial class RegistrationForm : Form
+    public partial class RegForm : Form
     {
         public string Nick { get; set; }
-        public RegistrationForm()
+        public RegForm()
         {
             InitializeComponent();
         }
@@ -28,9 +28,12 @@ namespace Client6
         {
             if (Check.CheckNickName(NickName.Text))
             {
+                
                 int port = 8888;
                 IPHostEntry host = Dns.GetHostEntry("localhost");
                 IPAddress adress = host.AddressList[0];
+                ServerManager server = new ServerManager(RegForm.ActiveForm);
+                server.Connect(adress, port, NickName.Text);
                 
             }
         }

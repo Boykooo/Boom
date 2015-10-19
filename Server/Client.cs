@@ -27,7 +27,7 @@ namespace Server
         public GameField gameField { get; set; }
         public bool search;
 
-        public void Send(Message message)
+        public void Send(Messages message)
         {
             try
             {
@@ -58,7 +58,7 @@ namespace Server
 
         void Parse(byte[] bytes)
         {
-            Message m = BigStaticClass.serializer.Deserialize(bytes);
+            Messages m = BigStaticClass.serializer.Deserialize(bytes);
             m.Id = this.Id;
             switch (m.GetType().Name)
             {
@@ -80,7 +80,7 @@ namespace Server
             }
         }
 
-        public event Action<Message> Step;
+        public event Action<Messages> Step;
        
        
 
