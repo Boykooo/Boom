@@ -120,7 +120,7 @@ namespace Project2
     }
     [Serializable]
 
-    public struct Deck
+    public class Deck
     {
         public Point point;
         public DeckType type;
@@ -131,14 +131,55 @@ namespace Project2
 
         public int count;
         public List<Deck> palub;
+
+        public bool Shoot(int x, int y)
+        {
+            var tmp = palub.First(deck => deck.point.X == x && deck.point.Y == y && deck.type == DeckType.Live);
+            if (tmp != null)
+            {
+                tmp.type = DeckType.Hurt;
+                Test();
+                return true;
+            }
+
+            return false;
+        }
+
+        void Test()
+        {
+            bool ok = true;
+            for (int i = 0; i < palub.Count && ok; i++)
+            {
+                ok = palub[i].type == DeckType.Hurt;
+            }
+
+            if (ok)
+            {
+                for (int i = 0; i < palub.Count; i++)
+                {
+                    palub[i].type = DeckType.Dead;
+                }
+            }
+        }
     }
 
 
     [Serializable]
     public class GameField
     {
-        CellType[,] field;
+        public CellType[,] field;
 
-        List<Ship> ships;
+        public List<Ship> ships;
+
+        public bool Shoot(int x, int y)
+        {
+            if (field[x, y] == CellType.None)
+            {
+                field[x, y] = CellType.Point;
+                return ships.Exists(ship => ship.Shoot(x, y));             
+            }
+
+            return true;
+        }
     }
 }

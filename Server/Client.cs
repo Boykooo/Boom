@@ -23,6 +23,7 @@ namespace Server
         public string nick;
         public int Id { get; private set; }
         public Socket socket;
+        public GameField gameField { get; set; }
 
         public void Send(Message message)
         {
