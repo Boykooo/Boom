@@ -28,6 +28,18 @@ namespace Server
 
         }
 
+        public static void TryCreateGame()
+        {
+            List<Client> tmp = clients.Where(x => x.search).ToList();
+            if (tmp.Count > 1)
+            {
+                for (int i = 0; i < tmp.Count; i += 2)
+                {
+                    Client[] newGamers = new Client[]{tmp[i], tmp[i+1]};
+                    Game game = new Game(newGamers);
+                }
+            }
+        }
 
         static void StartGame(int i)
         {

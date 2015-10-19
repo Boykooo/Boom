@@ -30,12 +30,10 @@ namespace Server
                 gamers[i].turn = turn;
                 gamers[i].client = clients[i];
 
+                gamers[i].client.Step += Step;
                 turn = !turn;
             }
-
-            StateOfRoom();
         }
-
         void Step(Message message)
         {
             ShootMessage shoot = message as ShootMessage;
@@ -47,6 +45,16 @@ namespace Server
 
                 second.turn = first.client.gameField.Shoot(shoot.x, shoot.y);
                 first.turn = !second.turn;
+                if (second.turn && first.client.gameField.IsGameOver())
+                {
+                    for (int i = 0; i < gamers.Length; i++)
+                    {
+                        gamers[i].client.Send(new EndOfGameMessage(gamers[i].turn));
+                    }
+
+                    GameOver();
+                }
+              
 
                 StateOfRoom();
             }
@@ -60,6 +68,11 @@ namespace Server
                 FieldStateMessage message = new FieldStateMessage(gamers[i].client.gameField, gamers[(i + 1) % gamers.Length].client.gameField, gamers[i].turn);
                 gamers[i].client.Send(message);
             }
+        }
+
+        void GameOver()
+        {
+
         }
     }
 

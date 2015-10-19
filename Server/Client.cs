@@ -18,12 +18,14 @@ namespace Server
             this.Id = id;
             nick = "";
 
+
         }
 
         public string nick;
         public int Id { get; private set; }
         public Socket socket;
         public GameField gameField { get; set; }
+        public bool search;
 
         public void Send(Message message)
         {
@@ -57,14 +59,28 @@ namespace Server
         void Parse(byte[] bytes)
         {
             Message m = BigStaticClass.serializer.Deserialize(bytes);
-
+            m.Id = this.Id;
             switch (m.GetType().Name)
             {
               
+                case "RegistrationMessage":
+                    this.nick = (m as RegistrationMessage).nick;
+                    Send(new RegistrationResultMessage(this.Id));
+                    break;
+                case "SearchMessage":
+                    this.search = true;
+                    BigStaticClass.TryCreateGame();
+                    break;
+                case "ShootMessage":
+                    if (Step != null)
+                        Step(m);
+                    break;
+
 
             }
         }
 
+        public event Action<Message> Step;
        
        
 

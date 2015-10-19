@@ -131,7 +131,7 @@ namespace Project2
 
         public int count;
         public List<Deck> palub;
-
+        public bool dead;
         public bool Shoot(int x, int y)
         {
             var tmp = palub.First(deck => deck.point.X == x && deck.point.Y == y && deck.type == DeckType.Live);
@@ -159,6 +159,7 @@ namespace Project2
                 {
                     palub[i].type = DeckType.Dead;
                 }
+                dead = true;
             }
         }
     }
@@ -180,6 +181,18 @@ namespace Project2
             }
 
             return true;
+        }
+
+        public bool IsGameOver()
+        {
+            bool ok = true;
+
+            for (int i = 0; i < ships.Count && ok; i++)
+            {
+                ok = ships[i].dead;
+            }
+
+            return ok;
         }
     }
 }
