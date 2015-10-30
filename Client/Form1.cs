@@ -11,6 +11,7 @@ namespace Client
 {
     public partial class MainForm : Form
     {
+        RegForm reg;
         int ship1, ship2, ship3, ship4;
         StructMap game;
         Graphics g;
@@ -26,6 +27,8 @@ namespace Client
             ship1 = ship2 = ship3 = ship4 = 0;
             pictureBox1.Image = draw.Default();
             pictureBox2.Image = draw.Default();
+            reg = new RegForm();
+            reg.ShowDialog();
         }
         private void pictureBox1_MouseClick(object sender, MouseEventArgs e)
         {

@@ -10,9 +10,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net.Sockets;
 using Project2;
-using Client;
 
-namespace Client6
+namespace Client
 {
     public partial class RegForm : Form
     {
@@ -34,7 +33,6 @@ namespace Client6
                 IPAddress adress = host.AddressList[0];
                 ServerManager server = new ServerManager(this);
                 server.Connect(adress, port, NickName.Text);
-                
             }
         }
     }

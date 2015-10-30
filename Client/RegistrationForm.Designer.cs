@@ -1,4 +1,4 @@
-﻿namespace Client6
+﻿namespace Client
 {
     partial class RegForm
     {
