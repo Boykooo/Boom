@@ -67,7 +67,7 @@ namespace Client
             }
             if (e.Button == MouseButtons.Right)
             {
-                Horizon();
+                horizon = !horizon;
             }
         }
         Point tempLoc;
@@ -103,18 +103,6 @@ namespace Client
             }
         }
         bool horizon = true;
-        void Horizon()
-        {
-            switch (horizon)
-            {
-                case true:
-                    horizon = false;
-                    break;
-                case false:
-                    horizon = true;
-                    break;
-            }
-        }
         private void ClearButton_Click(object sender, EventArgs e)
         {
             game.Map = new int[10, 10];
