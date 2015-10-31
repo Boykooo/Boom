@@ -33,7 +33,7 @@ namespace Server
                 gamers[i].client.Step += Step;
                 turn = !turn;
             }
-
+            BigStaticClass.logger.Log(gamers[0].client.nick + " и " + gamers[1].client.nick + " вошли в игру");
             Start();
         }
         void Step(Messages message)
@@ -42,6 +42,8 @@ namespace Server
 
             Gamer first = gamers.First(x => x.client.Id != shoot.Id);
             Gamer second = gamers.First(x => x.client.Id == shoot.Id);
+
+            BigStaticClass.logger.Log("Игрок " + second.client.nick + "сделал ход по координатам " + shoot.x.ToString() + " " + shoot.y.ToString());
             if (second.turn)
             {
 
@@ -56,7 +58,7 @@ namespace Server
 
                     GameOver();
                 }
-              
+
 
                 StateOfRoom();
             }
@@ -67,7 +69,14 @@ namespace Server
         {
             for (int i = 0; i < gamers.Length; i++)
             {
-                FieldStateMessage message = new FieldStateMessage(gamers[i].client.gameField, gamers[(i + 1) % gamers.Length].client.gameField, gamers[i].turn);
+                FieldStateMessage message
+                    = new FieldStateMessage
+                        (
+                        gamers[i].client.gameField,
+                        gamers[(i + 1) % gamers.Length].client.gameField.GetForEnemy(),
+                        gamers[i].turn
+                        );
+
                 gamers[i].client.Send(message);
             }
         }
@@ -76,7 +85,14 @@ namespace Server
         {
             for (int i = 0; i < gamers.Length; i++)
             {
-                StartGameMessage message = new StartGameMessage(gamers[i].client.gameField, gamers[(i + 1) % gamers.Length].client.gameField, gamers[i].turn);
+                StartGameMessage message
+                    = new StartGameMessage
+                        (
+                        gamers[i].client.gameField,
+                        gamers[(i + 1) % gamers.Length].client.gameField.GetForEnemy(),
+                        gamers[i].turn
+                        );
+
                 gamers[i].client.Send(message);
             }
         }

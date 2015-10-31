@@ -51,10 +51,12 @@ namespace Project2
     [Serializable]
     public class SearchMessage : Messages
     {
-        public SearchMessage()
+        public SearchMessage(GameField field)
         {
-
+            this.field = field;
         }
+
+        public GameField field;
     }
     [Serializable]
     public class StartGameMessage : Messages
@@ -144,6 +146,13 @@ namespace Project2
 
             return false;
         }
+        public Ship GetForEnemy()
+        {
+            Ship res = (Ship)MemberwiseClone();
+            res.palub = palub.Where(x => x.type != DeckType.Live).ToList();
+
+            return res;
+        }
 
         void Test()
         {
@@ -193,6 +202,15 @@ namespace Project2
             }
 
             return ok;
+        }
+
+        public GameField GetForEnemy()
+        {
+            GameField res = new GameField();
+            res.ships = this.ships.Select(x => x.GetForEnemy()).ToList();
+            res.field = this.field;
+
+            return res;
         }
     }
 }

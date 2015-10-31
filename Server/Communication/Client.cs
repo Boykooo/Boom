@@ -40,7 +40,7 @@ namespace Server
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.ToString());
+                BigStaticClass.logger.Log(e.ToString());
             }
         }
         public void Listen()
@@ -69,6 +69,7 @@ namespace Server
                     break;
                 case "SearchMessage":
                     this.search = true;
+                    this.gameField = (m as SearchMessage).field;
                     BigStaticClass.TryCreateGame();
                     break;
                 case "ShootMessage":

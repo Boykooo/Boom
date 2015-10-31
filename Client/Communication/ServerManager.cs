@@ -40,21 +40,29 @@ class ServerManager
     {
         byte[] tmp = new byte[100000];
 
-        while (true)
+        try
         {
-            int i = socket.Receive(tmp);
-
-            Messages m = Deserialize(tmp.Take(i).ToArray());
-
-            switch (m.GetType().Name)
+            while (true)
             {
-                case "RegistrationResultMessage":
-                    Action a = () => reg.Close();
-                    reg.Invoke(a);
-                    //MainGameForm game = new MainGameForm();
-                    //game.Show();
-                    break;
+                int i = socket.Receive(tmp);
+
+                Messages m = Deserialize(tmp.Take(i).ToArray());
+
+                switch (m.GetType().Name)
+                {
+                    case "RegistrationResultMessage":
+
+                        Action a = () => reg.Close();
+                        reg.Invoke(a);
+                        //MainGameForm game = new MainGameForm();
+                        //game.Show();
+                        break;
+                }
             }
+        }
+        catch
+        {
+            Program.state = ClientState.Offline;
         }
     }
 

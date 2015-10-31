@@ -45,7 +45,7 @@ namespace Server
                 {                   
 
                     Socket newClient = mainSocket.Accept();
-                    Console.WriteLine("Подключено");
+                    BigStaticClass.logger.Log("Подключено");
 
                     BigStaticClass.Registration(newClient);
                 }

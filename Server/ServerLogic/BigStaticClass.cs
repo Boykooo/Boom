@@ -1,4 +1,5 @@
 ﻿using Project2;
+using Server.ServerLogic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace Server
         public static List<Client> clients = new List<Client>();
         public static List<Game> games = new List<Game>();
         public static MessageSerializer serializer = new MessageSerializer();
-
+        public static ILogger logger = new ConsoleLogger();
         static int id;
 
         public static void Registration(Socket socket)
@@ -33,6 +34,10 @@ namespace Server
             List<Client> tmp = clients.Where(x => x.search).ToList();
             if (tmp.Count > 1)
             {
+                if (tmp.Count % 2 == 1)
+                {
+                    tmp.RemoveAt(tmp.Count - 1);
+                }
                 for (int i = 0; i < tmp.Count; i += 2)
                 {
                     Client[] newGamers = new Client[]{tmp[i], tmp[i+1]};
