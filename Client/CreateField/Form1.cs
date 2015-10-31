@@ -114,5 +114,10 @@ namespace Client
         {
 
         }
+
+        private void играToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -78,11 +78,12 @@
             this.играToolStripMenuItem.Name = "играToolStripMenuItem";
             this.играToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
             this.играToolStripMenuItem.Text = "Игра";
+            this.играToolStripMenuItem.Click += new System.EventHandler(this.играToolStripMenuItem_Click);
             // 
             // начатьИгруToolStripMenuItem
             // 
             this.начатьИгруToolStripMenuItem.Name = "начатьИгруToolStripMenuItem";
-            this.начатьИгруToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.начатьИгруToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.начатьИгруToolStripMenuItem.Text = "Начать игру";
             this.начатьИгруToolStripMenuItem.Click += new System.EventHandler(this.начатьИгруToolStripMenuItem_Click);
             // 
