@@ -78,7 +78,6 @@
             this.играToolStripMenuItem.Name = "играToolStripMenuItem";
             this.играToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
             this.играToolStripMenuItem.Text = "Игра";
-            this.играToolStripMenuItem.Click += new System.EventHandler(this.играToolStripMenuItem_Click);
             // 
             // начатьИгруToolStripMenuItem
             // 

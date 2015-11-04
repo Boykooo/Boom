@@ -44,7 +44,6 @@ namespace Project2
         {
             this.field = field;
         }
-
         public GameField field;
     }
 
@@ -126,6 +125,15 @@ namespace Project2
     {
         public Point point;
         public DeckType type;
+        public Deck()
+        { 
+        }
+        public Deck(Point p)
+        {
+            point = p;
+            type = DeckType.Live;
+        }
+
     }
     [Serializable]
     public class Ship
@@ -153,7 +161,6 @@ namespace Project2
 
             return res;
         }
-
         void Test()
         {
             bool ok = true;
@@ -171,8 +178,16 @@ namespace Project2
                 dead = true;
             }
         }
-    }
+        public Ship()
+        {
 
+        }
+        public Ship(int count)
+        {
+            this.count = count;
+            palub = new List<Deck>();
+        }
+    }
 
     [Serializable]
     public class GameField
@@ -211,6 +226,14 @@ namespace Project2
             res.field = this.field;
 
             return res;
+        }
+         public GameField()
+        {
+
+        }
+        public GameField(List<Ship> ships)
+        {
+            this.ships = ships;
         }
     }
 }

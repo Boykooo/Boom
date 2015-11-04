@@ -23,7 +23,6 @@ namespace Client
             state = ClientState.Offline;
             Application.Run(new MainForm());
         }
-
         public static ClientState state;
     }
 }

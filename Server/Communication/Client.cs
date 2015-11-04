@@ -49,13 +49,9 @@ namespace Server
             while (true)
             {
                 int i = socket.Receive(tmp);
-
                 Parse(tmp.Take(i).ToArray());
-
-
             }
         }
-
         void Parse(byte[] bytes)
         {
             Messages m = BigStaticClass.serializer.Deserialize(bytes);
@@ -80,10 +76,7 @@ namespace Server
 
             }
         }
-
         public event Action<Messages> Step;
-       
-       
 
     }
 }

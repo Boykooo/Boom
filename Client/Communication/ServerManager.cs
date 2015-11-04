@@ -11,35 +11,26 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-class ServerManager
+public class ServerManager
 {
     Form reg;
     Socket socket;
-    public ServerManager(Form regform)
+    public ServerManager(Form regform, IPAddress ip, int port)
     {
         reg = regform;
-    }
-    public void Connect(IPAddress ip, int port, string nick)
-    {
         IPEndPoint end = new IPEndPoint(ip, port);
         socket = new Socket(ip.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
         socket.Connect(end);
-
-        Send(new RegistrationMessage(nick));
-
+    }
+    public void SendMessage(Messages message)
+    {
+        socket.Send(Serialize(message));
         Task t = new Task(Listen);
         t.Start();
     }
-
-    public void Send(Messages message)
-    {
-        socket.Send(Serialize(message));
-    }
-
     void Listen()
     {
         byte[] tmp = new byte[100000];
-
         try
         {
             while (true)
@@ -56,6 +47,8 @@ class ServerManager
                         reg.Invoke(a);
                         //MainGameForm game = new MainGameForm();
                         //game.Show();
+                        break;
+                    case "StartGameMessage":
                         break;
                 }
             }
@@ -81,5 +74,5 @@ class ServerManager
         BinaryFormatter b = new BinaryFormatter();
 
         return (Messages)b.Deserialize(stream);
-    }
+    }  
 }

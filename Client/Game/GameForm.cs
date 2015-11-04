@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Project2;
 
 namespace Client
 {
@@ -112,12 +113,9 @@ namespace Client
         }
         private void начатьИгруToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void играToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
+            Program.state = ClientState.Waiting;
+            ServerManager srv = reg.Srv;
+            srv.SendMessage(new CreateField(new GameField(game.ships)));
         }
     }
 }
