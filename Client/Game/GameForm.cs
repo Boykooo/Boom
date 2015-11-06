@@ -20,6 +20,7 @@ namespace Client.Game
             InitializeComponent();
             act = new ActGameForm(pictureBox1.Width, pictureBox1.Height);
             act.Registration();
+            act.InitGameForm(this);
             ship1 = ship2 = ship3 = ship4 = 0;
             pictureBox1.Image = act.GetGrid();
             pictureBox2.Image = act.GetGrid();
@@ -112,6 +113,8 @@ namespace Client.Game
         {
             pictureBox1.Image = act.GetFullMap(one);
             pictureBox2.Image = act.GetFullMap(two);
+
+            
         }
     }
 }

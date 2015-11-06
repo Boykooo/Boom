@@ -225,11 +225,13 @@ namespace Project2
         }
         public GameField()
         {
-
+            ships = new List<Ship>();
+            field = new CellType[10, 10];
         }
         public GameField(List<Ship> ships)
         {
             this.ships = ships;
+            field = new CellType[10, 10];
         }
     }
 }
