@@ -10,10 +10,12 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Client.Game;
 
 public class ServerManager
 {
     Form reg;
+    GameForm game;
     Socket socket;
     public ServerManager(Form regform, IPAddress ip, int port)
     {
@@ -21,6 +23,10 @@ public class ServerManager
         IPEndPoint end = new IPEndPoint(ip, port);
         socket = new Socket(ip.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
         socket.Connect(end);
+    }
+    public void InitializeGameForm(GameForm game)
+    {
+        this.game = game;
     }
     public void SendMessage(Messages message)
     {
@@ -49,6 +55,8 @@ public class ServerManager
                         //game.Show();
                         break;
                     case "StartGameMessage":
+                        StartGameMessage q = (StartGameMessage) m;
+                        game.PaintMaps(q.you.ships, q.enemy.ships);
                         break;
                 }
             }
@@ -58,7 +66,6 @@ public class ServerManager
             Program.state = ClientState.Offline;
         }
     }
-
     byte[] Serialize(Messages m)
     {
         MemoryStream stream = new MemoryStream();
@@ -67,7 +74,6 @@ public class ServerManager
 
         return stream.GetBuffer();
     }
-
     Messages Deserialize(byte[] bytes)
     {
         MemoryStream stream = new MemoryStream(bytes);

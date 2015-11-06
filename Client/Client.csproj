@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Game\ActGameForm.cs" />
     <Compile Include="Registration\Check.cs" />
     <Compile Include="Game\GameForm.cs">
       <SubType>Form</SubType>

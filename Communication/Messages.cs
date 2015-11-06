@@ -46,7 +46,6 @@ namespace Project2
         }
         public GameField field;
     }
-
     [Serializable]
     public class SearchMessage : Messages
     {
@@ -66,7 +65,6 @@ namespace Project2
             this.enemy = enemy;
             this.turn = turn;
         }
-
         public GameField you;
         public GameField enemy;
         public bool turn;
@@ -120,7 +118,6 @@ namespace Project2
         Live, Hurt, Dead
     }
     [Serializable]
-
     public class Deck
     {
         public Point point;
@@ -188,7 +185,6 @@ namespace Project2
             palub = new List<Deck>();
         }
     }
-
     [Serializable]
     public class GameField
     {
@@ -227,7 +223,7 @@ namespace Project2
 
             return res;
         }
-         public GameField()
+        public GameField()
         {
 
         }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Client.Game;
 
 namespace Client
 {
@@ -21,7 +22,7 @@ namespace Client
             Application.SetCompatibleTextRenderingDefault(false);
 
             state = ClientState.Offline;
-            Application.Run(new MainForm());
+            Application.Run(new GameForm());
         }
         public static ClientState state;
     }

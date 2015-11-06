@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
+using Project2;
 
 namespace Client
 {
@@ -19,7 +20,7 @@ namespace Client
             tempBitmap = new Bitmap(wh, ht);
             g = Graphics.FromImage(tempBitmap);
         }
-        public Bitmap Default()
+        public Bitmap DrawGrid()
         {
             mainBitmap = new Bitmap(wh, ht);
             g = Graphics.FromImage(mainBitmap);
@@ -76,6 +77,23 @@ namespace Client
                     g.FillRectangle(Brushes.Red, location.X * StructMap.BlockSize + 1, location.Y * StructMap.BlockSize + 1 + j, StructMap.BlockSize - 1, StructMap.BlockSize - 1);
                 }
             }
+        }
+        public Bitmap GetFullMap(List<Ship> ships)
+        {
+            
+            Bitmap map = new Bitmap(DrawGrid());
+            using(g = Graphics.FromImage(map))
+            {
+                for (int i = 0; i < ships.Count; i++)
+                {
+                    for (int j = 0; j < ships[i].palub.Count; j++)
+                    {
+                        g.FillRectangle(Brushes.Red, ships[i].palub[j].point.X * StructMap.BlockSize + 1, ships[i].palub[j].point.Y * StructMap.BlockSize + 1, StructMap.BlockSize - 1, StructMap.BlockSize - 1);
+                    }
+                }
+            }
+            return map;
+            
         }
     }
 }
