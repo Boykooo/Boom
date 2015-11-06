@@ -6,60 +6,54 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Project2;
 
-namespace Client
+namespace Client.Game
 {
-    public partial class MainForm : Form
+    public partial class GameForm : Form
     {
-        RegForm reg;
+        ActGameForm act;
         int ship1, ship2, ship3, ship4;
-        StructMap game;
-        Graphics g;
-        Paint draw;
         bool fixMap = false;
-        public MainForm()
+        public GameForm()
         {
             InitializeComponent();
-            g = CreateGraphics();
-            draw = new Paint(pictureBox1.Width, pictureBox1.Height);
-            StructMap.BlockSize = 30;
-            game = new StructMap();
+            act = new ActGameForm(pictureBox1.Width, pictureBox1.Height);
+            act.Registration();
             ship1 = ship2 = ship3 = ship4 = 0;
-            pictureBox1.Image = draw.Default();
-            pictureBox2.Image = draw.Default();
-            reg = new RegForm();
-            reg.ShowDialog();
+            pictureBox1.Image = act.GetGrid();
+            pictureBox2.Image = act.GetGrid();
         }
         private void pictureBox1_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left && fixMap)
             {
-                draw.FixImage();
+                act.AddChanges();
 
                 if (OneShip.Checked)
                 {
-                    game.FixMap(horizon, 1, tempLoc);
+                    act.AddShip(horizon, 1, tempLoc);
                     ship1++;
                     if (ship1 == 4)
                         OneShip.Enabled = false;
                 }
                 if (TwoShip.Checked)
                 {
-                    game.FixMap(horizon, 2, tempLoc);
+                    act.AddShip(horizon, 2, tempLoc);
                     ship2++;
                     if (ship2 == 3)
                         TwoShip.Enabled = false;
                 }
                 if (ThreeShip.Checked)
                 {
-                    game.FixMap(horizon, 3, tempLoc);
+                    act.AddShip(horizon, 3, tempLoc);
                     ship3++;
                     if (ship3 == 2)
                         ThreeShip.Enabled = false;
                 }
                 if (FourShip.Checked)
                 {
-                    game.FixMap(horizon, 4, tempLoc);
+                    act.AddShip(horizon, 4, tempLoc);
                     ship4++;
                     FourShip.Enabled = false;
                 }
@@ -76,27 +70,27 @@ namespace Client
             var location = new Point(e.Location.X / StructMap.BlockSize, e.Location.Y / StructMap.BlockSize);
             if (location.X < 10 && location.Y < 10)
             {
-                if (OneShip.Checked && ship1 < 4 && game.CheckLocation(location, horizon, 1))
+                if (OneShip.Checked && ship1 < 4 && act.CheckLocShip(location, horizon, 1))
                 {
-                    pictureBox1.Image = draw.Ship(location, 1, horizon);
+                    pictureBox1.Image = act.GetShipImage(location, 1, horizon);
                     fixMap = true;
                     tempLoc = location;
                 }
-                if (TwoShip.Checked && ship2 < 3 && game.CheckLocation(location, horizon, 2))
+                if (TwoShip.Checked && ship2 < 3 && act.CheckLocShip(location, horizon, 2))
                 {
-                    pictureBox1.Image = draw.Ship(location, 2, horizon);
+                    pictureBox1.Image = act.GetShipImage(location, 2, horizon);
                     fixMap = true;
                     tempLoc = location;
                 }
-                if (ThreeShip.Checked && ship3 < 2 && game.CheckLocation(location, horizon, 3))
+                if (ThreeShip.Checked && ship3 < 2 && act.CheckLocShip(location, horizon, 3))
                 {
-                    pictureBox1.Image = draw.Ship(location, 3, horizon);
+                    pictureBox1.Image = act.GetShipImage(location, 3, horizon);
                     fixMap = true;
                     tempLoc = location;
                 }
-                if (FourShip.Checked && ship4 == 0 && game.CheckLocation(location, horizon, 4))
+                if (FourShip.Checked && ship4 == 0 && act.CheckLocShip(location, horizon, 4))
                 {
-                    pictureBox1.Image = draw.Ship(location, 4, horizon);
+                    pictureBox1.Image = act.GetShipImage(location, 4, horizon);
                     fixMap = true;
                     tempLoc = location;
                 }
@@ -105,19 +99,19 @@ namespace Client
         bool horizon = true;
         private void ClearButton_Click(object sender, EventArgs e)
         {
-            game.Map = new int[10, 10];
-            pictureBox1.Image = draw.Default();
+            act.Clear();
+            pictureBox1.Image = act.GetGrid();
             ship1 = ship2 = ship3 = ship4 = 0;
             OneShip.Enabled = TwoShip.Enabled = ThreeShip.Enabled = FourShip.Enabled = true;
         }
         private void начатьИгруToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            act.NewGame();
         }
-
-        private void играToolStripMenuItem_Click(object sender, EventArgs e)
+        public void PaintMaps(List<Ship> one, List<Ship> two)
         {
-
+            pictureBox1.Image = act.GetFullMap(one);
+            pictureBox2.Image = act.GetFullMap(two);
         }
     }
 }

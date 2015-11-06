@@ -15,6 +15,7 @@ namespace Client
 {
     public partial class RegForm : Form
     {
+        public ServerManager Srv { get; set; }
         public string Nick { get; set; }
         public RegForm()
         {
@@ -27,12 +28,12 @@ namespace Client
         {
             if (Check.CheckNickName(NickName.Text))
             {
-                
                 int port = 8888;
                 IPHostEntry host = Dns.GetHostEntry("localhost");
                 IPAddress adress = host.AddressList[0];
-                ServerManager server = new ServerManager(this);
-                server.Connect(adress, port, NickName.Text);
+                Srv = new ServerManager(this, adress, port);
+                Srv.SendMessage(new RegistrationMessage(NickName.Text));
+                Program.state = ClientState.Online;
             }
         }
     }

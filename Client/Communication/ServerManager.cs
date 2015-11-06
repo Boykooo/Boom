@@ -10,36 +10,33 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Client.Game;
 
-class ServerManager
+public class ServerManager
 {
     Form reg;
+    GameForm game;
     Socket socket;
-    public ServerManager(Form regform)
+    public ServerManager(Form regform, IPAddress ip, int port)
     {
         reg = regform;
-    }
-    public void Connect(IPAddress ip, int port, string nick)
-    {
         IPEndPoint end = new IPEndPoint(ip, port);
         socket = new Socket(ip.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
         socket.Connect(end);
-
-        Send(new RegistrationMessage(nick));
-
+    }
+    public void InitializeGameForm(GameForm game)
+    {
+        this.game = game;
+    }
+    public void SendMessage(Messages message)
+    {
+        socket.Send(Serialize(message));
         Task t = new Task(Listen);
         t.Start();
     }
-
-    public void Send(Messages message)
-    {
-        socket.Send(Serialize(message));
-    }
-
     void Listen()
     {
         byte[] tmp = new byte[100000];
-
         try
         {
             while (true)
@@ -57,6 +54,10 @@ class ServerManager
                         //MainGameForm game = new MainGameForm();
                         //game.Show();
                         break;
+                    case "StartGameMessage":
+                        StartGameMessage q = (StartGameMessage) m;
+                        game.PaintMaps(q.you.ships, q.enemy.ships);
+                        break;
                 }
             }
         }
@@ -65,7 +66,6 @@ class ServerManager
             Program.state = ClientState.Offline;
         }
     }
-
     byte[] Serialize(Messages m)
     {
         MemoryStream stream = new MemoryStream();
@@ -74,12 +74,11 @@ class ServerManager
 
         return stream.GetBuffer();
     }
-
     Messages Deserialize(byte[] bytes)
     {
         MemoryStream stream = new MemoryStream(bytes);
         BinaryFormatter b = new BinaryFormatter();
 
         return (Messages)b.Deserialize(stream);
-    }
+    }  
 }

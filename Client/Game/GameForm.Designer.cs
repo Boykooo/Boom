@@ -1,6 +1,6 @@
-﻿namespace Client
+﻿namespace Client.Game
 {
-    partial class MainForm
+    partial class GameForm
     {
         /// <summary>
         /// Требуется переменная конструктора.
@@ -78,7 +78,6 @@
             this.играToolStripMenuItem.Name = "играToolStripMenuItem";
             this.играToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
             this.играToolStripMenuItem.Text = "Игра";
-            this.играToolStripMenuItem.Click += new System.EventHandler(this.играToolStripMenuItem_Click);
             // 
             // начатьИгруToolStripMenuItem
             // 

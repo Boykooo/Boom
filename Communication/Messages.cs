@@ -44,10 +44,8 @@ namespace Project2
         {
             this.field = field;
         }
-
         public GameField field;
     }
-
     [Serializable]
     public class SearchMessage : Messages
     {
@@ -67,7 +65,6 @@ namespace Project2
             this.enemy = enemy;
             this.turn = turn;
         }
-
         public GameField you;
         public GameField enemy;
         public bool turn;
@@ -121,11 +118,19 @@ namespace Project2
         Live, Hurt, Dead
     }
     [Serializable]
-
     public class Deck
     {
         public Point point;
         public DeckType type;
+        public Deck()
+        { 
+        }
+        public Deck(Point p)
+        {
+            point = p;
+            type = DeckType.Live;
+        }
+
     }
     [Serializable]
     public class Ship
@@ -153,7 +158,6 @@ namespace Project2
 
             return res;
         }
-
         void Test()
         {
             bool ok = true;
@@ -171,9 +175,16 @@ namespace Project2
                 dead = true;
             }
         }
+        public Ship()
+        {
+
+        }
+        public Ship(int count)
+        {
+            this.count = count;
+            palub = new List<Deck>();
+        }
     }
-
-
     [Serializable]
     public class GameField
     {
@@ -211,6 +222,14 @@ namespace Project2
             res.field = this.field;
 
             return res;
+        }
+        public GameField()
+        {
+
+        }
+        public GameField(List<Ship> ships)
+        {
+            this.ships = ships;
         }
     }
 }
