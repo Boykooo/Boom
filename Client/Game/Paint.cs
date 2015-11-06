@@ -80,7 +80,6 @@ namespace Client
         }
         public Bitmap GetFullMap(List<Ship> ships)
         {
-            
             Bitmap map = new Bitmap(DrawGrid());
             using(g = Graphics.FromImage(map))
             {
@@ -88,7 +87,18 @@ namespace Client
                 {
                     for (int j = 0; j < ships[i].palub.Count; j++)
                     {
-                        g.FillRectangle(Brushes.Red, ships[i].palub[j].point.X * StructMap.BlockSize + 1, ships[i].palub[j].point.Y * StructMap.BlockSize + 1, StructMap.BlockSize - 1, StructMap.BlockSize - 1);
+                        if (ships[i].palub[j].type == DeckType.Live)
+                        {
+                            g.FillRectangle(Brushes.Red, ships[i].palub[j].point.X * StructMap.BlockSize + 1, ships[i].palub[j].point.Y * StructMap.BlockSize + 1, StructMap.BlockSize - 1, StructMap.BlockSize - 1);
+                        }
+                        else if (ships[i].palub[j].type == DeckType.Hurt)
+                        {
+                            g.FillRectangle(Brushes.Orange, ships[i].palub[j].point.X * StructMap.BlockSize + 1, ships[i].palub[j].point.Y * StructMap.BlockSize + 1, StructMap.BlockSize - 1, StructMap.BlockSize - 1);
+                        }
+                        else if (ships[i].palub[j].type == DeckType.Dead)
+                        {
+                            g.FillRectangle(Brushes.Black, ships[i].palub[j].point.X * StructMap.BlockSize + 1, ships[i].palub[j].point.Y * StructMap.BlockSize + 1, StructMap.BlockSize - 1, StructMap.BlockSize - 1);
+                        }
                     }
                 }
             }
