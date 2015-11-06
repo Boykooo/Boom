@@ -12,6 +12,7 @@ namespace Client.Game
 {
     public partial class GameForm : Form
     {
+        public bool Connect { get; set; }
         ActGameForm act;
         int ship1, ship2, ship3, ship4;
         bool fixMap = false;
@@ -113,8 +114,6 @@ namespace Client.Game
         {
             pictureBox1.Image = act.GetFullMap(one);
             pictureBox2.Image = act.GetFullMap(two);
-
-            
         }
     }
 }

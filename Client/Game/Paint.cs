@@ -102,8 +102,41 @@ namespace Client
                     }
                 }
             }
+            return map; 
+        }
+        public Bitmap GetFullMap(GameField field)
+        {
+            Bitmap map = new Bitmap(DrawGrid());
+            using (g = Graphics.FromImage(map))
+            {
+                for (int i = 0; i < field.ships.Count; i++)
+                {
+                    for (int j = 0; j < field.ships[i].palub.Count; j++)
+                    {
+                        if (field.ships[i].palub[j].type == DeckType.Live)
+                        {
+                            g.FillRectangle(Brushes.Red, field.ships[i].palub[j].point.X * StructMap.BlockSize + 1, field.ships[i].palub[j].point.Y * StructMap.BlockSize + 1, StructMap.BlockSize - 1, StructMap.BlockSize - 1);
+                        }
+                        else if (field.ships[i].palub[j].type == DeckType.Hurt)
+                        {
+                            g.FillRectangle(Brushes.Orange, field.ships[i].palub[j].point.X * StructMap.BlockSize + 1, field.ships[i].palub[j].point.Y * StructMap.BlockSize + 1, StructMap.BlockSize - 1, StructMap.BlockSize - 1);
+                        }
+                        else if (field.ships[i].palub[j].type == DeckType.Dead)
+                        {
+                            g.FillRectangle(Brushes.Black, field.ships[i].palub[j].point.X * StructMap.BlockSize + 1, field.ships[i].palub[j].point.Y * StructMap.BlockSize + 1, StructMap.BlockSize - 1, StructMap.BlockSize - 1);
+                        }
+                    }
+                }
+                for (int i = 0; i < field.field.GetLength(0); i++)
+                {
+                    for (int j = 0; j < field.field.GetLength(1); j++)
+                    {
+                        if (field.field[i, j] == CellType.Point)
+                            g.FillEllipse(Brushes.Blue, i * StructMap.BlockSize + 10, j * StructMap.BlockSize + 10, 15, 15);
+                    }
+                }
+            }
             return map;
-            
         }
     }
 }

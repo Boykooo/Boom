@@ -56,6 +56,7 @@ public class ServerManager
                         break;
                     case "StartGameMessage":
                         StartGameMessage q = (StartGameMessage) m;
+                        game.Connect = true;
                         game.PaintMaps(q.you.ships, q.enemy.ships);
                         break;
                 }
