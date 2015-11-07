@@ -18,7 +18,6 @@ namespace Server
             this.Id = id;
             nick = "";
 
-
         }
 
         public string nick;

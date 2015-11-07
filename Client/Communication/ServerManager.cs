@@ -68,8 +68,8 @@ public class ServerManager
                         FieldStateMessage f = (FieldStateMessage) m;
                         actGame.Turn = f.turn;
 
-                        game.Turn = f.turn; //!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
+                        Action b = () => game.Turn = f.turn;
+                        game.Invoke(b);
                         actGame.ReDraw(f.you, f.enemy);
                         break;
                 }
