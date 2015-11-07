@@ -80,11 +80,20 @@ namespace Client
                 }
             }
         }
-        public void DrawMapYou(GameField field)
+        public void DrawMapYou(GameField field, CellType[,] pt)
         {
             TempBitmap = new Bitmap(DrawGrid());
             using (g = Graphics.FromImage(TempBitmap))
             {
+                for (int i = 0; i < pt.GetLength(0); i++)
+                {
+                    for (int j = 0; j < pt.GetLength(1); j++)
+                    {
+                        if (pt[i, j] == CellType.Point)
+                            g.FillEllipse(Brushes.Green, i * StructMap.BlockSize + 10, j * StructMap.BlockSize + 10, 10, 10);
+                    }
+                }
+
                 for (int i = 0; i < field.ships.Count; i++)
                 {
                     for (int j = 0; j < field.ships[i].palub.Count; j++)
@@ -116,7 +125,7 @@ namespace Client
                     for (int j = 0; j < pt.GetLength(1); j++)
                     {
                         if (pt[i, j] == CellType.Point)
-                            g.FillEllipse(Brushes.Green, i * StructMap.BlockSize, j * StructMap.BlockSize, 10, 10);
+                            g.FillEllipse(Brushes.Green, i * StructMap.BlockSize + 10, j * StructMap.BlockSize + 10, 10, 10);
                     }
                 }
 
@@ -139,10 +148,14 @@ namespace Client
         }
         public void Point(Point location)
         {
-            g.Dispose();
-            TempBitmap = new Bitmap(MainBitmap);
-            g = Graphics.FromImage(TempBitmap);
-            g.FillEllipse(Brushes.Green, location.X * StructMap.BlockSize + 15, location.Y * StructMap.BlockSize + 15, 10, 10);
+            try
+            {
+                g.Dispose();
+                TempBitmap = new Bitmap(MainBitmap);
+                g = Graphics.FromImage(TempBitmap);
+                g.FillEllipse(Brushes.Green, location.X * StructMap.BlockSize + 10, location.Y * StructMap.BlockSize + 10, 10, 10);
+            }
+            catch { }
         }
     }
 }

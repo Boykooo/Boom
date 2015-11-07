@@ -64,7 +64,7 @@ namespace Client.Game
         }
         public void ReDraw(GameField you, GameField enemy)
         {
-                draw.DrawMapYou(you);
+                draw.DrawMapYou(you, you.field);
                 form.InvalidateYou();
 
                 draw.DrawMapEnemy(enemy, enemy.field);
