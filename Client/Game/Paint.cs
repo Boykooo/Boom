@@ -9,21 +9,21 @@ namespace Client
 {
     class Paint
     {
-        Bitmap mainBitmap;
-        Bitmap tempBitmap;
+        public Bitmap MainBitmap { get; set; }
+        public Bitmap TempBitmap { get; set; }
         Graphics g;
         int wh, ht;
         public Paint(int wh, int ht)
         {
             this.wh = wh;
             this.ht = ht;
-            tempBitmap = new Bitmap(wh, ht);
-            g = Graphics.FromImage(tempBitmap);
+            TempBitmap = new Bitmap(wh, ht);
+            g = Graphics.FromImage(TempBitmap);
         }
         public Bitmap DrawGrid()
         {
-            mainBitmap = new Bitmap(wh, ht);
-            g = Graphics.FromImage(mainBitmap);
+            MainBitmap = new Bitmap(wh, ht);
+            g = Graphics.FromImage(MainBitmap);
             for (int i = 0; i < 300; i += 30)
             {
                 for (int j = 0; j < 300; j += 30)
@@ -32,33 +32,31 @@ namespace Client
                 }
             }
             g.Dispose();
-            return mainBitmap;
+            return MainBitmap;
         }
         public void FixImage()
         {
-            mainBitmap = tempBitmap;
+            MainBitmap = TempBitmap;
         }
-        public Bitmap Ship(Point location, int size, bool hor)
+        public void Ship(Point location, int size, bool hor)
         {
             g.Dispose();
-            tempBitmap = new Bitmap(mainBitmap);
-            g = Graphics.FromImage(tempBitmap);
+            TempBitmap = new Bitmap(MainBitmap);
+            g = Graphics.FromImage(TempBitmap);
             switch (size)
             {
                 case 1:
                     DrawShip(location, 1, hor);
-                    return tempBitmap;
+                    break;
                 case 2:
                     DrawShip(location, 2, hor);
-                    return tempBitmap;
+                    break;
                 case 3:
                     DrawShip(location, 3, hor);
-                    return tempBitmap;
+                    break;
                 case 4:
                     DrawShip(location, 4, hor);
-                    return tempBitmap;
-                default:
-                    return mainBitmap;
+                    break;
             }
         }
         private void DrawShip(Point location, int size, bool hor)

@@ -10,110 +10,130 @@ using Project2;
 
 namespace Client.Game
 {
-    public partial class GameForm : Form
+    public partial class GameForm : Form, IForm
     {
+        public RadioButton OneShip { get; set; }
+
+        public RadioButton TwoShip { get; set; }
+
+        public RadioButton ThreeShip { get; set; }
+
+        public RadioButton FourShip { get; set; }
         public bool Connect { get; set; }
-        ActGameForm act;
-        int ship1, ship2, ship3, ship4;
-        bool fixMap = false;
+        SettingGame actSet;
+        ActGame actGame;
         public GameForm()
         {
             InitializeComponent();
-            act = new ActGameForm(pictureBox1.Width, pictureBox1.Height);
-            act.Registration();
-            act.InitGameForm(this);
-            ship1 = ship2 = ship3 = ship4 = 0;
-            pictureBox1.Image = act.GetGrid();
-            pictureBox2.Image = act.GetGrid();
+            RadioInit();
+            actSet = new SettingGame(pictureBox1.Width, pictureBox1.Height, this);
+            actSet.Registration();
+            actSet.InitGameForm(this);
+            pictureBox1.Image = actSet.GetGrid();
+            pictureBox2.Image = actSet.GetGrid();
+
+        }
+        void RadioInit()
+        {
+            // 
+            // OneShip
+            // 
+            OneShip = new RadioButton();
+            this.OneShip.AutoSize = true;
+            this.OneShip.Location = new System.Drawing.Point(14, 213);
+            this.OneShip.Name = "OneShip";
+            this.OneShip.Size = new System.Drawing.Size(69, 17);
+            this.OneShip.TabIndex = 8;
+            this.OneShip.TabStop = true;
+            this.OneShip.Text = "1 палуба";
+            this.OneShip.UseVisualStyleBackColor = true;
+            // 
+            // TwoShip
+            // 
+            TwoShip = new RadioButton();
+            this.TwoShip.AutoSize = true;
+            this.TwoShip.Location = new System.Drawing.Point(14, 236);
+            this.TwoShip.Name = "TwoShip";
+            this.TwoShip.Size = new System.Drawing.Size(71, 17);
+            this.TwoShip.TabIndex = 9;
+            this.TwoShip.TabStop = true;
+            this.TwoShip.Text = "2 палубы";
+            this.TwoShip.UseVisualStyleBackColor = true;
+            // 
+            // ThreeShip
+            // 
+            ThreeShip = new RadioButton();
+            this.ThreeShip.AutoSize = true;
+            this.ThreeShip.Location = new System.Drawing.Point(14, 259);
+            this.ThreeShip.Name = "ThreeShip";
+            this.ThreeShip.Size = new System.Drawing.Size(71, 17);
+            this.ThreeShip.TabIndex = 10;
+            this.ThreeShip.TabStop = true;
+            this.ThreeShip.Text = "3 палубы";
+            this.ThreeShip.UseVisualStyleBackColor = true;
+            // 
+            // FourShip
+            // 
+            FourShip = new RadioButton();
+            this.FourShip.AutoSize = true;
+            this.FourShip.Location = new System.Drawing.Point(14, 282);
+            this.FourShip.Name = "FourShip";
+            this.FourShip.Size = new System.Drawing.Size(71, 17);
+            this.FourShip.TabIndex = 11;
+            this.FourShip.TabStop = true;
+            this.FourShip.Text = "4 палубы";
+            this.FourShip.UseVisualStyleBackColor = true;
+
+            this.Controls.Add(this.FourShip);
+            this.Controls.Add(this.ThreeShip);
+            this.Controls.Add(this.TwoShip);
+            this.Controls.Add(this.OneShip);
         }
         private void pictureBox1_MouseClick(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left && fixMap)
-            {
-                act.AddChanges();
-
-                if (OneShip.Checked)
-                {
-                    act.AddShip(horizon, 1, tempLoc);
-                    ship1++;
-                    if (ship1 == 4)
-                        OneShip.Enabled = false;
-                }
-                if (TwoShip.Checked)
-                {
-                    act.AddShip(horizon, 2, tempLoc);
-                    ship2++;
-                    if (ship2 == 3)
-                        TwoShip.Enabled = false;
-                }
-                if (ThreeShip.Checked)
-                {
-                    act.AddShip(horizon, 3, tempLoc);
-                    ship3++;
-                    if (ship3 == 2)
-                        ThreeShip.Enabled = false;
-                }
-                if (FourShip.Checked)
-                {
-                    act.AddShip(horizon, 4, tempLoc);
-                    ship4++;
-                    FourShip.Enabled = false;
-                }
-                fixMap = false;
-            }
-            if (e.Button == MouseButtons.Right)
-            {
-                horizon = !horizon;
-            }
+            actSet.MouseClick(sender, e);
         }
-        Point tempLoc;
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
-            var location = new Point(e.Location.X / StructMap.BlockSize, e.Location.Y / StructMap.BlockSize);
-            if (location.X < 10 && location.Y < 10)
-            {
-                if (OneShip.Checked && ship1 < 4 && act.CheckLocShip(location, horizon, 1))
-                {
-                    pictureBox1.Image = act.GetShipImage(location, 1, horizon);
-                    fixMap = true;
-                    tempLoc = location;
-                }
-                if (TwoShip.Checked && ship2 < 3 && act.CheckLocShip(location, horizon, 2))
-                {
-                    pictureBox1.Image = act.GetShipImage(location, 2, horizon);
-                    fixMap = true;
-                    tempLoc = location;
-                }
-                if (ThreeShip.Checked && ship3 < 2 && act.CheckLocShip(location, horizon, 3))
-                {
-                    pictureBox1.Image = act.GetShipImage(location, 3, horizon);
-                    fixMap = true;
-                    tempLoc = location;
-                }
-                if (FourShip.Checked && ship4 == 0 && act.CheckLocShip(location, horizon, 4))
-                {
-                    pictureBox1.Image = act.GetShipImage(location, 4, horizon);
-                    fixMap = true;
-                    tempLoc = location;
-                }
-            }
+            actSet.MouseMove(sender, e);
         }
-        bool horizon = true;
         private void ClearButton_Click(object sender, EventArgs e)
         {
-            act.Clear();
-            pictureBox1.Image = act.GetGrid();
-            ship1 = ship2 = ship3 = ship4 = 0;
+            actSet.Clear();
+            pictureBox1.Image = actSet.GetGrid();
             OneShip.Enabled = TwoShip.Enabled = ThreeShip.Enabled = FourShip.Enabled = true;
         }
         private void начатьИгруToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            act.NewGame();
+            actSet.NewGame();
         }
         public void PaintMaps(List<Ship> one, List<Ship> two)
         {
-            pictureBox1.Image = act.GetFullMap(one);
-            pictureBox2.Image = act.GetFullMap(two);
+            pictureBox1.Image = actSet.GetFullMap(one);
+            pictureBox2.Image = actSet.GetFullMap(two);
+        }
+        private void pictureBox2_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (Connect)
+            {
+
+            }
+        }
+        private void pictureBox2_MouseDown(object sender, MouseEventArgs e)
+        {
+        }
+        private void GameForm_Load(object sender, EventArgs e)
+        {
+
+        }
+        public void InvalidateTemp()
+        {
+            if (!Connect)
+                pictureBox1.Image = actSet.GetImageTemp();
+        }
+        private void pictureBox2_MouseClick(object sender, MouseEventArgs e)
+        {
+
         }
     }
 }

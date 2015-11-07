@@ -1,6 +1,6 @@
 ﻿namespace Client.Game
 {
-    partial class GameForm
+    partial class GameForm : IForm
     {
         /// <summary>
         /// Требуется переменная конструктора.
@@ -33,10 +33,6 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.играToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.начатьИгруToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.OneShip = new System.Windows.Forms.RadioButton();
-            this.TwoShip = new System.Windows.Forms.RadioButton();
-            this.ThreeShip = new System.Windows.Forms.RadioButton();
-            this.FourShip = new System.Windows.Forms.RadioButton();
             this.ClearButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -60,6 +56,9 @@
             this.pictureBox2.Size = new System.Drawing.Size(327, 305);
             this.pictureBox2.TabIndex = 6;
             this.pictureBox2.TabStop = false;
+            this.pictureBox2.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox2_MouseClick);
+            this.pictureBox2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox2_MouseDown);
+            this.pictureBox2.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox2_MouseMove);
             // 
             // menuStrip1
             // 
@@ -82,53 +81,9 @@
             // начатьИгруToolStripMenuItem
             // 
             this.начатьИгруToolStripMenuItem.Name = "начатьИгруToolStripMenuItem";
-            this.начатьИгруToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.начатьИгруToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.начатьИгруToolStripMenuItem.Text = "Начать игру";
             this.начатьИгруToolStripMenuItem.Click += new System.EventHandler(this.начатьИгруToolStripMenuItem_Click);
-            // 
-            // OneShip
-            // 
-            this.OneShip.AutoSize = true;
-            this.OneShip.Location = new System.Drawing.Point(14, 213);
-            this.OneShip.Name = "OneShip";
-            this.OneShip.Size = new System.Drawing.Size(69, 17);
-            this.OneShip.TabIndex = 8;
-            this.OneShip.TabStop = true;
-            this.OneShip.Text = "1 палуба";
-            this.OneShip.UseVisualStyleBackColor = true;
-            // 
-            // TwoShip
-            // 
-            this.TwoShip.AutoSize = true;
-            this.TwoShip.Location = new System.Drawing.Point(14, 236);
-            this.TwoShip.Name = "TwoShip";
-            this.TwoShip.Size = new System.Drawing.Size(71, 17);
-            this.TwoShip.TabIndex = 9;
-            this.TwoShip.TabStop = true;
-            this.TwoShip.Text = "2 палубы";
-            this.TwoShip.UseVisualStyleBackColor = true;
-            // 
-            // ThreeShip
-            // 
-            this.ThreeShip.AutoSize = true;
-            this.ThreeShip.Location = new System.Drawing.Point(14, 259);
-            this.ThreeShip.Name = "ThreeShip";
-            this.ThreeShip.Size = new System.Drawing.Size(71, 17);
-            this.ThreeShip.TabIndex = 10;
-            this.ThreeShip.TabStop = true;
-            this.ThreeShip.Text = "3 палубы";
-            this.ThreeShip.UseVisualStyleBackColor = true;
-            // 
-            // FourShip
-            // 
-            this.FourShip.AutoSize = true;
-            this.FourShip.Location = new System.Drawing.Point(14, 282);
-            this.FourShip.Name = "FourShip";
-            this.FourShip.Size = new System.Drawing.Size(71, 17);
-            this.FourShip.TabIndex = 11;
-            this.FourShip.TabStop = true;
-            this.FourShip.Text = "4 палубы";
-            this.FourShip.UseVisualStyleBackColor = true;
             // 
             // ClearButton
             // 
@@ -140,22 +95,19 @@
             this.ClearButton.UseVisualStyleBackColor = true;
             this.ClearButton.Click += new System.EventHandler(this.ClearButton_Click);
             // 
-            // MainForm
+            // GameForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(847, 358);
             this.Controls.Add(this.ClearButton);
-            this.Controls.Add(this.FourShip);
-            this.Controls.Add(this.ThreeShip);
-            this.Controls.Add(this.TwoShip);
-            this.Controls.Add(this.OneShip);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "MainForm";
+            this.Name = "GameForm";
             this.Text = "Морской бой";
+            this.Load += new System.EventHandler(this.GameForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.menuStrip1.ResumeLayout(false);
@@ -172,10 +124,6 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem играToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem начатьИгруToolStripMenuItem;
-        private System.Windows.Forms.RadioButton OneShip;
-        private System.Windows.Forms.RadioButton TwoShip;
-        private System.Windows.Forms.RadioButton ThreeShip;
-        private System.Windows.Forms.RadioButton FourShip;
         private System.Windows.Forms.Button ClearButton;
     }
 }
