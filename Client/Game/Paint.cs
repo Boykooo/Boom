@@ -61,51 +61,29 @@ namespace Client
         }
         private void DrawShip(Point location, int size, bool hor)
         {
-            if (hor)
+            TempBitmap = new Bitmap(MainBitmap);
+            using (g = Graphics.FromImage(TempBitmap))
             {
-                for (int i = 0, j = 0; i < size; i++, j += StructMap.BlockSize)
+                if (hor)
                 {
-                    g.FillRectangle(Brushes.Red, location.X * StructMap.BlockSize + 1 + j, location.Y * StructMap.BlockSize + 1, StructMap.BlockSize - 1, StructMap.BlockSize - 1);
-                }
-            }
-            else
-            {
-                for (int i = 0, j = 0; i < size; i++, j += StructMap.BlockSize)
-                {
-                    g.FillRectangle(Brushes.Red, location.X * StructMap.BlockSize + 1, location.Y * StructMap.BlockSize + 1 + j, StructMap.BlockSize - 1, StructMap.BlockSize - 1);
-                }
-            }
-        }
-        public Bitmap GetFullMap(List<Ship> ships)
-        {
-            Bitmap map = new Bitmap(DrawGrid());
-            using(g = Graphics.FromImage(map))
-            {
-                for (int i = 0; i < ships.Count; i++)
-                {
-                    for (int j = 0; j < ships[i].palub.Count; j++)
+                    for (int i = 0, j = 0; i < size; i++, j += StructMap.BlockSize)
                     {
-                        if (ships[i].palub[j].type == DeckType.Live)
-                        {
-                            g.FillRectangle(Brushes.Red, ships[i].palub[j].point.X * StructMap.BlockSize + 1, ships[i].palub[j].point.Y * StructMap.BlockSize + 1, StructMap.BlockSize - 1, StructMap.BlockSize - 1);
-                        }
-                        else if (ships[i].palub[j].type == DeckType.Hurt)
-                        {
-                            g.FillRectangle(Brushes.Orange, ships[i].palub[j].point.X * StructMap.BlockSize + 1, ships[i].palub[j].point.Y * StructMap.BlockSize + 1, StructMap.BlockSize - 1, StructMap.BlockSize - 1);
-                        }
-                        else if (ships[i].palub[j].type == DeckType.Dead)
-                        {
-                            g.FillRectangle(Brushes.Black, ships[i].palub[j].point.X * StructMap.BlockSize + 1, ships[i].palub[j].point.Y * StructMap.BlockSize + 1, StructMap.BlockSize - 1, StructMap.BlockSize - 1);
-                        }
+                        g.FillRectangle(Brushes.Red, location.X * StructMap.BlockSize + 1 + j, location.Y * StructMap.BlockSize + 1, StructMap.BlockSize - 1, StructMap.BlockSize - 1);
+                    }
+                }
+                else
+                {
+                    for (int i = 0, j = 0; i < size; i++, j += StructMap.BlockSize)
+                    {
+                        g.FillRectangle(Brushes.Red, location.X * StructMap.BlockSize + 1, location.Y * StructMap.BlockSize + 1 + j, StructMap.BlockSize - 1, StructMap.BlockSize - 1);
                     }
                 }
             }
-            return map; 
         }
         public void DrawMapYou(GameField field)
         {
-            MainBitmap = new Bitmap(DrawGrid());
-            using (g = Graphics.FromImage(MainBitmap))
+            TempBitmap = new Bitmap(DrawGrid());
+            using (g = Graphics.FromImage(TempBitmap))
             {
                 for (int i = 0; i < field.ships.Count; i++)
                 {
@@ -125,13 +103,23 @@ namespace Client
                         }
                     }
                 }
+                MainBitmap = TempBitmap;
             }
         }
         public void DrawMapEnemy(GameField field, CellType[,] pt)
         {
-            MainBitmap = new Bitmap(DrawGrid());
-            using (g = Graphics.FromImage(MainBitmap))
+            TempBitmap = new Bitmap(DrawGrid());
+            using (g = Graphics.FromImage(TempBitmap))
             {
+                for (int i = 0; i < pt.GetLength(0); i++)
+                {
+                    for (int j = 0; j < pt.GetLength(1); j++)
+                    {
+                        if (pt[i, j] == CellType.Point)
+                            g.FillEllipse(Brushes.Green, i * StructMap.BlockSize, j * StructMap.BlockSize, 10, 10);
+                    }
+                }
+
                 for (int i = 0; i < field.ships.Count; i++)
                 {
                     for (int j = 0; j < field.ships[i].palub.Count; j++)
@@ -146,14 +134,7 @@ namespace Client
                         }
                     }
                 }
-                for (int i = 0; i < pt.GetLength(0); i++)
-                {
-                    for (int j = 0; j < pt.GetLength(1); j++)
-                    {
-                        if (pt[i,j] == CellType.Point)
-                            g.FillEllipse(Brushes.Green, i * StructMap.BlockSize + 10, j * StructMap.BlockSize + 10, 10, 10);
-                    }
-                }
+                MainBitmap = TempBitmap;
             }
         }
         public void Point(Point location)

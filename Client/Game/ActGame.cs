@@ -54,9 +54,9 @@ namespace Client.Game
                 {
                     if (map.point[tempLoc.X, tempLoc.Y] == CellType.None)
                     {
-                        map.AddPoint(tempLoc);
-                        draw.FixImage();
                         srv.SendMessage(new ShootMessage(tempLoc.X, tempLoc.Y));
+                        draw.FixImage();
+                        map.AddPoint(tempLoc);
                         Turn = false;
                     }
                 }
@@ -64,16 +64,11 @@ namespace Client.Game
         }
         public void ReDraw(GameField you, GameField enemy)
         {
-            if (Turn)
-            {
                 draw.DrawMapYou(you);
                 form.InvalidateYou();
-            }
-            else
-            {
-                draw.DrawMapEnemy(enemy, you.field);
+
+                draw.DrawMapEnemy(enemy, enemy.field);
                 form.InvalidateEnemy();
-            }
         }
     }
 }

@@ -44,10 +44,6 @@ namespace Client.Game
             Program.state = ClientState.Waiting;
             srv.SendMessage(new SearchMessage(new GameField(map.ships)));
         }
-        public Bitmap GetFullMap(List<Ship> ships)
-        {
-            return draw.GetFullMap(ships);
-        }
         public void InitGameForm(GameForm g)
         {
             srv.InitializeGameForm(g);
