@@ -9,6 +9,7 @@ namespace Client.Game
 {
     public interface IForm
     {
+        bool Turn { get; set; }
         RadioButton OneShip { get; set; }
         RadioButton TwoShip { get; set; }
         RadioButton ThreeShip { get; set; }

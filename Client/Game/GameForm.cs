@@ -12,7 +12,19 @@ namespace Client.Game
 {
     public partial class GameForm : Form, IForm
     {
-        public bool firstTurn { get; set; }
+        private bool turn;
+        public bool Turn
+        {
+            get { return turn; }
+            set 
+            {
+                turn = value;
+                if (turn)
+                    label1.Text = "Ваш ход!";
+                else
+                    label1.Text = "Ход противника!";
+            }
+        }
         public RadioButton OneShip { get; set; }
 
         public RadioButton TwoShip { get; set; }

@@ -67,6 +67,9 @@ public class ServerManager
                     case "FieldStateMessage":
                         FieldStateMessage f = (FieldStateMessage) m;
                         actGame.Turn = f.turn;
+
+                        game.Turn = f.turn; //!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
                         actGame.ReDraw(f.you, f.enemy);
                         break;
                 }

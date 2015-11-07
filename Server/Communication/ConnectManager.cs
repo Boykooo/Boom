@@ -30,7 +30,6 @@ namespace Server
             task.Start();
         }
 
-
         void Receive()
         {
 
