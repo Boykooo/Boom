@@ -12,7 +12,7 @@ namespace Server
     public class Game
     {
 
-        struct Gamer
+        class Gamer
         {
             public bool turn;
             public Client client;

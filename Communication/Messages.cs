@@ -133,13 +133,12 @@ namespace Project2
     [Serializable]
     public class Ship
     {
-
         public int count;
         public List<Deck> palub;
         public bool dead;
         public bool Shoot(int x, int y)
         {
-            var tmp = palub.First(deck => deck.point.X == x && deck.point.Y == y && deck.type == DeckType.Live);
+            var tmp = palub.FirstOrDefault(deck => deck.point.X == x && deck.point.Y == y && deck.type == DeckType.Live);
             if (tmp != null)
             {
                 tmp.type = DeckType.Hurt;

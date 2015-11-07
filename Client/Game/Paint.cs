@@ -151,7 +151,7 @@ namespace Client
                     for (int j = 0; j < pt.GetLength(1); j++)
                     {
                         if (pt[i,j] == CellType.Point)
-                            g.FillEllipse(Brushes.Green, i * StructMap.BlockSize + 15, j * StructMap.BlockSize + 15, 10, 10);
+                            g.FillEllipse(Brushes.Green, i * StructMap.BlockSize + 10, j * StructMap.BlockSize + 10, 10, 10);
                     }
                 }
             }

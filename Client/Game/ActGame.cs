@@ -64,10 +64,16 @@ namespace Client.Game
         }
         public void ReDraw(GameField you, GameField enemy)
         {
-            draw.DrawMapYou(you);
-            form.InvalidateYou();
-            draw.DrawMapEnemy(enemy, you.field);
-            form.InvalidateEnemy();
+            if (Turn)
+            {
+                draw.DrawMapYou(you);
+                form.InvalidateYou();
+            }
+            else
+            {
+                draw.DrawMapEnemy(enemy, you.field);
+                form.InvalidateEnemy();
+            }
         }
     }
 }
