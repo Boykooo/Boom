@@ -17,6 +17,7 @@ public class ServerManager
     Form reg;
     GameForm game;
     Socket socket;
+    ActGame actGame;
     public ServerManager(Form regform, IPAddress ip, int port)
     {
         reg = regform;
@@ -27,6 +28,10 @@ public class ServerManager
     public void InitializeGameForm(GameForm game)
     {
         this.game = game;
+    }
+    public void InitializeActGame(ActGame actGame)
+    {
+        this.actGame = actGame; 
     }
     public void SendMessage(Messages message)
     {
@@ -57,7 +62,12 @@ public class ServerManager
                     case "StartGameMessage":
                         StartGameMessage q = (StartGameMessage) m;
                         game.Connect = true;
-                        game.PaintMaps(q.you.ships, q.enemy.ships);
+                        actGame.Turn = q.turn;
+                        break;
+                    case "FieldStateMessage":
+                        FieldStateMessage f = (FieldStateMessage) m;
+                        actGame.ReDraw(f.you, f.enemy);
+                        actGame.Turn = f.turn;
                         break;
                 }
             }

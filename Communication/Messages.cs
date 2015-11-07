@@ -96,7 +96,6 @@ namespace Project2
         public bool turn;
     }
     [Serializable]
-
     public class EndOfGameMessage : Messages
     {
         public EndOfGameMessage(bool win)
@@ -106,7 +105,6 @@ namespace Project2
 
         public bool win;
     }
-
     [Serializable]
     public enum CellType
     {

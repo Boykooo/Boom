@@ -12,6 +12,7 @@ namespace Client.Game
 {
     public partial class GameForm : Form, IForm
     {
+        public bool firstTurn { get; set; }
         public RadioButton OneShip { get; set; }
 
         public RadioButton TwoShip { get; set; }
@@ -30,8 +31,6 @@ namespace Client.Game
             actSet.Registration();
             actSet.InitGameForm(this);
             pictureBox1.Image = actSet.GetGrid();
-            pictureBox2.Image = actSet.GetGrid();
-
         }
         void RadioInit()
         {
@@ -105,35 +104,37 @@ namespace Client.Game
         }
         private void начатьИгруToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            actGame = new ActGame(this, pictureBox2.Width, pictureBox2.Height, actSet.map, actSet.srv);
+            pictureBox2.Image = actGame.GetGrid();
             actSet.NewGame();
-        }
-        public void PaintMaps(List<Ship> one, List<Ship> two)
-        {
-            pictureBox1.Image = actSet.GetFullMap(one);
-            pictureBox2.Image = actSet.GetFullMap(two);
         }
         private void pictureBox2_MouseMove(object sender, MouseEventArgs e)
         {
             if (Connect)
             {
-
+                actGame.MouseMove(sender, e);
             }
-        }
-        private void pictureBox2_MouseDown(object sender, MouseEventArgs e)
-        {
         }
         private void GameForm_Load(object sender, EventArgs e)
         {
-
         }
-        public void InvalidateTemp()
+        public void InvalidateYou()
         {
             if (!Connect)
                 pictureBox1.Image = actSet.GetImageTemp();
+            else
+                pictureBox1.Image = actGame.GetImage();
         }
         private void pictureBox2_MouseClick(object sender, MouseEventArgs e)
         {
-
+            if (Connect)
+            {
+                actGame.MouseClick(sender, e);
+            }
+        }
+        public void InvalidateEnemy()
+        {
+            pictureBox2.Image = actGame.GetImage();
         }
     }
 }

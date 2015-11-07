@@ -11,11 +11,13 @@ namespace Client
     {
         public List<Ship> ships;
         public int[,] Map { get; set; }
+        public CellType[,] point;
         public static int BlockSize { get; set; }
         public StructMap()
         {
             Map = new int[10, 10];
             ships = new List<Ship>();
+            point = new CellType[10, 10];
         }
         public bool CheckLocation(Point location, bool horizont, int size)
         {
@@ -88,6 +90,10 @@ namespace Client
                 }
             }
             ships.Add(s);
+        }
+        public void AddPoint(Point location)
+        {
+            point[location.X, location.Y] = CellType.Point;
         }
     }
 }
