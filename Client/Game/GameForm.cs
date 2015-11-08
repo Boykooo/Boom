@@ -18,11 +18,11 @@ namespace Client.Game
             get { return turn; }
             set 
             {
+                Action<Label, string> safe = (x, y) => x.Text = y;
                 turn = value;
-                if (turn)
-                    label1.Text = "Ваш ход!";
-                else
-                    label1.Text = "Ход противника!";
+                string msg = turn ? "Ваш ход" : "Ход противника!";
+
+                label1.Invoke(safe, label1, msg);
             }
         }
         public RadioButton OneShip { get; set; }
