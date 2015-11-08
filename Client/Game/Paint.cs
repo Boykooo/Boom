@@ -44,28 +44,6 @@ namespace Client
             TempBitmap = new Bitmap(MainBitmap);
             using (g = Graphics.FromImage(TempBitmap))
             {
-                switch (size)
-                {
-                    case 1:
-                        DrawShip(location, 1, hor, loc);
-                        break;
-                    case 2:
-                        DrawShip(location, 2, hor, loc);
-                        break;
-                    case 3:
-                        DrawShip(location, 3, hor, loc);
-                        break;
-                    case 4:
-                        DrawShip(location, 4, hor, loc);
-                        break;
-                }
-            }
-        }
-        private void DrawShip(Point location, int size, bool hor, bool loc)
-        {
-            TempBitmap = new Bitmap(MainBitmap);
-            using (g = Graphics.FromImage(TempBitmap))
-            {
                 Brush b;
                 if (loc)
                     b = Brushes.Blue;
