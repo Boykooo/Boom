@@ -23,59 +23,66 @@ namespace Client
         public Bitmap DrawGrid()
         {
             MainBitmap = new Bitmap(wh, ht);
-            g = Graphics.FromImage(MainBitmap);
-            for (int i = 0; i < 300; i += 30)
+            using (g = Graphics.FromImage(MainBitmap))
             {
-                for (int j = 0; j < 300; j += 30)
+                for (int i = 0; i < 300; i += 30)
                 {
-                    g.DrawRectangle(Pens.Black, i, j, 30, 30);
+                    for (int j = 0; j < 300; j += 30)
+                    {
+                        g.DrawRectangle(Pens.Black, i, j, 30, 30);
+                    }
                 }
             }
-            g.Dispose();
             return MainBitmap;
         }
         public void FixImage()
         {
             MainBitmap = TempBitmap;
         }
-        public void Ship(Point location, int size, bool hor)
-        {
-            g.Dispose();
-            TempBitmap = new Bitmap(MainBitmap);
-            g = Graphics.FromImage(TempBitmap);
-            switch (size)
-            {
-                case 1:
-                    DrawShip(location, 1, hor);
-                    break;
-                case 2:
-                    DrawShip(location, 2, hor);
-                    break;
-                case 3:
-                    DrawShip(location, 3, hor);
-                    break;
-                case 4:
-                    DrawShip(location, 4, hor);
-                    break;
-            }
-        }
-        private void DrawShip(Point location, int size, bool hor)
+        public void Ship(Point location, int size, bool hor, bool loc)
         {
             TempBitmap = new Bitmap(MainBitmap);
             using (g = Graphics.FromImage(TempBitmap))
             {
+                switch (size)
+                {
+                    case 1:
+                        DrawShip(location, 1, hor, loc);
+                        break;
+                    case 2:
+                        DrawShip(location, 2, hor, loc);
+                        break;
+                    case 3:
+                        DrawShip(location, 3, hor, loc);
+                        break;
+                    case 4:
+                        DrawShip(location, 4, hor, loc);
+                        break;
+                }
+            }
+        }
+        private void DrawShip(Point location, int size, bool hor, bool loc)
+        {
+            TempBitmap = new Bitmap(MainBitmap);
+            using (g = Graphics.FromImage(TempBitmap))
+            {
+                Brush b;
+                if (loc)
+                    b = Brushes.Blue;
+                else
+                    b = Brushes.Red;
                 if (hor)
                 {
                     for (int i = 0, j = 0; i < size; i++, j += StructMap.BlockSize)
                     {
-                        g.FillRectangle(Brushes.Red, location.X * StructMap.BlockSize + 1 + j, location.Y * StructMap.BlockSize + 1, StructMap.BlockSize - 1, StructMap.BlockSize - 1);
+                        g.FillRectangle(b, location.X * StructMap.BlockSize + 1 + j, location.Y * StructMap.BlockSize + 1, StructMap.BlockSize - 1, StructMap.BlockSize - 1);
                     }
                 }
                 else
                 {
                     for (int i = 0, j = 0; i < size; i++, j += StructMap.BlockSize)
                     {
-                        g.FillRectangle(Brushes.Red, location.X * StructMap.BlockSize + 1, location.Y * StructMap.BlockSize + 1 + j, StructMap.BlockSize - 1, StructMap.BlockSize - 1);
+                        g.FillRectangle(b, location.X * StructMap.BlockSize + 1, location.Y * StructMap.BlockSize + 1 + j, StructMap.BlockSize - 1, StructMap.BlockSize - 1);
                     }
                 }
             }
@@ -100,7 +107,7 @@ namespace Client
                     {
                         if (field.ships[i].palub[j].type == DeckType.Live)
                         {
-                            g.FillRectangle(Brushes.Red, field.ships[i].palub[j].point.X * StructMap.BlockSize + 1, field.ships[i].palub[j].point.Y * StructMap.BlockSize + 1, StructMap.BlockSize - 1, StructMap.BlockSize - 1);
+                            g.FillRectangle(Brushes.Blue, field.ships[i].palub[j].point.X * StructMap.BlockSize + 1, field.ships[i].palub[j].point.Y * StructMap.BlockSize + 1, StructMap.BlockSize - 1, StructMap.BlockSize - 1);
                         }
                         else if (field.ships[i].palub[j].type == DeckType.Hurt)
                         {
@@ -128,7 +135,6 @@ namespace Client
                             g.FillEllipse(Brushes.Green, i * StructMap.BlockSize + 10, j * StructMap.BlockSize + 10, 10, 10);
                     }
                 }
-
                 for (int i = 0; i < field.ships.Count; i++)
                 {
                     for (int j = 0; j < field.ships[i].palub.Count; j++)
@@ -150,10 +156,11 @@ namespace Client
         {
             try
             {
-                g.Dispose();
                 TempBitmap = new Bitmap(MainBitmap);
-                g = Graphics.FromImage(TempBitmap);
-                g.FillEllipse(Brushes.Green, location.X * StructMap.BlockSize + 10, location.Y * StructMap.BlockSize + 10, 10, 10);
+                using (g = Graphics.FromImage(TempBitmap))
+                {
+                    g.FillEllipse(Brushes.Green, location.X * StructMap.BlockSize + 10, location.Y * StructMap.BlockSize + 10, 10, 10);
+                }
             }
             catch { }
         }
