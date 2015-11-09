@@ -9,61 +9,69 @@ namespace Client
 {
     class Paint
     {
-        Bitmap MainBitmap;
-        public Bitmap TempBitmap { get; set; }
-        Graphics g;
+        
+
+        public Bitmap grid;
+        Bitmap MainBitmapYours;
+        public Bitmap TempBitmapYours { get; set; }
+
+        Bitmap MainBitmapEnemy;
+        public Bitmap TempBitmapEnemy { get; set; }
+
+       // Graphics g;
         int wh, ht;
         public Paint(int wh, int ht)
         {
             this.wh = wh;
             this.ht = ht;
-            TempBitmap = new Bitmap(wh, ht);
-            g = Graphics.FromImage(TempBitmap);
+            TempBitmapYours = new Bitmap(wh, ht);
+            MainBitmapYours = new Bitmap(wh, ht);
+
+            MainBitmapEnemy = new Bitmap(wh, ht);
+            TempBitmapEnemy = new Bitmap(wh, ht);
+
+            grid = new Bitmap(wh, ht);
+           // g = Graphics.FromImage(TempBitmap);
+
+            DrawGrid();
         }
-        public Bitmap DrawGrid()
+        public void DrawGrid()
         {
-            MainBitmap = new Bitmap(wh, ht);
-            g = Graphics.FromImage(MainBitmap);
-            for (int i = 0; i < 300; i += 30)
+            using (Graphics g = Graphics.FromImage(grid))
             {
-                for (int j = 0; j < 300; j += 30)
+                for (int i = 0; i < 300; i += 30)
                 {
-                    g.DrawRectangle(Pens.Black, i, j, 30, 30);
+                    for (int j = 0; j < 300; j += 30)
+                    {
+                        g.DrawRectangle(Pens.Black, i, j, 30, 30);
+                    }
                 }
             }
-            g.Dispose();
-            return MainBitmap;
+            //g.Dispose();
         }
+
         public void FixImage()
         {
-            MainBitmap = TempBitmap;
+            using (Graphics g = Graphics.FromImage(MainBitmapYours))
+            {
+                g.Clear(Color.White);
+                g.DrawImage(TempBitmapYours, 0, 0);
+            }
         }
+
         public void Ship(Point location, int size, bool hor)
         {
-            g.Dispose();
-            TempBitmap = new Bitmap(MainBitmap);
-            g = Graphics.FromImage(TempBitmap);
-            switch (size)
-            {
-                case 1:
-                    DrawShip(location, 1, hor);
-                    break;
-                case 2:
-                    DrawShip(location, 2, hor);
-                    break;
-                case 3:
-                    DrawShip(location, 3, hor);
-                    break;
-                case 4:
-                    DrawShip(location, 4, hor);
-                    break;
-            }
+            DrawShip(location, size, hor);
         }
         private void DrawShip(Point location, int size, bool hor)
         {
-            TempBitmap = new Bitmap(MainBitmap);
-            using (g = Graphics.FromImage(TempBitmap))
+            using (Graphics g = Graphics.FromImage(TempBitmapYours))
             {
+                g.Clear(Color.White);
+
+                g.DrawImage(grid, 0, 0);
+                g.DrawImage(MainBitmapYours, 0, 0);
+
                 if (hor)
                 {
                     for (int i = 0, j = 0; i < size; i++, j += StructMap.BlockSize)
@@ -78,13 +86,21 @@ namespace Client
                         g.FillRectangle(Brushes.Red, location.X * StructMap.BlockSize + 1, location.Y * StructMap.BlockSize + 1 + j, StructMap.BlockSize - 1, StructMap.BlockSize - 1);
                     }
                 }
+
+                
             }
         }
-        public void DrawMapYou(GameField field, CellType[,] pt)
+        public void DrawField(GameField field, CellType[,] pt, bool isYours)
         {
-            TempBitmap = new Bitmap(DrawGrid());
-            using (g = Graphics.FromImage(TempBitmap))
+            
+            Bitmap newBitmap = isYours ? TempBitmapYours : TempBitmapEnemy;
+
+            Graphics g = Graphics.FromImage(newBitmap);
+            using (g)
             {
+                g.Clear(Color.White);
+                g.DrawImage(grid, 0, 0);
+
                 for (int i = 0; i < pt.GetLength(0); i++)
                 {
                     for (int j = 0; j < pt.GetLength(1); j++)
@@ -112,48 +128,31 @@ namespace Client
                         }
                     }
                 }
-                MainBitmap = TempBitmap;
-            }
-        }
-        public void DrawMapEnemy(GameField field, CellType[,] pt)
-        {
-            TempBitmap = new Bitmap(DrawGrid());
-            using (g = Graphics.FromImage(TempBitmap))
-            {
-                for (int i = 0; i < pt.GetLength(0); i++)
-                {
-                    for (int j = 0; j < pt.GetLength(1); j++)
-                    {
-                        if (pt[i, j] == CellType.Point)
-                            g.FillEllipse(Brushes.Green, i * StructMap.BlockSize + 10, j * StructMap.BlockSize + 10, 10, 10);
-                    }
-                }
 
-                for (int i = 0; i < field.ships.Count; i++)
-                {
-                    for (int j = 0; j < field.ships[i].palub.Count; j++)
-                    {
-                        if (field.ships[i].palub[j].type == DeckType.Hurt)
-                        {
-                            g.FillRectangle(Brushes.Orange, field.ships[i].palub[j].point.X * StructMap.BlockSize + 1, field.ships[i].palub[j].point.Y * StructMap.BlockSize + 1, StructMap.BlockSize - 1, StructMap.BlockSize - 1);
-                        }
-                        else if (field.ships[i].palub[j].type == DeckType.Dead)
-                        {
-                            g.FillRectangle(Brushes.Black, field.ships[i].palub[j].point.X * StructMap.BlockSize + 1, field.ships[i].palub[j].point.Y * StructMap.BlockSize + 1, StructMap.BlockSize - 1, StructMap.BlockSize - 1);
-                        }
-                    }
-                }
-                MainBitmap = TempBitmap;
+                
+            }
+
+            Graphics tmp = isYours ? Graphics.FromImage(MainBitmapYours) : Graphics.FromImage(MainBitmapEnemy);
+           
+            using (tmp)
+            {
+                tmp.Clear(Color.White);
+                tmp.DrawImage(newBitmap, 0, 0);
             }
         }
         public void Point(Point location)
         {
             try
             {
-                g.Dispose();
-                TempBitmap = new Bitmap(MainBitmap);
-                g = Graphics.FromImage(TempBitmap);
-                g.FillEllipse(Brushes.Green, location.X * StructMap.BlockSize + 10, location.Y * StructMap.BlockSize + 10, 10, 10);
+                //TempBitmap = new Bitmap(MainBitmap);
+                using (Graphics g = Graphics.FromImage(TempBitmapEnemy))
+                {
+
+                    g.Clear(Color.White);
+                    g.DrawImage(MainBitmapEnemy, 0, 0);
+
+                    g.FillEllipse(Brushes.Green, location.X * StructMap.BlockSize + 10, location.Y * StructMap.BlockSize + 10, 10, 10);
+                }
             }
             catch { }
         }

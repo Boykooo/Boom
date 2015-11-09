@@ -32,7 +32,7 @@ namespace Client.Game
         }
         public Bitmap GetGrid()
         {
-            return draw.DrawGrid();
+            return draw.grid;
         }
         public void Clear()
         {
@@ -133,7 +133,7 @@ namespace Client.Game
         }
         public Bitmap GetImageTemp()
         {
-            return draw.TempBitmap;
+            return draw.TempBitmapYours;
         }
     }
 }

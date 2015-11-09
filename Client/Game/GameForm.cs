@@ -135,7 +135,7 @@ namespace Client.Game
             if (!Connect)
                 pictureBox1.Image = actSet.GetImageTemp();
             else
-                pictureBox1.Image = actGame.GetImage();
+                pictureBox1.Image = actGame.GetImageYours();
         }
         private void pictureBox2_MouseClick(object sender, MouseEventArgs e)
         {
@@ -146,7 +146,7 @@ namespace Client.Game
         }
         public void InvalidateEnemy()
         {
-            pictureBox2.Image = actGame.GetImage();
+            pictureBox2.Image = actGame.GetImageEnemy();
         }
     }
 }

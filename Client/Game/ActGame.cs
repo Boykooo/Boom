@@ -27,12 +27,18 @@ namespace Client.Game
         }
         public Bitmap GetGrid()
         {
-            return draw.DrawGrid();
+            return draw.grid;
         }
-        public Bitmap GetImage()
+
+        public Bitmap GetImageYours()
         {
-            return draw.TempBitmap;
+            return draw.TempBitmapYours;
         }
+        public Bitmap GetImageEnemy()
+        {
+            return draw.TempBitmapEnemy;
+        }
+
         public void MouseMove(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             if (Turn)
@@ -42,6 +48,7 @@ namespace Client.Game
                 {
                     tempLoc = location;
                     draw.Point(location);
+
                     form.InvalidateEnemy();
                 }
             }
@@ -62,12 +69,13 @@ namespace Client.Game
                 }
             }
         }
+
         public void ReDraw(GameField you, GameField enemy)
         {
-                draw.DrawMapYou(you, you.field);
+                draw.DrawField(you, you.field, true);
                 form.InvalidateYou();
 
-                draw.DrawMapEnemy(enemy, enemy.field);
+                draw.DrawField(enemy, enemy.field, false);
                 form.InvalidateEnemy();
         }
     }
