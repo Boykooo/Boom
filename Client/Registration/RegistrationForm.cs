@@ -26,14 +26,22 @@ namespace Client
         }
         private void EndRegistration_Click(object sender, EventArgs e)
         {
-            if (Check.CheckNickName(NickName.Text))
+
+            if (NickName.Text != "" && NickName.Text.Length < 10)
             {
-                int port = 8888;
-                IPHostEntry host = Dns.GetHostEntry("localhost");
-                IPAddress adress = host.AddressList[0];
-                Srv = new ServerManager(this, adress, port);
-                Srv.SendMessage(new RegistrationMessage(NickName.Text));
-                Program.state = ClientState.Online;
+                try
+                {
+                    int port = 8888;
+                    IPHostEntry host = Dns.GetHostEntry( IPAddress.Parse(maskedTextBox1.Text));
+                    IPAddress adress = host.AddressList[0];
+                    Srv = new ServerManager(this, adress, port);
+                    Srv.SendMessage(new RegistrationMessage(NickName.Text));
+                    Program.state = ClientState.Online;
+                }
+                catch(Exception exc)
+                {
+
+                }
             }
         }
     }

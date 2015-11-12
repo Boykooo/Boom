@@ -34,16 +34,17 @@ namespace Server
         {
 
 
-            Socket mainSocket = new Socket(ipAdress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+            TcpListener mainSocket = new TcpListener(endPoint);
+            mainSocket.Start();
             try
             {
-                mainSocket.Bind(endPoint);
-                mainSocket.Listen(10);
+                //mainSocket.Bind(endPoint);
+                //mainSocket.Listen(10);
 
                 while (true)
-                {                   
+                {
 
-                    Socket newClient = mainSocket.Accept();
+                    Socket newClient = mainSocket.AcceptSocket();
                     BigStaticClass.logger.Log("Подключено");
 
                     BigStaticClass.Registration(newClient);

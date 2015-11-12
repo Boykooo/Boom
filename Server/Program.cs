@@ -11,9 +11,13 @@ namespace Server
     {
         static void Main(string[] args)
         {
-            IPHostEntry host = Dns.GetHostEntry("localhost");
-            IPAddress adress = host.AddressList[0];
+            //IPHostEntry host = Dns.GetHostEntry("192.168.1.1");
+            //IPAddress adress = host.AddressList[0];
+
+            IPAddress adress = Dns.GetHostEntry(Dns.GetHostName()).AddressList[0];
             IPEndPoint endPoint = new IPEndPoint(adress, 8888);
+
+            Console.WriteLine(adress.ToString());
 
             ConnectManager cnm = new ConnectManager(adress, endPoint);
 
