@@ -14,25 +14,19 @@ using Client.Game;
 
 public class ServerManager
 {
-    Form reg;
-    GameForm game;
     Socket socket;
-    ActGame actGame;
-    public ServerManager(Form regform, IPAddress ip, int port)
+
+    public ServerManager()
     {
-        reg = regform;
+        
+    }
+    public void Start(IPAddress ip, int port)
+    {
         IPEndPoint end = new IPEndPoint(ip, port);
         socket = new Socket(ip.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
         socket.Connect(end);
     }
-    public void InitializeGameForm(GameForm game)
-    {
-        this.game = game;
-    }
-    public void InitializeActGame(ActGame actGame)
-    {
-        this.actGame = actGame; 
-    }
+
     public void SendMessage(Messages message)
     {
         socket.Send(Serialize(message));
@@ -54,30 +48,27 @@ public class ServerManager
                 {
                     case "RegistrationResultMessage":
 
-                        Action a = () => reg.Close();
-                        reg.Invoke(a);
+                        Program.Connected();
                         //MainGameForm game = new MainGameForm();
                         //game.Show();
                         break;
                     case "StartGameMessage":
-                        StartGameMessage q = (StartGameMessage) m;
-                        game.Connect = true;
-                        actGame.Turn = q.turn;
+                        Program.StartGame((StartGameMessage)m);
                         break;
                     case "FieldStateMessage":
-                        FieldStateMessage f = (FieldStateMessage) m;
-                        actGame.Turn = f.turn;
+                        Program.NewGameMessage((FieldStateMessage)m);
+                        //actGame.Turn = f.turn;
 
-                        Action b = () => game.Turn = f.turn;
-                        game.Invoke(b);
-                        actGame.ReDraw(f.you, f.enemy);
+                        //Action b = () => game.Turn = f.turn;
+                        //game.Invoke(b);
+                        //actGame.ReDraw(f.you, f.enemy);
                         break;
                 }
             }
         }
         catch
         {
-            Program.state = ClientState.Offline;
+            Program.Disconnected();
         }
     }
     byte[] Serialize(Messages m)

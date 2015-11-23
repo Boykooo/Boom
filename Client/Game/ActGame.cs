@@ -11,25 +11,22 @@ namespace Client.Game
 {
     public class ActGame : IMauseAction
     {
-        public bool Turn { get; set; }
-        ServerManager srv;
+        public bool Turn { get { return form.Turn; }}
         StructMap map;
         Point tempLoc;
         Paint draw;
         public IForm form { get; set; }
-        public ActGame(GameForm gameForm, int wh, int ht, StructMap sMap, ServerManager srv)
+        public ActGame(GameForm gameForm, int wh, int ht, StructMap sMap)
         {
             form = gameForm;
             draw = new Paint(wh, ht);
             map = sMap;
-            this.srv = srv;
-            srv.InitializeActGame(this);
         }
+
         public Bitmap GetGrid()
         {
             return draw.grid;
         }
-
         public Bitmap GetImageYours()
         {
             return draw.TempBitmapYours;
@@ -61,10 +58,9 @@ namespace Client.Game
                 {
                     if (map.point[tempLoc.X, tempLoc.Y] == CellType.None)
                     {
-                        srv.SendMessage(new ShootMessage(tempLoc.X, tempLoc.Y));
+                        Program.serverManager.SendMessage(new ShootMessage(tempLoc.X, tempLoc.Y));
                         draw.FixImage();
                         map.AddPoint(tempLoc);
-                        Turn = false;
                     }
                 }
             }

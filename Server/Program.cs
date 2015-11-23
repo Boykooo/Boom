@@ -17,7 +17,7 @@ namespace Server
             IPAddress adress = Dns.GetHostEntry(Dns.GetHostName()).AddressList[0];
             IPEndPoint endPoint = new IPEndPoint(adress, 8888);
 
-            Console.WriteLine(adress.ToString());
+            Console.WriteLine(adress.MapToIPv4().ToString());
 
             ConnectManager cnm = new ConnectManager(adress, endPoint);
 

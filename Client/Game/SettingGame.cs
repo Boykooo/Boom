@@ -12,11 +12,9 @@ namespace Client.Game
     public class SettingGame : IMauseAction
     {
         public IForm form { get; set; }
-        public ServerManager srv { get; set; }
-        RegForm reg;
         Paint draw;
         public StructMap map;
-        public SettingGame(int wh, int ht, GameForm gameForm)
+        public SettingGame(int wh, int ht, IForm gameForm)
         {
             draw = new Paint(wh, ht);
             StructMap.BlockSize = 30;
@@ -24,12 +22,7 @@ namespace Client.Game
             form = gameForm;
             ship1 = ship2 = ship3 = ship4 = 0;
         }
-        public void Registration()
-        {
-            reg = new RegForm();
-            reg.ShowDialog();
-            srv = reg.Srv;
-        }
+
         public Bitmap GetGrid()
         {
             return draw.grid;
@@ -41,12 +34,7 @@ namespace Client.Game
         }
         public void NewGame()
         {
-            Program.state = ClientState.Waiting;
-            srv.SendMessage(new SearchMessage(new GameField(map.ships)));
-        }
-        public void InitGameForm(GameForm g)
-        {
-            srv.InitializeGameForm(g);
+            Program.SendGame(new SearchMessage(new GameField(map.ships)));
         }
 
         int ship1, ship2, ship3, ship4;

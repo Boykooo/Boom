@@ -15,7 +15,6 @@ namespace Client
 {
     public partial class RegForm : Form
     {
-        public ServerManager Srv { get; set; }
         public string Nick { get; set; }
         public RegForm()
         {
@@ -31,17 +30,20 @@ namespace Client
             {
                 try
                 {
-                    int port = 8888;
-                    IPHostEntry host = Dns.GetHostEntry( IPAddress.Parse(maskedTextBox1.Text));
-                    IPAddress adress = host.AddressList[0];
-                    Srv = new ServerManager(this, adress, port);
-                    Srv.SendMessage(new RegistrationMessage(NickName.Text));
-                    Program.state = ClientState.Online;
+                    Program.TryConnect(maskedTextBox1.Text, NickName.Text);
                 }
                 catch(Exception exc)
                 {
 
                 }
+            }
+        }
+
+        private void RegForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (Program.state == ClientState.Offline)
+            {
+                Application.Exit();
             }
         }
     }

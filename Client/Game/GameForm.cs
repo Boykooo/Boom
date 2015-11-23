@@ -12,11 +12,11 @@ namespace Client.Game
 {
     public partial class GameForm : Form, IForm
     {
-        private bool turn;
+        bool turn;
         public bool Turn
         {
             get { return turn; }
-            set 
+            set
             {
                 Action<Label, string> safe = (x, y) => x.Text = y;
                 turn = value;
@@ -25,6 +25,7 @@ namespace Client.Game
                 label1.Invoke(safe, label1, msg);
             }
         }
+        
         public RadioButton OneShip { get; set; }
 
         public RadioButton TwoShip { get; set; }
@@ -32,17 +33,18 @@ namespace Client.Game
         public RadioButton ThreeShip { get; set; }
 
         public RadioButton FourShip { get; set; }
-        public bool Connect { get; set; }
+        public bool Connect { get { return Program.state == ClientState.Gaming; } }
         SettingGame actSet;
         ActGame actGame;
-        public GameForm()
+        public GameForm(Form form)
         {
             InitializeComponent();
             RadioInit();
             actSet = new SettingGame(pictureBox1.Width, pictureBox1.Height, this);
-            actSet.Registration();
-            actSet.InitGameForm(this);
+            //actSet.InitGameForm(this);
             pictureBox1.Image = actSet.GetGrid();
+
+            form.ShowDialog();
         }
         void RadioInit()
         {
@@ -116,7 +118,7 @@ namespace Client.Game
         }
         private void начатьИгруToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            actGame = new ActGame(this, pictureBox2.Width, pictureBox2.Height, actSet.map, actSet.srv);
+            actGame = new ActGame(this, pictureBox2.Width, pictureBox2.Height, actSet.map);
             pictureBox2.Image = actGame.GetGrid();
             actSet.NewGame();
         }
@@ -147,6 +149,12 @@ namespace Client.Game
         public void InvalidateEnemy()
         {
             pictureBox2.Image = actGame.GetImageEnemy();
+        }
+
+        public void ReDraw(GameField your, GameField enemy, bool turn)
+        {
+            actGame.ReDraw(your, enemy);
+            Turn = turn;
         }
     }
 }
