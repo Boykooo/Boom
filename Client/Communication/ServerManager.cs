@@ -23,7 +23,7 @@ public class ServerManager
     public void Start(IPAddress ip, int port)
     {
         IPEndPoint end = new IPEndPoint(ip, port);
-        socket = new Socket(ip.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+        socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         socket.Connect(end);
     }
 

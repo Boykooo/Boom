@@ -36,8 +36,8 @@ namespace Client
         public static void TryConnect(string ip, string nick)
         {
             int port = 8888;
-            IPHostEntry host = Dns.GetHostEntry(IPAddress.Parse(ip));
-            IPAddress adress = host.AddressList[0];
+            
+            IPAddress adress = IPAddress.Parse(ip);
 
             serverManager.Start(adress, port);
             serverManager.SendMessage(new RegistrationMessage(nick));

@@ -14,8 +14,8 @@ namespace Server
             //IPHostEntry host = Dns.GetHostEntry("192.168.1.1");
             //IPAddress adress = host.AddressList[0];
 
-            IPAddress adress = Dns.GetHostEntry(Dns.GetHostName()).AddressList[0];
-            IPEndPoint endPoint = new IPEndPoint(adress, 8888);
+            IPAddress adress = Dns.GetHostEntry("localhost").AddressList[0];
+            IPEndPoint endPoint = new IPEndPoint(IPAddress.Any, 8888); //!!!
 
             Console.WriteLine(adress.MapToIPv4().ToString());
 

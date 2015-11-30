@@ -16,7 +16,7 @@ namespace Server
         public ConnectManager(IPAddress ipAdress, IPEndPoint endPoint)
         {
 
-            this.ipAdress = ipAdress;
+            //this.ipAdress = ipAdress;
             this.endPoint = endPoint;
         }
         private IPAddress ipAdress;
@@ -34,8 +34,9 @@ namespace Server
         {
 
 
-            TcpListener mainSocket = new TcpListener(endPoint);
-            mainSocket.Start();
+            Socket mainSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            mainSocket.Bind(endPoint);
+            mainSocket.Listen(10);
             try
             {
                 //mainSocket.Bind(endPoint);
@@ -44,7 +45,7 @@ namespace Server
                 while (true)
                 {
 
-                    Socket newClient = mainSocket.AcceptSocket();
+                    Socket newClient = mainSocket.Accept();
                     BigStaticClass.logger.Log("Подключено");
 
                     BigStaticClass.Registration(newClient);
