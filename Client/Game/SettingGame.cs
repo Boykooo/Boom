@@ -46,36 +46,41 @@ namespace Client.Game
             var location = new Point(e.Location.X / StructMap.BlockSize, e.Location.Y / StructMap.BlockSize);
             if (location.X < 10 && location.Y < 10)
             {
-                if (form.OneShip.Checked && ship1 < 4 && map.CheckLocation(location, horizon, 1))
+                if (form.OneShip.Checked && ship1 < 4)
                 {
-                    draw.Ship(location, 1, horizon);
-                    fixMap = true;
-                    tempLoc = location;
-                    form.InvalidateYou();
+                    Move(location, 1);
                 }
-                if (form.TwoShip.Checked && ship2 < 3 && map.CheckLocation(location, horizon, 2))
+                if (form.TwoShip.Checked && ship2 < 3)
                 {
-                    draw.Ship(location, 2, horizon);
-                    fixMap = true;
-                    tempLoc = location;
-                    form.InvalidateYou();
-
+                    Move(location, 2);
                 }
-                if (form.ThreeShip.Checked && ship3 < 2 && map.CheckLocation(location, horizon, 3))
+                if (form.ThreeShip.Checked && ship3 < 2)
                 {
-                    draw.Ship(location, 3, horizon);
-                    fixMap = true;
-                    tempLoc = location;
-                    form.InvalidateYou();
-
+                    Move(location, 3);
                 }
-                if (form.FourShip.Checked && ship4 == 0 && map.CheckLocation(location, horizon, 4))
+                if (form.FourShip.Checked && ship4 == 0)
                 {
-                    draw.Ship(location, 4, horizon);
-                    fixMap = true;
+                    Move(location, 4);
+                }
+            }
+        }
+        void Move(Point location, int size)
+        {
+            if (map.CheckLocation(location, horizon, size))
+            {
+                draw.Ship(location, size, horizon, true);
+                fixMap = true;
+                tempLoc = location;
+                form.InvalidateYou();
+            }
+            else
+            {
+                if (map.CheckLimit(location, horizon, size))
+                {
+                    draw.Ship(location, size, horizon, false);
+                    fixMap = false;
                     tempLoc = location;
                     form.InvalidateYou();
-
                 }
             }
         }

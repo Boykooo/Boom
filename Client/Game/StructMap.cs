@@ -40,6 +40,27 @@ namespace Client
             }
             return false;
         }
+        public bool CheckLimit(Point location, bool horizont, int size)
+        {
+            switch (horizont)
+            {
+                case true:
+                    for (int i = 0; i < size; i++)
+                    {
+                        if ((location.X + i > 9))
+                            return false;
+                    }
+                    return true;
+                case false:
+                    for (int i = 0; i < size; i++)
+                    {
+                        if ((location.Y + i > 9))
+                            return false;
+                    }
+                    return true;
+            }
+            return false;
+        }
         private bool CheckRegion(Point location)
         {
             bool before = ((location.Y == 0 || location.X == 0) || location.Y - 1 >= 0 && location.X - 1 >= 0 && Map[location.X - 1, location.Y - 1] == 0) && (location.X == 0 || location.X - 1 >= 0 && Map[location.X - 1, location.Y] == 0) && ((location.X == 0 || location.Y == 9) || location.Y + 1 < 10 && location.X - 1 >= 0 && Map[location.X - 1, location.Y + 1] == 0);

@@ -60,16 +60,18 @@ namespace Client
             }
         }
 
-        public void Ship(Point location, int size, bool hor)
+        public void Ship(Point location, int size, bool hor, bool loc)
         {
-            DrawShip(location, size, hor);
+            DrawShip(location, size, hor, loc);
         }
-        private void DrawShip(Point location, int size, bool hor)
+        private void DrawShip(Point location, int size, bool hor, bool loc)
         {
             lock (lck)
             {
                 using (Graphics g = Graphics.FromImage(TempBitmapYours))
                 {
+                    Color c = loc ? Color.Red : Color.Blue;
+                    Brush b = new SolidBrush(c);
                     g.Clear(Color.White);
 
                     g.DrawImage(grid, 0, 0);
@@ -79,14 +81,14 @@ namespace Client
                     {
                         for (int i = 0, j = 0; i < size; i++, j += StructMap.BlockSize)
                         {
-                            g.FillRectangle(Brushes.Red, location.X * StructMap.BlockSize + 1 + j, location.Y * StructMap.BlockSize + 1, StructMap.BlockSize - 1, StructMap.BlockSize - 1);
+                            g.FillRectangle(b, location.X * StructMap.BlockSize + 1 + j, location.Y * StructMap.BlockSize + 1, StructMap.BlockSize - 1, StructMap.BlockSize - 1);
                         }
                     }
                     else
                     {
                         for (int i = 0, j = 0; i < size; i++, j += StructMap.BlockSize)
                         {
-                            g.FillRectangle(Brushes.Red, location.X * StructMap.BlockSize + 1, location.Y * StructMap.BlockSize + 1 + j, StructMap.BlockSize - 1, StructMap.BlockSize - 1);
+                            g.FillRectangle(b, location.X * StructMap.BlockSize + 1, location.Y * StructMap.BlockSize + 1 + j, StructMap.BlockSize - 1, StructMap.BlockSize - 1);
                         }
                     }
 
