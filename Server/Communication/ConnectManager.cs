@@ -35,13 +35,10 @@ namespace Server
 
 
             Socket mainSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            mainSocket.Bind(endPoint);
-            mainSocket.Listen(10);
             try
             {
-                //mainSocket.Bind(endPoint);
-                //mainSocket.Listen(10);
-
+                mainSocket.Bind(endPoint);
+                mainSocket.Listen(10);
                 while (true)
                 {
 

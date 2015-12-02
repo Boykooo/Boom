@@ -40,15 +40,23 @@ namespace Server
             catch (Exception e)
             {
                 BigStaticClass.logger.Log(e.ToString());
+               
             }
         }
         public void Listen()
         {
-            byte[] tmp = new byte[1000000];
-            while (true)
+            try
             {
-                int i = socket.Receive(tmp);
-                Parse(tmp.Take(i).ToArray());
+                byte[] tmp = new byte[1000000];
+                while (true)
+                {
+                    int i = socket.Receive(tmp);
+                    Parse(tmp.Take(i).ToArray());
+                }
+            }
+            catch
+            {
+                BigStaticClass.Disconnect(this);
             }
         }
         void Parse(byte[] bytes)
@@ -71,8 +79,6 @@ namespace Server
                     if (Step != null)
                         Step(m);
                     break;
-
-
 
             }
         }

@@ -50,6 +50,10 @@ namespace Server
         {
 
         }
+        public static void Disconnect(Client client)
+        {
+            clients.Remove(client);
+        }
 
     }
 
