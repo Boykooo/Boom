@@ -28,7 +28,6 @@ namespace Server
             task.Start();
 
         }
-
         public static void TryCreateGame()
         {
             List<Client> tmp = clients.Where(x => x.search).ToList();
@@ -45,7 +44,6 @@ namespace Server
                 }
             }
         }
-
         static void StartGame(int i)
         {
 
@@ -53,6 +51,10 @@ namespace Server
         public static void Disconnect(Client client)
         {
             clients.Remove(client);
+        }
+        public static void GameOver(Game game)
+        {
+            games.Remove(game);
         }
 
     }

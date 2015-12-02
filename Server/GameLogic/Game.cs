@@ -43,7 +43,7 @@ namespace Server
             Gamer first = gamers.First(x => x.client.Id != shoot.Id);
             Gamer second = gamers.First(x => x.client.Id == shoot.Id);
 
-            BigStaticClass.logger.Log("Игрок " + second.client.nick + "сделал ход по координатам " + shoot.x.ToString() + " " + shoot.y.ToString());
+            BigStaticClass.logger.Log("Игрок " + second.client.nick + " сделал ход по координатам " + shoot.x.ToString() + " " + shoot.y.ToString());
             if (second.turn)
             {
 
@@ -51,11 +51,6 @@ namespace Server
                 first.turn = !second.turn;
                 if (second.turn && first.client.gameField.IsGameOver())
                 {
-                    for (int i = 0; i < gamers.Length; i++)
-                    {
-                        gamers[i].client.Send(new EndOfGameMessage(gamers[i].turn));
-                    }
-
                     GameOver();
                 }
 
@@ -98,7 +93,18 @@ namespace Server
         }
         void GameOver()
         {
+            
+            for (int i = 0; i < gamers.Length; i++)
+            {
+                gamers[i].client.Send(new EndOfGameMessage(gamers[i].turn));
+            }
 
+            BigStaticClass.logger.Log(
+                "Игрок " + gamers.First(x=> x.turn).client.nick 
+              + " одержал победу над игроком " + gamers.First( x=> !x.turn).client.nick
+              );
+
+            BigStaticClass.GameOver(this);
         }
     }
 
