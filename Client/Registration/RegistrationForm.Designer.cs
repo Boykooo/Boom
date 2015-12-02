@@ -31,7 +31,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.NickName = new System.Windows.Forms.TextBox();
             this.EndRegistration = new System.Windows.Forms.Button();
-            this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -63,20 +63,20 @@
             this.EndRegistration.UseVisualStyleBackColor = true;
             this.EndRegistration.Click += new System.EventHandler(this.EndRegistration_Click);
             // 
-            // maskedTextBox1
+            // textBox1
             // 
-            this.maskedTextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.maskedTextBox1.Location = new System.Drawing.Point(26, 79);
-            this.maskedTextBox1.Name = "maskedTextBox1";
-            this.maskedTextBox1.Size = new System.Drawing.Size(158, 26);
-            this.maskedTextBox1.TabIndex = 3;
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBox1.Location = new System.Drawing.Point(26, 76);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(158, 26);
+            this.textBox1.TabIndex = 3;
             // 
             // RegForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(270, 117);
-            this.Controls.Add(this.maskedTextBox1);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.EndRegistration);
             this.Controls.Add(this.NickName);
             this.Controls.Add(this.label1);
@@ -94,6 +94,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox NickName;
         private System.Windows.Forms.Button EndRegistration;
-        private System.Windows.Forms.MaskedTextBox maskedTextBox1;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }

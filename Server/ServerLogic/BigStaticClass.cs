@@ -51,6 +51,8 @@ namespace Server
         public static void Disconnect(Client client)
         {
             clients.Remove(client);
+
+            logger.Log(client.nick + " вышел");
         }
         public static void GameOver(Game game)
         {

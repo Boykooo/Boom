@@ -30,7 +30,7 @@ namespace Client
             {
                 try
                 {
-                    Program.TryConnect(maskedTextBox1.Text, NickName.Text);
+                    Program.TryConnect(textBox1.Text, NickName.Text);
                 }
                 catch(Exception exc)
                 {

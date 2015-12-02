@@ -68,6 +68,7 @@ namespace Server
               
                 case "RegistrationMessage":
                     this.nick = (m as RegistrationMessage).nick;
+                    BigStaticClass.logger.Log(nick + " вошел");
                     Send(new RegistrationResultMessage(this.Id));
                     break;
                 case "SearchMessage":

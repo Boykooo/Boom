@@ -20,7 +20,7 @@ namespace Client.Game
             {
                 Action<Label, string> safe = (x, y) => x.Text = y;
                 turn = value;
-                string msg = turn ? "Ваш ход" : "Ход противника!";
+                string msg = turn ? "Ваш ход" : "Ход противника";
 
                 label1.Invoke(safe, label1, msg);
             }
@@ -137,7 +137,11 @@ namespace Client.Game
             if (!Connect)
                 pictureBox1.Image = actSet.GetImageTemp();
             else
-                pictureBox1.Image = actGame.GetImageYours();
+            {
+               // pictureBox1.Image = actGame.GetImageYours();
+
+                pictureBox1.Invoke(safeImageSet, pictureBox1, actGame.GetImageYours());
+            }
         }
         private void pictureBox2_MouseClick(object sender, MouseEventArgs e)
         {
@@ -148,7 +152,9 @@ namespace Client.Game
         }
         public void InvalidateEnemy()
         {
-            pictureBox2.Image = actGame.GetImageEnemy();
+           // pictureBox2.Image = actGame.GetImageEnemy();
+
+            pictureBox2.Invoke(safeImageSet, pictureBox2, actGame.GetImageEnemy());
         }
 
         public void ReDraw(GameField your, GameField enemy, bool turn)
@@ -156,5 +162,7 @@ namespace Client.Game
             actGame.ReDraw(your, enemy);
             Turn = turn;
         }
+
+        Action<PictureBox, Bitmap> safeImageSet = (p, i) => { p.Image = i; };
     }
 }

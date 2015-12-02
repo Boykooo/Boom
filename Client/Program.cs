@@ -36,7 +36,7 @@ namespace Client
         public static void TryConnect(string ip, string nick)
         {
             int port = 8888;
-            
+
             IPAddress adress = IPAddress.Parse(ip);
 
             serverManager.Start(adress, port);
