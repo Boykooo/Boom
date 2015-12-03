@@ -116,5 +116,11 @@ namespace Client
         {
             point[location.X, location.Y] = CellType.Point;
         }
+        public void ClearMap()
+        {
+            Map = new int[10, 10];
+            ships.Clear();
+            point = new CellType[10, 10];
+        }
     }
 }

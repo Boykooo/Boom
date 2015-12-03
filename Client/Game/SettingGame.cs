@@ -29,7 +29,8 @@ namespace Client.Game
         }
         public void Clear()
         {
-            map.Map = new int[10, 10];
+            map.ClearMap();
+            draw.Clear();
             ship1 = ship2 = ship3 = ship4 = 0;
         }
         public void NewGame()

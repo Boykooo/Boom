@@ -25,7 +25,6 @@ namespace Client.Game
                 label1.Invoke(safe, label1, msg);
             }
         }
-        
         public RadioButton OneShip { get; set; }
 
         public RadioButton TwoShip { get; set; }
@@ -34,8 +33,8 @@ namespace Client.Game
 
         public RadioButton FourShip { get; set; }
         public bool Connect { get { return Program.state == ClientState.Gaming; } }
-        SettingGame actSet;
-        ActGame actGame;
+        private SettingGame actSet;
+        private ActGame actGame;
         public GameForm(Form form)
         {
             InitializeComponent();
@@ -46,8 +45,17 @@ namespace Client.Game
 
             form.ShowDialog();
         }
-        void RadioInit()
+        private void RadioInit()
         {
+            //OneShip = new RadioButton();
+            //TwoShip = new RadioButton();
+            //ThreeShip = new RadioButton();
+            //FourShip = new RadioButton();
+            //CreateRadio(OneShip, new System.Drawing.Point(14, 213), "OneShip", "1 палуба");
+            //CreateRadio(TwoShip, new System.Drawing.Point(14, 236), "TwoShip", "2 палубы");
+            //CreateRadio(ThreeShip, new System.Drawing.Point(14, 259), "ThreeShip", "3 палубы");
+            //CreateRadio(FourShip, new System.Drawing.Point(14, 282), "FourShip", "4 палубы");
+
             // 
             // OneShip
             // 
@@ -101,14 +109,32 @@ namespace Client.Game
             this.Controls.Add(this.ThreeShip);
             this.Controls.Add(this.TwoShip);
             this.Controls.Add(this.OneShip);
+
+        }
+        private void CreateRadio(RadioButton radio, Point location, string name, string text)
+        {
+            radio.AutoSize = true;
+            radio.Location = location;
+            radio.Name = name;
+            radio.Size = new System.Drawing.Size(69, 17);
+            radio.Text = text;
+            radio.TabStop = true;
+            radio.UseVisualStyleBackColor = true;
+            this.Controls.Add(radio);
         }
         private void pictureBox1_MouseClick(object sender, MouseEventArgs e)
         {
-            actSet.MouseClick(sender, e);
+            if (Program.state == ClientState.Online)
+            {
+                actSet.MouseClick(sender, e);
+            }
         }
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
-            actSet.MouseMove(sender, e);
+            if (Program.state == ClientState.Online)
+            {
+                actSet.MouseMove(sender, e);
+            }
         }
         private void ClearButton_Click(object sender, EventArgs e)
         {
@@ -118,6 +144,7 @@ namespace Client.Game
         }
         private void начатьИгруToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            ClearButton.Enabled = OneShip.Enabled = TwoShip.Enabled = ThreeShip.Enabled = FourShip.Enabled = false;
             actGame = new ActGame(this, pictureBox2.Width, pictureBox2.Height, actSet.map);
             pictureBox2.Image = actGame.GetGrid();
             actSet.NewGame();
@@ -156,7 +183,6 @@ namespace Client.Game
 
             pictureBox2.Invoke(safeImageSet, pictureBox2, actGame.GetImageEnemy());
         }
-
         public void ReDraw(GameField your, GameField enemy, bool turn)
         {
             actGame.ReDraw(your, enemy);

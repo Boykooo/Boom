@@ -50,7 +50,6 @@ namespace Client
             }
             //g.Dispose();
         }
-
         public void FixImage()
         {
             using (Graphics g = Graphics.FromImage(MainBitmapYours))
@@ -59,7 +58,6 @@ namespace Client
                 g.DrawImage(TempBitmapYours, 0, 0);
             }
         }
-
         public void Ship(Point location, int size, bool hor, bool loc)
         {
             DrawShip(location, size, hor, loc);
@@ -170,6 +168,15 @@ namespace Client
                 {
 
                 }
+            }
+        }
+        public void Clear()
+        {
+            using (Graphics g = Graphics.FromImage(MainBitmapYours))
+            {
+                g.Clear(Color.White);
+                g.DrawImage(grid, new Point(0, 0));
+
             }
         }
     }

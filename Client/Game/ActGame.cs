@@ -22,7 +22,6 @@ namespace Client.Game
             draw = new Paint(wh, ht);
             map = sMap;
         }
-
         public Bitmap GetGrid()
         {
             return draw.grid;
@@ -35,7 +34,6 @@ namespace Client.Game
         {
             return draw.TempBitmapEnemy;
         }
-
         public void MouseMove(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             if (Turn)
