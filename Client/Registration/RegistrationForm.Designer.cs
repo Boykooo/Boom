@@ -82,7 +82,6 @@
             this.Controls.Add(this.label1);
             this.Name = "RegForm";
             this.Text = "RegistrationForm";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.RegForm_FormClosing);
             this.Load += new System.EventHandler(this.RegistrationForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

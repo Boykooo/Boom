@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using Client.Game;
 using Project2;
 using System.Net;
+using System.Threading;
 
 namespace Client
 {
@@ -26,12 +27,11 @@ namespace Client
             state = ClientState.Offline;
             serverManager = new ServerManager();
             regForm = new RegForm();
-            gameForm = new GameForm(regForm);
+            gameForm = new GameForm();
+            var i = gameForm.Handle;
+            Context = new ApplicationContext(regForm);
+            Application.Run(Context);
 
-            Application.Run(gameForm);
-            
-
-            //Application.Run(new GameForm());
         }
         public static void TryConnect(string ip, string nick)
         {
@@ -45,13 +45,17 @@ namespace Client
         public static void Connected()
         {
             state = ClientState.Online;
-            //gameForm.Show();
-
-            regForm.Invoke(new Action<RegForm>(x => x.Close()), regForm);
+            gameForm.Invoke(new Action<Form>(x => x.Show()), gameForm);
+            Context.MainForm = gameForm;
+            regForm.Invoke(new Action<Form>(x => x.Hide()), regForm);         
         }
         public static void Disconnected()
         {
             state = ClientState.Offline;
+            var old = Context.MainForm;
+            Context.MainForm = regForm;
+            Context.MainForm.Invoke(new Action<Form>(x => x.Show()), regForm);
+            old.Invoke(new Action<Form>(x => x.Hide()), old);
         }
         public static void SendGame(SearchMessage message)
         {
@@ -74,5 +78,6 @@ namespace Client
         static GameForm gameForm;
         public static ClientState state;
         public static ServerManager serverManager { get; private set; }
+        public static ApplicationContext Context;
     }
 }
