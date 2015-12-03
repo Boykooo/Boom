@@ -28,8 +28,11 @@ namespace Client
             serverManager = new ServerManager();
             regForm = new RegForm();
             gameForm = new GameForm();
-            var i = gameForm.Handle;
+            gameController = new GameController();
+
+            var i = gameForm.Handle;         
             Context = new ApplicationContext(regForm);
+
             Application.Run(Context);
 
         }
@@ -47,7 +50,9 @@ namespace Client
             state = ClientState.Online;
             gameForm.Invoke(new Action<Form>(x => x.Show()), gameForm);
             Context.MainForm = gameForm;
-            regForm.Invoke(new Action<Form>(x => x.Hide()), regForm);         
+            regForm.Invoke(new Action<Form>(x => x.Hide()), regForm);      
+   
+            //присоединить контроллер создания
         }
         public static void Disconnected()
         {
@@ -67,15 +72,22 @@ namespace Client
         {
             state = ClientState.Gaming;
 
-            gameForm.ReDraw(message.you, message.enemy, message.turn);
+            //gameForm.ReDraw(message.you, message.enemy, message.turn);
+
+            //отсоединить контроллер создания
+            gameController.Attach(gameForm);
+            gameController.NewField(message.you, message.enemy, message.turn);
         }
         public static void NewGameMessage(FieldStateMessage message)
         {
-            gameForm.ReDraw(message.you, message.enemy, message.turn);
+            //gameForm.ReDraw(message.you, message.enemy, message.turn);
+
+            gameController.NewField(message.you, message.enemy, message.turn);
         }
 
         static RegForm regForm;
         static GameForm gameForm;
+        static GameController gameController;
         public static ClientState state;
         public static ServerManager serverManager { get; private set; }
         public static ApplicationContext Context;
