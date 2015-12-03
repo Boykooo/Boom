@@ -1,0 +1,26 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace Client.Game
+{
+    enum ShipCount
+    {
+        One, Two, Three, Four
+    }
+    interface IMainGameForm
+    {
+        ShipCount Ships { get; }
+        PictureBox YoursBox { get; set; }
+        PictureBox EnemyBox { get; set; }
+
+        event Action<object, MouseEventArgs> yoursBoxClick;
+        event Action<object, MouseEventArgs> enemyBoxClick;
+
+        event Action StartGame;
+        event Action ClearField;
+    }
+}

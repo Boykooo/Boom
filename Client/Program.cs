@@ -81,19 +81,6 @@ namespace Client
         public static ApplicationContext Context;
     }
 
-    enum ShipCount
-    {
-        One, Two, Three, Four
-    }
-    interface IMainGameForm
-    {
-        ShipCount Ships { get; }
-        PictureBox yoursBox { get; set; }
-        PictureBox enemyBox { get; set; }
-
-        event Action<object, MouseEventArgs> yoursBoxClick;
-        event Action<object, MouseEventArgs> enemyBoxClick;
-        event Action StartGame;
-        event Action ClearField;
-    }
+   
+    
 }

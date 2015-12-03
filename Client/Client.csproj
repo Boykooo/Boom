@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Game\ActGame.cs" />
+    <Compile Include="Game\IMainGameForm.cs" />
     <Compile Include="Game\SettingGame.cs" />
     <Compile Include="Game\IForm.cs" />
     <Compile Include="Game\IMauseAction.cs" />

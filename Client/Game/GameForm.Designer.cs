@@ -35,9 +35,15 @@
             this.начатьИгруToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ClearButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.OneShip = new System.Windows.Forms.RadioButton();
+            this.TwoShip = new System.Windows.Forms.RadioButton();
+            this.ThreeShip = new System.Windows.Forms.RadioButton();
+            this.FourShip = new System.Windows.Forms.RadioButton();
+            this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.menuStrip1.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -104,11 +110,67 @@
             this.label1.Size = new System.Drawing.Size(0, 18);
             this.label1.TabIndex = 13;
             // 
+            // OneShip
+            // 
+            this.OneShip.AutoSize = true;
+            this.OneShip.Location = new System.Drawing.Point(3, 3);
+            this.OneShip.Name = "OneShip";
+            this.OneShip.Size = new System.Drawing.Size(85, 17);
+            this.OneShip.TabIndex = 14;
+            this.OneShip.TabStop = true;
+            this.OneShip.Text = "radioButton1";
+            this.OneShip.UseVisualStyleBackColor = true;
+            // 
+            // TwoShip
+            // 
+            this.TwoShip.AutoSize = true;
+            this.TwoShip.Location = new System.Drawing.Point(3, 26);
+            this.TwoShip.Name = "TwoShip";
+            this.TwoShip.Size = new System.Drawing.Size(85, 17);
+            this.TwoShip.TabIndex = 15;
+            this.TwoShip.TabStop = true;
+            this.TwoShip.Text = "radioButton2";
+            this.TwoShip.UseVisualStyleBackColor = true;
+            // 
+            // ThreeShip
+            // 
+            this.ThreeShip.AutoSize = true;
+            this.ThreeShip.Location = new System.Drawing.Point(3, 49);
+            this.ThreeShip.Name = "ThreeShip";
+            this.ThreeShip.Size = new System.Drawing.Size(85, 17);
+            this.ThreeShip.TabIndex = 16;
+            this.ThreeShip.TabStop = true;
+            this.ThreeShip.Text = "radioButton3";
+            this.ThreeShip.UseVisualStyleBackColor = true;
+            // 
+            // FourShip
+            // 
+            this.FourShip.AutoSize = true;
+            this.FourShip.Location = new System.Drawing.Point(3, 72);
+            this.FourShip.Name = "FourShip";
+            this.FourShip.Size = new System.Drawing.Size(85, 17);
+            this.FourShip.TabIndex = 17;
+            this.FourShip.TabStop = true;
+            this.FourShip.Text = "radioButton4";
+            this.FourShip.UseVisualStyleBackColor = true;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.OneShip);
+            this.panel1.Controls.Add(this.FourShip);
+            this.panel1.Controls.Add(this.TwoShip);
+            this.panel1.Controls.Add(this.ThreeShip);
+            this.panel1.Location = new System.Drawing.Point(12, 148);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(91, 104);
+            this.panel1.TabIndex = 18;
+            // 
             // GameForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(847, 358);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.ClearButton);
             this.Controls.Add(this.pictureBox2);
@@ -121,6 +183,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -135,6 +199,11 @@
         private System.Windows.Forms.ToolStripMenuItem начатьИгруToolStripMenuItem;
         private System.Windows.Forms.Button ClearButton;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.RadioButton OneShip;
+        private System.Windows.Forms.RadioButton TwoShip;
+        private System.Windows.Forms.RadioButton ThreeShip;
+        private System.Windows.Forms.RadioButton FourShip;
+        private System.Windows.Forms.Panel panel1;
     }
 }
 
