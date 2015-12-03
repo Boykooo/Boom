@@ -35,15 +35,13 @@ namespace Client.Game
         public bool Connect { get { return Program.state == ClientState.Gaming; } }
         private SettingGame actSet;
         private ActGame actGame;
-        public GameForm(Form form)
+        public GameForm()
         {
             InitializeComponent();
             RadioInit();
             actSet = new SettingGame(pictureBox1.Width, pictureBox1.Height, this);
             //actSet.InitGameForm(this);
             pictureBox1.Image = actSet.GetGrid();
-
-            form.ShowDialog();
         }
         private void RadioInit()
         {
