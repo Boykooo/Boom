@@ -40,6 +40,7 @@ namespace Client.Game
             form.yoursBoxClick -= MouseClick;
             form.StartGame -= NewGame;
             form.ClearField -= ClearField;
+
             this.form = null;
         }
         public Bitmap GetGrid()

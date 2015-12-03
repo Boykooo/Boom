@@ -55,6 +55,7 @@ namespace Client.Game
             form.EnemyBox.Image = p.TempBitmapEnemy;
 
             this.turn = turn;
+            form.MessageString = turn ? "Выш ход" : "Ход противника";
         }
         void EnemyMouseClick(object sender, MouseEventArgs args)
         {
@@ -72,13 +73,16 @@ namespace Client.Game
         }
         void EnemyMouseMove(object sender, MouseEventArgs args)
         {
-            var location = new Point(args.Location.X / StructMap.BlockSize, args.Location.Y / StructMap.BlockSize);
-            if (location.X < 10 && location.Y < 10)
+            if (turn)
             {
-                tempLoc = location;
-                p.Point(location);
+                var location = new Point(args.Location.X / StructMap.BlockSize, args.Location.Y / StructMap.BlockSize);
+                if (location.X < 10 && location.Y < 10)
+                {
+                    tempLoc = location;
+                    p.Point(location);
 
-                form.EnemyBox.Image = p.TempBitmapEnemy;
+                    form.EnemyBox.Image = p.TempBitmapEnemy;
+                }
             }
         }
     }
