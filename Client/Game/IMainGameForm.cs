@@ -16,6 +16,7 @@ namespace Client.Game
         ShipCount Ships { get; }
         PictureBox YoursBox { get; set; }
         PictureBox EnemyBox { get; set; }
+        string MessageString { get; set; }
 
         event Action<object, MouseEventArgs> yoursBoxClick;
         event Action<object, MouseEventArgs> EnemyBoxMouseClick;

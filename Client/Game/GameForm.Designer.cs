@@ -113,6 +113,7 @@
             // OneShip
             // 
             this.OneShip.AutoSize = true;
+            this.OneShip.Checked = true;
             this.OneShip.Location = new System.Drawing.Point(3, 3);
             this.OneShip.Name = "OneShip";
             this.OneShip.Size = new System.Drawing.Size(85, 17);
@@ -128,7 +129,6 @@
             this.TwoShip.Name = "TwoShip";
             this.TwoShip.Size = new System.Drawing.Size(85, 17);
             this.TwoShip.TabIndex = 15;
-            this.TwoShip.TabStop = true;
             this.TwoShip.Text = "radioButton2";
             this.TwoShip.UseVisualStyleBackColor = true;
             // 
@@ -139,7 +139,6 @@
             this.ThreeShip.Name = "ThreeShip";
             this.ThreeShip.Size = new System.Drawing.Size(85, 17);
             this.ThreeShip.TabIndex = 16;
-            this.ThreeShip.TabStop = true;
             this.ThreeShip.Text = "radioButton3";
             this.ThreeShip.UseVisualStyleBackColor = true;
             // 
@@ -150,7 +149,6 @@
             this.FourShip.Name = "FourShip";
             this.FourShip.Size = new System.Drawing.Size(85, 17);
             this.FourShip.TabIndex = 17;
-            this.FourShip.TabStop = true;
             this.FourShip.Text = "radioButton4";
             this.FourShip.UseVisualStyleBackColor = true;
             // 

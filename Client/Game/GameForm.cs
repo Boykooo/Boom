@@ -115,7 +115,24 @@ namespace Client.Game
         public event Action StartGame;
         public event Action ClearField;
 
-
-        
+        public string MessageString
+        {
+            get
+            {
+                return label1.Text;
+            }
+            set
+            {
+                if (label1.InvokeRequired)
+                {
+                    Action<Label, string> tmp = (x, y) => x.Text = y;
+                    label1.Invoke(tmp, label1, value);
+                }
+                else
+                {
+                    label1.Text = value;
+                }
+            }
+        }
     }
 }
