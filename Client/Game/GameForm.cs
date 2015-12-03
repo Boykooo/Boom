@@ -20,11 +20,17 @@ namespace Client.Game
 
         private void pictureBox1_MouseClick(object sender, MouseEventArgs e)
         {
-            yoursBoxClick(sender, e);
+            if (yoursBoxClick != null)
+            {
+                yoursBoxClick(sender, e);
+            }
         }
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
-            YoursBoxMouseMove(sender, e);
+            if (YoursBoxMouseMove != null)
+            {
+                YoursBoxMouseMove(sender, e);
+            }
         }
 
         private void ClearButton_Click(object sender, EventArgs e)
@@ -33,16 +39,23 @@ namespace Client.Game
         }
         private void начатьИгруToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            
             StartGame();
         }
 
         private void pictureBox2_MouseMove(object sender, MouseEventArgs e)
         {
+            if (EnemyBoxMouseMove != null)
+            {
             EnemyBoxMouseMove(sender, e);
+            }
         }
         private void pictureBox2_MouseClick(object sender, MouseEventArgs e)
         {
-            EnemyBoxMouseClick(sender, e);
+            if (EnemyBoxMouseClick != null)
+            {
+                EnemyBoxMouseClick(sender, e);
+            }
         }
        
 
@@ -75,22 +88,22 @@ namespace Client.Game
         {
             get
             {
-                return YoursBox;
+                return this.pictureBox1;
             }
             set
             {
-                YoursBox = value;
+                this.pictureBox1 = value;
             }
         }
         public PictureBox EnemyBox
         {
             get
             {
-                return EnemyBox;
+                return this.pictureBox2;
             }
             set
             {
-                EnemyBox = value;
+                this.pictureBox1 = value;
             }
         }
 
