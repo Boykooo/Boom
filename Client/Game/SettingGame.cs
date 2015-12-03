@@ -120,7 +120,7 @@ namespace Client.Game
                     map.FixMap(horizon, 3, tempLoc);
                     ship3++;
                 }
-                if (form.Ships == ShipCount.One && ship4 < 1)
+                if (form.Ships == ShipCount.Four && ship4 < 1)
                 {
                     map.FixMap(horizon, 4, tempLoc);
                     ship4++;
