@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net.Sockets;
 using Project2;
+using Client.Game;
 
 namespace Client
 {
@@ -39,12 +40,6 @@ namespace Client
             }
         }
 
-        private void RegForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (Program.state == ClientState.Offline)
-            {
-                Application.Exit();
-            }
-        }
+
     }
 }

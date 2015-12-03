@@ -117,7 +117,6 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "GameForm";
             this.Text = "Морской бой";
-            this.Load += new System.EventHandler(this.GameForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.menuStrip1.ResumeLayout(false);

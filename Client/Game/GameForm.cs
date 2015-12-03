@@ -36,7 +36,7 @@ namespace Client.Game
         public bool Connect { get { return Program.state == ClientState.Gaming; } }
         SettingGame actSet;
         ActGame actGame;
-        public GameForm(Form form)
+        public GameForm()
         {
             InitializeComponent();
             RadioInit();
@@ -44,7 +44,6 @@ namespace Client.Game
             //actSet.InitGameForm(this);
             pictureBox1.Image = actSet.GetGrid();
 
-            form.ShowDialog();
         }
         void RadioInit()
         {
@@ -128,9 +127,6 @@ namespace Client.Game
             {
                 actGame.MouseMove(sender, e);
             }
-        }
-        private void GameForm_Load(object sender, EventArgs e)
-        {
         }
         public void InvalidateYou()
         {
