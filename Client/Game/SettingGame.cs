@@ -18,16 +18,17 @@ namespace Client.Game
         private bool fixMap = false;
         private Point tempLoc;
         private IMainGameForm form;
-        public SettingGame(int wh, int ht, IForm gameForm)
+        public SettingGame()
         {
-            draw = new Paint(wh, ht);
-            StructMap.BlockSize = 30;
             map = new StructMap();
             ship1 = ship2 = ship3 = ship4 = 0;
         }
         public void Attach(IMainGameForm form)
         {
             this.form = form;
+
+            draw = new Paint(form.YoursBox.Width, form.YoursBox.Height);
+
             form.YoursBoxMouseMove += MouseMove;
             form.yoursBoxClick += MouseClick;
             form.StartGame += NewGame;

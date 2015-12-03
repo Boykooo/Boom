@@ -48,7 +48,6 @@
     <Compile Include="Game\GameController.cs" />
     <Compile Include="Game\IMainGameForm.cs" />
     <Compile Include="Game\SettingGame.cs" />
-    <Compile Include="Game\IForm.cs" />
     <Compile Include="Game\IMauseAction.cs" />
     <Compile Include="Registration\Check.cs" />
     <Compile Include="Game\GameForm.cs">

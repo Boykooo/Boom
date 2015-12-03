@@ -12,7 +12,7 @@ namespace Client
         public List<Ship> ships;
         public int[,] Map { get; set; }
         public CellType[,] point;
-        public static int BlockSize { get; set; }
+        public const int BlockSize = 30;
         public StructMap()
         {
             Map = new int[10, 10];

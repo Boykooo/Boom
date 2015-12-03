@@ -7,11 +7,11 @@ using System.Windows.Forms;
 
 namespace Client.Game
 {
-    enum ShipCount
+    public enum ShipCount
     {
         One, Two, Three, Four
     }
-    interface IMainGameForm
+    public interface IMainGameForm
     {
         ShipCount Ships { get; }
         PictureBox YoursBox { get; set; }

@@ -11,6 +11,5 @@ namespace Client.Game
     {
         void MouseMove(object sender, MouseEventArgs e);
         void MouseClick(object sender, MouseEventArgs e);
-        IForm form { get; set; }
     }
 }

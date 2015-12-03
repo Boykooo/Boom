@@ -1,6 +1,6 @@
 ﻿namespace Client.Game
 {
-    partial class GameForm : IForm
+    partial class GameForm : IMainGameForm
     {
         /// <summary>
         /// Требуется переменная конструктора.

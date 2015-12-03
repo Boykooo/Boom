@@ -11,14 +11,13 @@ namespace Client.Game
 {
     public class ActGame : IMauseAction
     {
-        public bool Turn { get { return form.Turn; }}
+        //public bool Turn { get { return form.Turn; }}
         StructMap map;
         Point tempLoc;
         Paint draw;
-        public IForm form { get; set; }
         public ActGame(GameForm gameForm, int wh, int ht, StructMap sMap)
         {
-            form = gameForm;
+          //  form = gameForm;
             draw = new Paint(wh, ht);
             map = sMap;
         }
@@ -36,41 +35,41 @@ namespace Client.Game
         }
         public void MouseMove(object sender, System.Windows.Forms.MouseEventArgs e)
         {
-            if (Turn)
-            {
-                var location = new Point(e.Location.X / StructMap.BlockSize, e.Location.Y / StructMap.BlockSize);
-                if (location.X < 10 && location.Y < 10)
-                {
-                    tempLoc = location;
-                    draw.Point(location);
+            //if (Turn)
+            //{
+            //    var location = new Point(e.Location.X / StructMap.BlockSize, e.Location.Y / StructMap.BlockSize);
+            //    if (location.X < 10 && location.Y < 10)
+            //    {
+            //        tempLoc = location;
+            //        draw.Point(location);
 
-                    form.InvalidateEnemy();
-                }
-            }
+            //        form.InvalidateEnemy();
+            //    }
+            //}
         }
         public void MouseClick(object sender, System.Windows.Forms.MouseEventArgs e)
         {
-            if (Turn)
-            {
-                if (e.Button == MouseButtons.Left)
-                {
-                    if (map.point[tempLoc.X, tempLoc.Y] == CellType.None)
-                    {
-                        Program.serverManager.SendMessage(new ShootMessage(tempLoc.X, tempLoc.Y));
-                        draw.FixImage();
-                        map.AddPoint(tempLoc);
-                    }
-                }
-            }
+            //if (Turn)
+            //{
+            //    if (e.Button == MouseButtons.Left)
+            //    {
+            //        if (map.point[tempLoc.X, tempLoc.Y] == CellType.None)
+            //        {
+            //            Program.serverManager.SendMessage(new ShootMessage(tempLoc.X, tempLoc.Y));
+            //            draw.FixImage();
+            //            map.AddPoint(tempLoc);
+            //        }
+            //    }
+            //}
         }
 
         public void ReDraw(GameField you, GameField enemy)
         {
-                draw.DrawField(you, you.field, true);
-                form.InvalidateYou();
+                //draw.DrawField(you, you.field, true);
+                //form.InvalidateYou();
 
-                draw.DrawField(enemy, enemy.field, false);
-                form.InvalidateEnemy();
+                //draw.DrawField(enemy, enemy.field, false);
+                //form.InvalidateEnemy();
         }
     }
 }
