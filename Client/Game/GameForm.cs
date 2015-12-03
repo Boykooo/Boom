@@ -149,9 +149,14 @@ namespace Client.Game
         }
 
         public event Action<object, MouseEventArgs> yoursBoxClick;
-        public event Action<object, MouseEventArgs> enemyBoxClick;
+        public event Action<object, MouseEventArgs> EnemyBoxMouseClick;
+        public event Action<object, MouseEventArgs> YoursBoxMouseMove;
+        public event Action<object, MouseEventArgs> EnemyBoxMouseMove;
 
         public event Action StartGame;
         public event Action ClearField;
+
+
+        
     }
 }
