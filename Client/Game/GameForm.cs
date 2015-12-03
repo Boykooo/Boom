@@ -66,7 +66,7 @@ namespace Client.Game
         }
         private void ClearButton_Click(object sender, EventArgs e)
         {
-            actSet.Clear();
+            actSet.ClearField();
             pictureBox1.Image = actSet.GetGrid();
             OneShip.Enabled = TwoShip.Enabled = ThreeShip.Enabled = FourShip.Enabled = true;
         }

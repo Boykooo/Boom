@@ -11,23 +11,41 @@ namespace Client.Game
 {
     public class SettingGame : IMauseAction
     {
-        public IForm form { get; set; }
-        Paint draw;
         public StructMap map;
+        private Paint draw;
+        private int ship1, ship2, ship3, ship4;
+        private bool horizon = true;
+        private bool fixMap = false;
+        private Point tempLoc;
+        private IMainGameForm form;
         public SettingGame(int wh, int ht, IForm gameForm)
         {
             draw = new Paint(wh, ht);
             StructMap.BlockSize = 30;
             map = new StructMap();
-            form = gameForm;
             ship1 = ship2 = ship3 = ship4 = 0;
         }
-
+        public void Attach(IMainGameForm form)
+        {
+            this.form = form;
+            form.YoursBoxMouseMove += MouseMove;
+            form.yoursBoxClick += MouseClick;
+            form.StartGame += NewGame;
+            form.ClearField += ClearField;
+        }
+        public void Detach()
+        {
+            form.YoursBoxMouseMove -= MouseMove;
+            form.yoursBoxClick -= MouseClick;
+            form.StartGame -= NewGame;
+            form.ClearField -= ClearField;
+            this.form = null;
+        }
         public Bitmap GetGrid()
         {
             return draw.grid;
         }
-        public void Clear()
+        public void ClearField()
         {
             map.ClearMap();
             draw.Clear();
@@ -37,29 +55,24 @@ namespace Client.Game
         {
             Program.SendGame(new SearchMessage(new GameField(map.ships)));
         }
-
-        int ship1, ship2, ship3, ship4;
-        bool horizon = true;
-        bool fixMap = false;
-        Point tempLoc;
         public void MouseMove(object sender, MouseEventArgs e)
         {
             var location = new Point(e.Location.X / StructMap.BlockSize, e.Location.Y / StructMap.BlockSize);
             if (location.X < 10 && location.Y < 10)
             {
-                if (form.OneShip.Checked && ship1 < 4)
+                if (form.Ships == ShipCount.One && ship1 < 4)
                 {
                     Move(location, 1);
                 }
-                if (form.TwoShip.Checked && ship2 < 3)
+                if (form.Ships == ShipCount.Two && ship2 < 3)
                 {
                     Move(location, 2);
                 }
-                if (form.ThreeShip.Checked && ship3 < 2)
+                if (form.Ships == ShipCount.Three && ship3 < 2)
                 {
                     Move(location, 3);
                 }
-                if (form.FourShip.Checked && ship4 == 0)
+                if (form.Ships == ShipCount.Four && ship4 == 0)
                 {
                     Move(location, 4);
                 }
@@ -72,7 +85,7 @@ namespace Client.Game
                 draw.Ship(location, size, horizon, true);
                 fixMap = true;
                 tempLoc = location;
-                form.InvalidateYou();
+                form.YoursBox.Image = GetImageTemp();
             }
             else
             {
@@ -81,7 +94,7 @@ namespace Client.Game
                     draw.Ship(location, size, horizon, false);
                     fixMap = false;
                     tempLoc = location;
-                    form.InvalidateYou();
+                    form.YoursBox.Image = GetImageTemp();
                 }
             }
         }
@@ -91,32 +104,25 @@ namespace Client.Game
             {
                 draw.FixImage();
 
-                if (form.OneShip.Checked)
+                if (form.Ships == ShipCount.One && ship1 < 4)
                 {
                     map.FixMap(horizon, 1, tempLoc);
                     ship1++;
-                    if (ship1 == 4)
-                        form.OneShip.Enabled = false;
                 }
-                if (form.TwoShip.Checked)
+                if (form.Ships == ShipCount.Two && ship2 < 3)
                 {
                     map.FixMap(horizon, 2, tempLoc);
                     ship2++;
-                    if (ship2 == 3)
-                        form.TwoShip.Enabled = false;
                 }
-                if (form.ThreeShip.Checked)
+                if (form.Ships == ShipCount.Three && ship3 < 2)
                 {
                     map.FixMap(horizon, 3, tempLoc);
                     ship3++;
-                    if (ship3 == 2)
-                        form.ThreeShip.Enabled = false;
                 }
-                if (form.FourShip.Checked)
+                if (form.Ships == ShipCount.One && ship4 < 1)
                 {
                     map.FixMap(horizon, 4, tempLoc);
                     ship4++;
-                    form.FourShip.Enabled = false;
                 }
                 fixMap = false;
             }
