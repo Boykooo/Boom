@@ -160,8 +160,7 @@ namespace Client
         {
             lock (lck)
             {
-                try
-                {
+
                     //TempBitmap = new Bitmap(MainBitmap);
                     using (Graphics g = Graphics.FromImage(TempBitmapEnemy))
                     {
@@ -172,34 +171,36 @@ namespace Client
                         g.FillEllipse(Brushes.Green, location.X * StructMap.BlockSize + 10, location.Y * StructMap.BlockSize + 10, 10, 10);
                     }
 
-                }
-                catch (Exception e)
-                {
-
-                }
+                
             }
         }
         public void DrawCell(Point location)
         {
-            using (Graphics g = Graphics.FromImage(TempBitmapYours))
+            lock (lck)
             {
+                using (Graphics g = Graphics.FromImage(TempBitmapYours))
+                {
 
-                g.FillEllipse
-                    (
-                    Brushes.Plum,
-                    location.X * StructMap.BlockSize + StructMap.BlockSize / 4, 
-                    location.Y * StructMap.BlockSize + StructMap.BlockSize / 4, 
-                    StructMap.BlockSize / 2, StructMap.BlockSize / 2
-                    );
+                    g.FillEllipse
+                        (
+                        Brushes.Plum,
+                        location.X * StructMap.BlockSize + StructMap.BlockSize / 4,
+                        location.Y * StructMap.BlockSize + StructMap.BlockSize / 4,
+                        StructMap.BlockSize / 2, StructMap.BlockSize / 2
+                        );
+                }
             }
         }
         public void Clear()
         {
-            using (Graphics g = Graphics.FromImage(MainBitmapYours))
+            lock (lck)
             {
-                g.Clear(Color.White);
-                g.DrawImage(grid, new Point(0, 0));
+                using (Graphics g = Graphics.FromImage(MainBitmapYours))
+                {
+                    g.Clear(Color.White);
+                    g.DrawImage(grid, new Point(0, 0));
 
+                }
             }
         }
     }
