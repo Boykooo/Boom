@@ -18,7 +18,7 @@ public class ServerManager
 
     public ServerManager()
     {
-        
+
     }
     public void Start(IPAddress ip, int port)
     {
@@ -85,5 +85,5 @@ public class ServerManager
         BinaryFormatter b = new BinaryFormatter();
 
         return (Messages)b.Deserialize(stream);
-    }  
+    }
 }
