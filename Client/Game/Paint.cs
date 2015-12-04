@@ -13,10 +13,31 @@ namespace Client
 
         public Bitmap grid;
         Bitmap MainBitmapYours;
-        public Bitmap TempBitmapYours { get; set; }
+        Bitmap tempBitmapYours;
+        public Bitmap TempBitmapYours
+        {
+            get
+            {
+                lock (lck)
+                {
+                    return tempBitmapYours;
+                }
+            }
+
+        }
 
         Bitmap MainBitmapEnemy;
-        public Bitmap TempBitmapEnemy { get; set; }
+        Bitmap tempBitmapEnemy;
+        public Bitmap TempBitmapEnemy
+        {
+            get
+            {
+                lock (lck)
+                {
+                    return tempBitmapEnemy;
+                }
+            }
+        }
         object lck = new object();
         // Graphics g;
         int wh, ht;
@@ -24,11 +45,11 @@ namespace Client
         {
             this.wh = wh;
             this.ht = ht;
-            TempBitmapYours = new Bitmap(wh, ht);
+            tempBitmapYours = new Bitmap(wh, ht);
             MainBitmapYours = new Bitmap(wh, ht);
 
             MainBitmapEnemy = new Bitmap(wh, ht);
-            TempBitmapEnemy = new Bitmap(wh, ht);
+            tempBitmapEnemy = new Bitmap(wh, ht);
 
             grid = new Bitmap(wh, ht);
             // g = Graphics.FromImage(TempBitmap);
@@ -37,7 +58,7 @@ namespace Client
         }
         public void DrawGrid()
         {
-            
+
             using (Graphics g = Graphics.FromImage(grid))
             {
                 //for (int i = 0; i < 300; i += 30)
@@ -50,8 +71,8 @@ namespace Client
 
                 for (int i = 0; i < 11; i++)
                 {
-                    g.DrawLine(Pens.Black, i * StructMap.BlockSize, 0, i * StructMap.BlockSize, StructMap.BlockSize*10);
-                    g.DrawLine(Pens.Black, 0, i * StructMap.BlockSize, StructMap.BlockSize*10, i * StructMap.BlockSize);
+                    g.DrawLine(Pens.Black, i * StructMap.BlockSize, 0, i * StructMap.BlockSize, StructMap.BlockSize * 10);
+                    g.DrawLine(Pens.Black, 0, i * StructMap.BlockSize, StructMap.BlockSize * 10, i * StructMap.BlockSize);
                 }
             }
             //g.Dispose();
@@ -63,7 +84,7 @@ namespace Client
                 using (Graphics g = Graphics.FromImage(MainBitmapYours))
                 {
                     g.Clear(Color.White);
-                    g.DrawImage(TempBitmapYours, 0, 0);
+                    g.DrawImage(tempBitmapYours, 0, 0);
                 }
             }
         }
@@ -75,7 +96,7 @@ namespace Client
         {
             lock (lck)
             {
-                using (Graphics g = Graphics.FromImage(TempBitmapYours))
+                using (Graphics g = Graphics.FromImage(tempBitmapYours))
                 {
                     Color c = loc ? Color.Red : Color.Blue;
                     Brush b = new SolidBrush(c);
@@ -107,7 +128,7 @@ namespace Client
         {
             lock (lck)
             {
-                Bitmap newBitmap = isYours ? TempBitmapYours : TempBitmapEnemy;
+                Bitmap newBitmap = isYours ? tempBitmapYours : tempBitmapEnemy;
 
                 Graphics g = Graphics.FromImage(newBitmap);
                 using (g)
@@ -154,31 +175,31 @@ namespace Client
                     tmp.DrawImage(newBitmap, 0, 0);
                 }
 
-           }
+            }
         }
         public void Point(Point location)
         {
             lock (lck)
             {
 
-                    //TempBitmap = new Bitmap(MainBitmap);
-                    using (Graphics g = Graphics.FromImage(TempBitmapEnemy))
-                    {
+                //TempBitmap = new Bitmap(MainBitmap);
+                using (Graphics g = Graphics.FromImage(tempBitmapEnemy))
+                {
 
-                        g.Clear(Color.White);
-                        g.DrawImage(MainBitmapEnemy, 0, 0);
+                    g.Clear(Color.White);
+                    g.DrawImage(MainBitmapEnemy, 0, 0);
 
-                        g.FillEllipse(Brushes.Green, location.X * StructMap.BlockSize + 10, location.Y * StructMap.BlockSize + 10, 10, 10);
-                    }
+                    g.FillEllipse(Brushes.Green, location.X * StructMap.BlockSize + 10, location.Y * StructMap.BlockSize + 10, 10, 10);
+                }
 
-                
+
             }
         }
         public void DrawCell(Point location)
         {
             lock (lck)
             {
-                using (Graphics g = Graphics.FromImage(TempBitmapYours))
+                using (Graphics g = Graphics.FromImage(tempBitmapYours))
                 {
 
                     g.FillEllipse

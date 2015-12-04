@@ -91,8 +91,6 @@ namespace Client.Game
         {
             if (turn)
             {
-                //lock (lck)
-                // {
                 var location = new Point(args.Location.X / StructMap.BlockSize, args.Location.Y / StructMap.BlockSize);
                 if (location.X < 10 && location.Y < 10)
                 {
@@ -102,7 +100,6 @@ namespace Client.Game
                     SetImage(form.EnemyBox, p.TempBitmapEnemy);
 
                 }
-                //  }
             }
         }
 
