@@ -51,12 +51,15 @@ namespace Client
         }
         public static void Connected()
         {
-            state = ClientState.Online;
-            gameForm.Invoke(new Action<Form>(x => x.Show()), gameForm);
-            Context.MainForm = gameForm;
-            regForm.Invoke(new Action<Form>(x => x.Hide()), regForm);
+            if (state == ClientState.Offline)
+            {
+                state = ClientState.Online;
+                gameForm.Invoke(new Action<Form>(x => x.Show()), gameForm);
+                Context.MainForm = gameForm;
+                regForm.Invoke(new Action<Form>(x => x.Hide()), regForm);
 
-            fieldController.Attach(gameForm);
+                fieldController.Attach(gameForm);
+            }
         }
         public static void Disconnected()
         {
@@ -73,21 +76,28 @@ namespace Client
         }
         public static void SendGame(SearchMessage message)
         {
-            state = ClientState.Waiting;
+            if (state == ClientState.Online)
+            {
+                state = ClientState.Waiting;
 
-            serverManager.SendMessage(message);
-            waitForm.Invoke(new Action<Form>(x => x.ShowDialog()), waitForm);
+                serverManager.SendMessage(message);
+                waitForm.Invoke(new Action<Form>(x => x.ShowDialog()), waitForm);
+            }
         }
         public static void StartGame(StartGameMessage message)
         {
-            state = ClientState.Gaming;
+            if (state == ClientState.Waiting)
+            {
+                state = ClientState.Gaming;
 
-            //gameForm.ReDraw(message.you, message.enemy, message.turn);
+                //gameForm.ReDraw(message.you, message.enemy, message.turn);
 
-            fieldController.Detach();
-            gameController.Attach(gameForm);
-            gameController.NewField(message.you, message.enemy, message.turn);
-            waitForm.Invoke(new Action<Form>(x => x.Hide()), waitForm);
+                fieldController.Detach();
+                gameController.Attach(gameForm);
+                gameController.NewField(message.you, message.enemy, message.turn);
+
+                waitForm.Invoke(new Action<Form>(x => x.Hide()), waitForm);
+            }
         }
         public static void NewGameMessage(FieldStateMessage message)
         {

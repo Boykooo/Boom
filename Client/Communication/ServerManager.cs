@@ -25,19 +25,19 @@ public class ServerManager
         IPEndPoint end = new IPEndPoint(ip, port);
         socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         socket.Connect(end);
+        Task t = new Task(Listen);
+        t.Start();
     }
 
     public void SendMessage(Messages message)
     {
         socket.Send(Serialize(message));
-        Task t = new Task(Listen);
-        t.Start();
     }
     void Listen()
     {
         byte[] tmp = new byte[100000];
-        try
-        {
+        //try
+        //{
             while (true)
             {
                 int i = socket.Receive(tmp);
@@ -65,11 +65,11 @@ public class ServerManager
                         break;
                 }
             }
-        }
-        catch
-        {
-            Program.Disconnected();
-        }
+       // }
+        //catch
+        //{
+        //    Program.Disconnected();
+        //}
     }
     byte[] Serialize(Messages m)
     {

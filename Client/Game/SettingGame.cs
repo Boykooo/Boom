@@ -132,6 +132,7 @@ namespace Client.Game
                 }
                 fixMap = false;
             }
+
             if (e.Button == MouseButtons.Right)
             {
                 horizon = !horizon;
