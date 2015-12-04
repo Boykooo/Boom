@@ -82,7 +82,7 @@ namespace Client.Game
             //form.EnemyBox.Image = p.TempBitmapEnemy;
 
             this.turn = turn;
-            form.MessageString = turn ? "Выш ход" : "Ход противника";
+            form.MessageString = turn ? "Ваш ход" : "Ход противника";
         }
         void EnemyMouseClick(object sender, MouseEventArgs args)
         {

@@ -24,7 +24,10 @@ namespace Client.Game
 
         private void WaitForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Application.Exit();
+            if (Program.state != ClientState.Gaming)
+            {
+                Application.Exit();
+            }
         }
     }
 }

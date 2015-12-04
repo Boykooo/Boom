@@ -33,6 +33,7 @@ namespace Server
                 gamers[i].client.Step += Step;
                 turn = !turn;
             }
+
             BigStaticClass.logger.Log(gamers[0].client.nick + " и " + gamers[1].client.nick + " вошли в игру");
             Start();
         }
@@ -43,7 +44,7 @@ namespace Server
             Gamer first = gamers.First(x => x.client.Id != shoot.Id);
             Gamer second = gamers.First(x => x.client.Id == shoot.Id);
 
-            BigStaticClass.logger.Log("Игрок " + second.client.nick + " сделал ход по координатам " + shoot.x.ToString() + " " + shoot.y.ToString());
+           // BigStaticClass.logger.Log("Игрок " + second.client.nick + " сделал ход по координатам " + shoot.x.ToString() + " " + shoot.y.ToString());
             if (second.turn)
             {
 
