@@ -18,10 +18,11 @@ namespace Client.Game
         GameField oldEnemyField;
 
         Point tempLoc; //зачем?
+        object lck = new object();
 
         public GameController()
         {
-            
+
         }
         public void Attach(IMainGameForm form)
         {
@@ -45,7 +46,8 @@ namespace Client.Game
 
         public void NewField(GameField yours, GameField enemy, bool turn)
         {
-
+            //lock (lck)
+            // {
             p.DrawField(yours, yours.field, true);
             p.DrawField(enemy, enemy.field, false);
 
@@ -58,77 +60,60 @@ namespace Client.Game
             oldEnemyField = enemy;
             oldYoursField = yours;
 
-            Action<PictureBox, Image> tmp = (x, y) => x.Image = y;
-
-            if (form.EnemyBox.InvokeRequired)
-            {                
-                form.EnemyBox.Invoke(tmp, form.EnemyBox, p.TempBitmapEnemy);
-            }
-            else
-            {
-                form.EnemyBox.Image = p.TempBitmapEnemy;
-            }
-
-            if (form.YoursBox.InvokeRequired)
-            {               
-                form.YoursBox.Invoke(tmp, form.YoursBox, p.TempBitmapYours);
-            }
-            else
-            {
-                form.YoursBox.Image = p.TempBitmapYours;
-            }
+            SetImage(form.YoursBox, p.TempBitmapYours);
+            SetImage(form.EnemyBox, p.TempBitmapEnemy);
 
             //form.YoursBox.Image = p.TempBitmapYours;
             //form.EnemyBox.Image = p.TempBitmapEnemy;
 
             this.turn = turn;
             form.MessageString = turn ? "Ваш ход" : "Ход противника";
+            // }
         }
         void EnemyMouseClick(object sender, MouseEventArgs args)
         {
             if (turn)
             {
+                // lock (lck)
+                // {
                 if (args.Button == MouseButtons.Left)
                 {
                     if (oldEnemyField.field[tempLoc.X, tempLoc.Y] == CellType.None)
                     {
                         Program.serverManager.SendMessage(new ShootMessage(tempLoc.X, tempLoc.Y));
-                       // p.FixImage(); зачем?
+                        // p.FixImage(); зачем?
                     }
                 }
+                // }
             }
         }
         void EnemyMouseMove(object sender, MouseEventArgs args)
         {
             if (turn)
             {
+                //lock (lck)
+                // {
                 var location = new Point(args.Location.X / StructMap.BlockSize, args.Location.Y / StructMap.BlockSize);
                 if (location.X < 10 && location.Y < 10)
                 {
                     tempLoc = location;
                     p.Point(location);
 
-                    if (form.EnemyBox.InvokeRequired)
-                    {
-                        Action<PictureBox, Image> tmp = (x, y) => x.Image = y;
-                        form.EnemyBox.Invoke(tmp, form.EnemyBox, p.TempBitmapEnemy);
-                    }
-                    else
-                    {
-                        form.EnemyBox.Image = p.TempBitmapEnemy;
-                    }
+                    SetImage(form.EnemyBox, p.TempBitmapEnemy);
+
                 }
+                //  }
             }
         }
 
         Point FindLastShoot(GameField newField)
         {
-            if(oldYoursField == null)
+            if (oldYoursField == null)
             {
                 return new Point();
             }
 
-            for (int i = 0; i < newField.field.GetLength(0); i++ )
+            for (int i = 0; i < newField.field.GetLength(0); i++)
             {
                 for (int k = 0; k < newField.field.GetLength(1); k++)
                 {
@@ -140,6 +125,21 @@ namespace Client.Game
             }
 
             return new Point();
+        }
+
+
+        void SetImage(PictureBox box, Image img)
+        {
+            Action<PictureBox, Image> tmp = (x, y) => x.Image = y;
+
+            if (box.InvokeRequired)
+            {
+                box.Invoke(tmp, box, img);
+            }
+            else
+            {
+                box.Image = img;
+            }
         }
 
     }

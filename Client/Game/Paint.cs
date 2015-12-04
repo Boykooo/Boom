@@ -58,10 +58,13 @@ namespace Client
         }
         public void FixImage()
         {
-            using (Graphics g = Graphics.FromImage(MainBitmapYours))
+            lock (lck)
             {
-                g.Clear(Color.White);
-                g.DrawImage(TempBitmapYours, 0, 0);
+                using (Graphics g = Graphics.FromImage(MainBitmapYours))
+                {
+                    g.Clear(Color.White);
+                    g.DrawImage(TempBitmapYours, 0, 0);
+                }
             }
         }
         public void Ship(Point location, int size, bool hor, bool loc)
@@ -151,7 +154,7 @@ namespace Client
                     tmp.DrawImage(newBitmap, 0, 0);
                 }
 
-            }
+           }
         }
         public void Point(Point location)
         {
