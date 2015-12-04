@@ -18,8 +18,7 @@ namespace Client.Game
         GameField oldEnemyField;
 
         Point tempLoc; //зачем?
-        object lck = new object();
-
+        bool ok = true;
         public GameController()
         {
 
@@ -46,8 +45,7 @@ namespace Client.Game
 
         public void NewField(GameField yours, GameField enemy, bool turn)
         {
-            //lock (lck)
-            // {
+            ok = false;
             p.DrawField(yours, yours.field, true);
             p.DrawField(enemy, enemy.field, false);
 
@@ -68,14 +66,14 @@ namespace Client.Game
 
             this.turn = turn;
             form.MessageString = turn ? "Ваш ход" : "Ход противника";
-            // }
+            ok = true;
+
         }
         void EnemyMouseClick(object sender, MouseEventArgs args)
         {
-            if (turn)
+            if (turn && ok)
             {
-                // lock (lck)
-                // {
+
                 if (args.Button == MouseButtons.Left)
                 {
                     if (oldEnemyField.field[tempLoc.X, tempLoc.Y] == CellType.None)
@@ -84,13 +82,14 @@ namespace Client.Game
                         // p.FixImage(); зачем?
                     }
                 }
-                // }
+
             }
         }
         void EnemyMouseMove(object sender, MouseEventArgs args)
         {
-            if (turn)
+            if (turn && ok)
             {
+               
                 var location = new Point(args.Location.X / StructMap.BlockSize, args.Location.Y / StructMap.BlockSize);
                 if (location.X < 10 && location.Y < 10)
                 {
@@ -100,8 +99,12 @@ namespace Client.Game
                     SetImage(form.EnemyBox, p.TempBitmapEnemy);
 
                 }
+
             }
         }
+
+
+
 
         Point FindLastShoot(GameField newField)
         {
@@ -123,8 +126,6 @@ namespace Client.Game
 
             return new Point();
         }
-
-
         void SetImage(PictureBox box, Image img)
         {
             Action<PictureBox, Image> tmp = (x, y) => x.Image = y;

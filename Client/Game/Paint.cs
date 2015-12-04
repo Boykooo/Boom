@@ -164,16 +164,17 @@ namespace Client
                         }
                     }
 
+                    Graphics tmp = isYours ? Graphics.FromImage(MainBitmapYours) : Graphics.FromImage(MainBitmapEnemy);
+
+                    using (tmp)
+                    {
+                        tmp.Clear(Color.White);
+                        tmp.DrawImage(newBitmap, 0, 0);
+                    }
 
                 }
 
-                Graphics tmp = isYours ? Graphics.FromImage(MainBitmapYours) : Graphics.FromImage(MainBitmapEnemy);
-
-                using (tmp)
-                {
-                    tmp.Clear(Color.White);
-                    tmp.DrawImage(newBitmap, 0, 0);
-                }
+                
 
             }
         }
