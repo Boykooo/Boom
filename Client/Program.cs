@@ -28,10 +28,13 @@ namespace Client
             serverManager = new ServerManager();
             regForm = new RegForm();
             gameForm = new GameForm();
+            waitForm = new WaitForm();
+
             gameController = new GameController();
             fieldController = new SettingGame();
 
-            var i = gameForm.Handle;         
+            var i = gameForm.Handle;
+            i = waitForm.Handle;
             Context = new ApplicationContext(regForm);
 
             Application.Run(Context);
@@ -57,17 +60,23 @@ namespace Client
         }
         public static void Disconnected()
         {
-            state = ClientState.Offline;
-            var old = Context.MainForm;
-            Context.MainForm = regForm;
-            Context.MainForm.Invoke(new Action<Form>(x => x.Show()), regForm);
-            old.Invoke(new Action<Form>(x => x.Hide()), old);
+            if (state != ClientState.Offline)
+            {
+                state = ClientState.Offline;
+                var old = Context.MainForm;
+                Context.MainForm = regForm;
+                Context.MainForm.Invoke(new Action<Form>(x => x.Show()), regForm);
+                old.Invoke(new Action<Form>(x => x.Hide()), old);
+
+            }
+
         }
         public static void SendGame(SearchMessage message)
         {
             state = ClientState.Waiting;
 
             serverManager.SendMessage(message);
+            waitForm.Invoke(new Action<Form>(x => x.ShowDialog()), waitForm);
         }
         public static void StartGame(StartGameMessage message)
         {
@@ -78,6 +87,7 @@ namespace Client
             fieldController.Detach();
             gameController.Attach(gameForm);
             gameController.NewField(message.you, message.enemy, message.turn);
+            waitForm.Invoke(new Action<Form>(x => x.Hide()), waitForm);
         }
         public static void NewGameMessage(FieldStateMessage message)
         {
@@ -88,6 +98,7 @@ namespace Client
 
         static RegForm regForm;
         static GameForm gameForm;
+        static WaitForm waitForm;
         static GameController gameController;
         static SettingGame fieldController;
         public static ClientState state;
