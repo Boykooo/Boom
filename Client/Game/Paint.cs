@@ -40,12 +40,18 @@ namespace Client
             
             using (Graphics g = Graphics.FromImage(grid))
             {
-                for (int i = 0; i < 300; i += 30)
+                //for (int i = 0; i < 300; i += 30)
+                //{
+                //    for (int j = 0; j < 300; j += 30)
+                //    {
+                //        g.DrawRectangle(Pens.Black, i, j, 30, 30);
+                //    }
+                //}
+
+                for (int i = 0; i < 11; i++)
                 {
-                    for (int j = 0; j < 300; j += 30)
-                    {
-                        g.DrawRectangle(Pens.Black, i, j, 30, 30);
-                    }
+                    g.DrawLine(Pens.Black, i * StructMap.BlockSize, 0, i * StructMap.BlockSize, StructMap.BlockSize*10);
+                    g.DrawLine(Pens.Black, 0, i * StructMap.BlockSize, StructMap.BlockSize*10, i * StructMap.BlockSize);
                 }
             }
             //g.Dispose();
@@ -168,6 +174,20 @@ namespace Client
                 {
 
                 }
+            }
+        }
+        public void DrawCell(Point location)
+        {
+            using (Graphics g = Graphics.FromImage(TempBitmapYours))
+            {
+
+                g.FillEllipse
+                    (
+                    Brushes.Plum,
+                    location.X * StructMap.BlockSize + StructMap.BlockSize / 4, 
+                    location.Y * StructMap.BlockSize + StructMap.BlockSize / 4, 
+                    StructMap.BlockSize / 2, StructMap.BlockSize / 2
+                    );
             }
         }
         public void Clear()

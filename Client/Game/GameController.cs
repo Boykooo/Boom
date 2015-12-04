@@ -45,14 +45,41 @@ namespace Client.Game
 
         public void NewField(GameField yours, GameField enemy, bool turn)
         {
+
             p.DrawField(yours, yours.field, true);
             p.DrawField(enemy, enemy.field, false);
+
+            Point pnt = FindLastShoot(yours);
+            if (!pnt.IsEmpty)
+            {
+                p.DrawCell(pnt);
+            }
 
             oldEnemyField = enemy;
             oldYoursField = yours;
 
-            form.YoursBox.Image = p.TempBitmapYours;
-            form.EnemyBox.Image = p.TempBitmapEnemy;
+            Action<PictureBox, Image> tmp = (x, y) => x.Image = y;
+
+            if (form.EnemyBox.InvokeRequired)
+            {                
+                form.EnemyBox.Invoke(tmp, form.EnemyBox, p.TempBitmapEnemy);
+            }
+            else
+            {
+                form.EnemyBox.Image = p.TempBitmapEnemy;
+            }
+
+            if (form.YoursBox.InvokeRequired)
+            {               
+                form.YoursBox.Invoke(tmp, form.YoursBox, p.TempBitmapYours);
+            }
+            else
+            {
+                form.YoursBox.Image = p.TempBitmapYours;
+            }
+
+            //form.YoursBox.Image = p.TempBitmapYours;
+            //form.EnemyBox.Image = p.TempBitmapEnemy;
 
             this.turn = turn;
             form.MessageString = turn ? "Выш ход" : "Ход противника";
@@ -81,9 +108,39 @@ namespace Client.Game
                     tempLoc = location;
                     p.Point(location);
 
-                    form.EnemyBox.Image = p.TempBitmapEnemy;
+                    if (form.EnemyBox.InvokeRequired)
+                    {
+                        Action<PictureBox, Image> tmp = (x, y) => x.Image = y;
+                        form.EnemyBox.Invoke(tmp, form.EnemyBox, p.TempBitmapEnemy);
+                    }
+                    else
+                    {
+                        form.EnemyBox.Image = p.TempBitmapEnemy;
+                    }
                 }
             }
         }
+
+        Point FindLastShoot(GameField newField)
+        {
+            if(oldYoursField == null)
+            {
+                return new Point();
+            }
+
+            for (int i = 0; i < newField.field.GetLength(0); i++ )
+            {
+                for (int k = 0; k < newField.field.GetLength(1); k++)
+                {
+                    if (newField.field[i, k] != oldYoursField.field[i, k])
+                    {
+                        return new Point(i, k);
+                    }
+                }
+            }
+
+            return new Point();
+        }
+
     }
 }

@@ -28,6 +28,8 @@ namespace Client.Game
             this.form = form;
 
             draw = new Paint(form.YoursBox.Width, form.YoursBox.Height);
+            map = new StructMap();
+            ship1 = ship2 = ship3 = ship4 = 0;
 
             form.YoursBoxMouseMove += MouseMove;
             form.yoursBoxClick += MouseClick;
@@ -52,6 +54,8 @@ namespace Client.Game
             map.ClearMap();
             draw.Clear();
             ship1 = ship2 = ship3 = ship4 = 0;
+
+            form.YoursBox.Image = draw.TempBitmapYours;
         }
         public void NewGame()
         {
