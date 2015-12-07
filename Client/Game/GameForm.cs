@@ -57,9 +57,9 @@ namespace Client.Game
                 EnemyBoxMouseClick(sender, e);
             }
         }
-       
 
-        Action<PictureBox, Bitmap> safeImageSet = (p, i) => { p.Image = i; };
+
+        private Action<PictureBox, Bitmap> safeImageSet = (p, i) => { p.Image = i; };
 
         public ShipCount Ships
         {

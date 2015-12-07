@@ -55,7 +55,6 @@
     <Compile Include="Game\WaitForm.Designer.cs">
       <DependentUpon>WaitForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Registration\Check.cs" />
     <Compile Include="Game\GameForm.cs">
       <SubType>Form</SubType>
     </Compile>

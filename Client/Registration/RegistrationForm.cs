@@ -16,7 +16,6 @@ namespace Client
 {
     public partial class RegForm : Form
     {
-        public string Nick { get; set; }
         public RegForm()
         {
             InitializeComponent();
@@ -39,7 +38,5 @@ namespace Client
                 }
             }
         }
-
-
     }
 }

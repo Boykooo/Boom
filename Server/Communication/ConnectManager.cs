@@ -27,7 +27,7 @@ namespace Server
             task.Start();
         }
 
-        void Receive()
+        private void Receive()
         {
 
 

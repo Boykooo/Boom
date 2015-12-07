@@ -30,7 +30,7 @@ namespace Server
         public List<Game> games = new List<Game>();
         public MessageSerializer serializer = new MessageSerializer();
         public ILogger logger = new ConsoleLogger();
-        object lck = new object();
+        private object lck = new object();
 
         private int id;
 

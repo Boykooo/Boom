@@ -7,13 +7,11 @@ using Project2;
 
 namespace Client
 {
-    class Paint
+    public class Paint
     {
-
-
         public Bitmap grid;
-        Bitmap MainBitmapYours;
-        Bitmap tempBitmapYours;
+        private Bitmap MainBitmapYours;
+        private Bitmap tempBitmapYours;
         public Bitmap TempBitmapYours
         {
             get
@@ -26,8 +24,8 @@ namespace Client
 
         }
 
-        Bitmap MainBitmapEnemy;
-        Bitmap tempBitmapEnemy;
+        private Bitmap MainBitmapEnemy;
+        private Bitmap tempBitmapEnemy;
         public Bitmap TempBitmapEnemy
         {
             get
@@ -38,9 +36,9 @@ namespace Client
                 }
             }
         }
-        object lck = new object();
+        private object lck = new object();
         // Graphics g;
-        int wh, ht;
+        private int wh, ht;
         public Paint(int wh, int ht)
         {
             this.wh = wh;
