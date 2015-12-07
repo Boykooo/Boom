@@ -159,7 +159,7 @@ namespace Client.Game
             form.SetNameButton(ShipCount.One, "Однопалубник (0/4)");
             form.SetNameButton(ShipCount.Two, "Двухпалубник (0/3)");
             form.SetNameButton(ShipCount.Three, "Трехпалубник (0/2)");
-            form.SetNameButton(ShipCount.One, "Четырехпалубник (0/1)");
+            form.SetNameButton(ShipCount.Four, "Четырехпалубник (0/1)");
 
             form.SwitchButton(ShipCount.One, true);
             form.SwitchButton(ShipCount.Two, true);
