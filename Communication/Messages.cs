@@ -189,13 +189,45 @@ namespace Project2
         public CellType[,] field;
 
         public List<Ship> ships;
+        public Point lastShoot;
 
         public bool Shoot(int x, int y)
         {
             if (field[x, y] == CellType.None)
             {
                 field[x, y] = CellType.Point;
-                return ships.Exists(ship => ship.Shoot(x, y));             
+
+                Ship tmpShip = ships.Find(ship => ship.Shoot(x, y));
+                if (tmpShip == null)
+                {
+                    return false;
+                }
+                else
+                {
+                    if (tmpShip.dead)
+                    {
+                        Point okr = new Point();
+                        foreach (var palup in tmpShip.palub)
+                        {
+                            for (int i = -1; i <= 1; i++)
+                            {
+                                for (int k = -1; k <= 1; k++)
+                                {
+                                    okr.X = palup.point.X + i;
+                                    okr.Y = palup.point.Y + k;
+
+                                    if (okr.X >= 0 && okr.Y >= 0
+                                        && okr.X <= 9 && okr.Y <= 9)
+                                    {
+                                        field[okr.X, okr.Y] = CellType.Point;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    return true;
+                }
             }
 
             return true;

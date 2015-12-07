@@ -47,9 +47,11 @@ namespace Server
            // BigStaticClass.logger.Log("Игрок " + second.client.nick + " сделал ход по координатам " + shoot.x.ToString() + " " + shoot.y.ToString());
             if (second.turn)
             {
-
                 second.turn = first.client.gameField.Shoot(shoot.x, shoot.y);
                 first.turn = !second.turn;
+
+                first.client.gameField.lastShoot = new Point(shoot.x, shoot.y);
+
                 if (second.turn && first.client.gameField.IsGameOver())
                 {
                     GameOver();

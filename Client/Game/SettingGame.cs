@@ -23,6 +23,7 @@ namespace Client.Game
             map = new StructMap();
             ship1 = ship2 = ship3 = ship4 = 0;
         }
+
         public void Attach(IMainGameForm form)
         {
             this.form = form;
@@ -35,6 +36,9 @@ namespace Client.Game
             form.yoursBoxClick += MouseClick;
             form.StartGame += NewGame;
             form.ClearField += ClearField;
+
+            form.EnemyBox.Image = draw.TempBitmapEnemy;
+            form.YoursBox.Image = draw.TempBitmapYours;
 
             form.ClearButtonState = true;
             ResetButtons();
@@ -167,7 +171,7 @@ namespace Client.Game
             form.SetNameButton(ShipCount.One, "Однопалубник (" + ship1.ToString() + "/4)");
             form.SetNameButton(ShipCount.Two, "Двухпалубник (" + ship2.ToString() + "/3)");
             form.SetNameButton(ShipCount.Three, "Трехпалубник (" + ship3.ToString() + "/2)");
-            form.SetNameButton(ShipCount.One, "Четырехпалубник (" + ship4.ToString() + "/1)");
+            form.SetNameButton(ShipCount.Four, "Четырехпалубник (" + ship4.ToString() + "/1)");
 
             form.SwitchButton(ShipCount.One, ship1 < 4);
             form.SwitchButton(ShipCount.Two, ship2 < 3);

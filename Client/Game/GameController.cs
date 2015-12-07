@@ -51,10 +51,9 @@ namespace Client.Game
             p.DrawField(yours, yours.field, true);
             p.DrawField(enemy, enemy.field, false);
 
-            Point pnt = FindLastShoot(yours);
-            if (!pnt.IsEmpty)
+            if (!yours.lastShoot.IsEmpty)
             {
-                p.DrawCell(pnt);
+                p.DrawCell(yours.lastShoot);
             }
 
             oldEnemyField = enemy;

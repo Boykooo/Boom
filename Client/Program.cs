@@ -109,11 +109,14 @@ namespace Client
         {
             string mes = (message.win) ? "Вы выиграли" : "Вы проиграли";
             MessageBox.Show(mes);
+
+            fieldController.Attach(gameForm);
+            state = ClientState.Online;
         }
 
         private static RegForm regForm;
         private static GameForm gameForm;
-        private WaitForm waitForm;
+        private static WaitForm waitForm;
         private static GameController gameController;
         private static SettingGame fieldController;
         public static ClientState state;

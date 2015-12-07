@@ -165,6 +165,8 @@ namespace Client.Game
             {
                 button.Text = name;
             }
+
+            button.Invalidate();
         }
         public void SwitchButton(ShipCount ship, bool state)
         {
@@ -189,8 +191,6 @@ namespace Client.Game
 
             button.Enabled = state;
         }
-
-
 
 
         public bool ClearButtonState
