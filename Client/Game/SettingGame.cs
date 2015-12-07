@@ -88,7 +88,7 @@ namespace Client.Game
                 }
             }
         }
-        void Move(Point location, int size)
+        private void Move(Point location, int size)
         {
             if (map.CheckLocation(location, horizon, size))
             {

@@ -105,12 +105,17 @@ namespace Client
 
             gameController.NewField(message.you, message.enemy, message.turn);
         }
+        public static void EndOfGame(EndOfGameMessage message)
+        {
+            string mes = (message.win) ? "Вы выиграли" : "Вы проиграли";
+            MessageBox.Show(mes);
+        }
 
-        static RegForm regForm;
-        static GameForm gameForm;
-        static WaitForm waitForm;
-        static GameController gameController;
-        static SettingGame fieldController;
+        private static RegForm regForm;
+        private static GameForm gameForm;
+        private WaitForm waitForm;
+        private static GameController gameController;
+        private static SettingGame fieldController;
         public static ClientState state;
         public static ServerManager serverManager { get; private set; }
         public static ApplicationContext Context;

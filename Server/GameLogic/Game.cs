@@ -12,14 +12,14 @@ namespace Server
     public class Game
     {
 
-        class Gamer
+        private class Gamer
         {
             public bool turn;
             public Client client;
 
         }
 
-        Gamer[] gamers;
+        private Gamer[] gamers;
         public Game(Client[] clients)
         {
             gamers = new Gamer[2];
@@ -37,7 +37,7 @@ namespace Server
             MainController.Instance.logger.Log(gamers[0].client.nick + " и " + gamers[1].client.nick + " вошли в игру");
             Start();
         }
-        void Step(Messages message)
+        private void Step(Messages message)
         {
             ShootMessage shoot = message as ShootMessage;
 
@@ -61,7 +61,7 @@ namespace Server
         }
 
 
-        void StateOfRoom()
+        private void StateOfRoom()
         {
             for (int i = 0; i < gamers.Length; i++)
             {
@@ -77,7 +77,7 @@ namespace Server
             }
         }
 
-        void Start()
+        private void Start()
         {
             for (int i = 0; i < gamers.Length; i++)
             {
@@ -92,7 +92,7 @@ namespace Server
                 gamers[i].client.Send(message);
             }
         }
-        void GameOver()
+        private void GameOver()
         {
             
             for (int i = 0; i < gamers.Length; i++)

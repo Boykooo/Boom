@@ -61,7 +61,7 @@ namespace Server
                 MainController.Instance.Disconnect(this);
             }
         }
-        void Parse(byte[] bytes)
+        private void Parse(byte[] bytes)
         {
             Messages m = MainController.Instance.serializer.Deserialize(bytes);
             m.Id = this.Id;

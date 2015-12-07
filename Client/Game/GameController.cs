@@ -9,16 +9,16 @@ using System.Windows.Forms;
 
 namespace Client.Game
 {
-    class GameController
+    public class GameController
     {
-        IMainGameForm form;
-        bool turn;
-        Paint p;
-        GameField oldYoursField;
-        GameField oldEnemyField;
+        private IMainGameForm form;
+        private bool turn;
+        private Paint p;
+        private GameField oldYoursField;
+        private GameField oldEnemyField;
 
-        Point tempLoc; //зачем?
-        bool ok = true;
+        private Point tempLoc; //зачем?
+        private bool ok = true;
         public GameController()
         {
 
@@ -71,7 +71,7 @@ namespace Client.Game
             ok = true;
 
         }
-        void EnemyMouseClick(object sender, MouseEventArgs args)
+        private void EnemyMouseClick(object sender, MouseEventArgs args)
         {
             if (turn && ok)
             {
@@ -88,7 +88,7 @@ namespace Client.Game
 
             }
         }
-        void EnemyMouseMove(object sender, MouseEventArgs args)
+        private void EnemyMouseMove(object sender, MouseEventArgs args)
         {
             if (turn && ok)
             {
@@ -109,7 +109,7 @@ namespace Client.Game
 
 
 
-        Point FindLastShoot(GameField newField)
+        private Point FindLastShoot(GameField newField)
         {
             if (oldYoursField == null)
             {
@@ -129,7 +129,7 @@ namespace Client.Game
 
             return new Point();
         }
-        void SetImage(PictureBox box, Image img)
+        private void SetImage(PictureBox box, Image img)
         {
             Action<PictureBox, Image> tmp = (x, y) => x.Image = y;
 
