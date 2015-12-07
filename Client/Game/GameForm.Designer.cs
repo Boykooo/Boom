@@ -50,7 +50,7 @@
             // 
             this.pictureBox1.Location = new System.Drawing.Point(148, 27);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(327, 305);
+            this.pictureBox1.Size = new System.Drawing.Size(303, 303);
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseClick);
@@ -60,7 +60,7 @@
             // 
             this.pictureBox2.Location = new System.Drawing.Point(506, 27);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(327, 305);
+            this.pictureBox2.Size = new System.Drawing.Size(303, 303);
             this.pictureBox2.TabIndex = 6;
             this.pictureBox2.TabStop = false;
             this.pictureBox2.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox2_MouseClick);
@@ -116,10 +116,10 @@
             this.OneShip.Checked = true;
             this.OneShip.Location = new System.Drawing.Point(3, 3);
             this.OneShip.Name = "OneShip";
-            this.OneShip.Size = new System.Drawing.Size(85, 17);
+            this.OneShip.Size = new System.Drawing.Size(69, 17);
             this.OneShip.TabIndex = 14;
             this.OneShip.TabStop = true;
-            this.OneShip.Text = "radioButton1";
+            this.OneShip.Text = "1 палуба";
             this.OneShip.UseVisualStyleBackColor = true;
             // 
             // TwoShip
@@ -127,9 +127,9 @@
             this.TwoShip.AutoSize = true;
             this.TwoShip.Location = new System.Drawing.Point(3, 26);
             this.TwoShip.Name = "TwoShip";
-            this.TwoShip.Size = new System.Drawing.Size(85, 17);
+            this.TwoShip.Size = new System.Drawing.Size(71, 17);
             this.TwoShip.TabIndex = 15;
-            this.TwoShip.Text = "radioButton2";
+            this.TwoShip.Text = "2 палубы";
             this.TwoShip.UseVisualStyleBackColor = true;
             // 
             // ThreeShip
@@ -137,9 +137,9 @@
             this.ThreeShip.AutoSize = true;
             this.ThreeShip.Location = new System.Drawing.Point(3, 49);
             this.ThreeShip.Name = "ThreeShip";
-            this.ThreeShip.Size = new System.Drawing.Size(85, 17);
+            this.ThreeShip.Size = new System.Drawing.Size(71, 17);
             this.ThreeShip.TabIndex = 16;
-            this.ThreeShip.Text = "radioButton3";
+            this.ThreeShip.Text = "3 палубы";
             this.ThreeShip.UseVisualStyleBackColor = true;
             // 
             // FourShip
@@ -147,9 +147,9 @@
             this.FourShip.AutoSize = true;
             this.FourShip.Location = new System.Drawing.Point(3, 72);
             this.FourShip.Name = "FourShip";
-            this.FourShip.Size = new System.Drawing.Size(85, 17);
+            this.FourShip.Size = new System.Drawing.Size(71, 17);
             this.FourShip.TabIndex = 17;
-            this.FourShip.Text = "radioButton4";
+            this.FourShip.Text = "4 палубы";
             this.FourShip.UseVisualStyleBackColor = true;
             // 
             // panel1

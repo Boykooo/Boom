@@ -39,7 +39,7 @@ namespace Client.Game
         }
         private void начатьИгруToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+            ClearButton.Enabled = false;
             StartGame();
         }
 

@@ -14,7 +14,7 @@ using Client.Game;
 
 public class ServerManager
 {
-    Socket socket;
+    private Socket socket;
 
     public ServerManager()
     {
@@ -33,7 +33,7 @@ public class ServerManager
     {
         socket.Send(Serialize(message));
     }
-    void Listen()
+    private void Listen()
     {
         byte[] tmp = new byte[100000];
         try
@@ -47,7 +47,6 @@ public class ServerManager
                 switch (m.GetType().Name)
                 {
                     case "RegistrationResultMessage":
-
                         Program.Connected();
                         //MainGameForm game = new MainGameForm();
                         //game.Show();
@@ -63,6 +62,9 @@ public class ServerManager
                         //game.Invoke(b);
                         //actGame.ReDraw(f.you, f.enemy);
                         break;
+                    case "EndOfGameMessage":
+                        Program.EndOfGame((EndOfGameMessage)m);
+                        break;
                 }
             }
         }
@@ -71,7 +73,7 @@ public class ServerManager
             Program.Disconnected();
         }
     }
-    byte[] Serialize(Messages m)
+    private byte[] Serialize(Messages m)
     {
         MemoryStream stream = new MemoryStream();
         BinaryFormatter b = new BinaryFormatter();
@@ -79,7 +81,7 @@ public class ServerManager
 
         return stream.GetBuffer();
     }
-    Messages Deserialize(byte[] bytes)
+    private Messages Deserialize(byte[] bytes)
     {
         MemoryStream stream = new MemoryStream(bytes);
         BinaryFormatter b = new BinaryFormatter();
