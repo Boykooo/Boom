@@ -35,6 +35,9 @@ namespace Client.Game
             form.yoursBoxClick += MouseClick;
             form.StartGame += NewGame;
             form.ClearField += ClearField;
+
+            form.ClearButtonState = true;
+            ResetButtons();
         }
         public void Detach()
         {
@@ -54,6 +57,7 @@ namespace Client.Game
             map.ClearMap();
             draw.Clear();
             ship1 = ship2 = ship3 = ship4 = 0;
+            ResetButtons();
 
             form.YoursBox.Image = draw.TempBitmapYours;
         }
@@ -131,6 +135,8 @@ namespace Client.Game
                     ship4++;
                 }
                 fixMap = false;
+
+                UpdateButtons();
             }
 
             if (e.Button == MouseButtons.Right)
@@ -141,6 +147,32 @@ namespace Client.Game
         public Bitmap GetImageTemp()
         {
             return draw.TempBitmapYours;
+        }
+
+
+        void ResetButtons()
+        {
+            form.SetNameButton(ShipCount.One, "Однопалубник (0/4)");
+            form.SetNameButton(ShipCount.Two, "Двухпалубник (0/3)");
+            form.SetNameButton(ShipCount.Three, "Трехпалубник (0/2)");
+            form.SetNameButton(ShipCount.One, "Четырехпалубник (0/1)");
+
+            form.SwitchButton(ShipCount.One, true);
+            form.SwitchButton(ShipCount.Two, true);
+            form.SwitchButton(ShipCount.Three, true);
+            form.SwitchButton(ShipCount.Four, true);
+        }
+        void UpdateButtons()
+        {
+            form.SetNameButton(ShipCount.One, "Однопалубник (" + ship1.ToString() + "/4)");
+            form.SetNameButton(ShipCount.Two, "Двухпалубник (" + ship2.ToString() + "/3)");
+            form.SetNameButton(ShipCount.Three, "Трехпалубник (" + ship3.ToString() + "/2)");
+            form.SetNameButton(ShipCount.One, "Четырехпалубник (" + ship4.ToString() + "/1)");
+
+            form.SwitchButton(ShipCount.One, ship1 < 4);
+            form.SwitchButton(ShipCount.Two, ship2 < 3);
+            form.SwitchButton(ShipCount.Three, ship3 < 2);
+            form.SwitchButton(ShipCount.Four, ship4 < 1);
         }
     }
 }

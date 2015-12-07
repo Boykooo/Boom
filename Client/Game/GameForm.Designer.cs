@@ -48,7 +48,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(148, 27);
+            this.pictureBox1.Location = new System.Drawing.Point(216, 27);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(327, 305);
             this.pictureBox1.TabIndex = 1;
@@ -58,7 +58,7 @@
             // 
             // pictureBox2
             // 
-            this.pictureBox2.Location = new System.Drawing.Point(506, 27);
+            this.pictureBox2.Location = new System.Drawing.Point(574, 27);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(327, 305);
             this.pictureBox2.TabIndex = 6;
@@ -72,7 +72,7 @@
             this.играToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(847, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(929, 24);
             this.menuStrip1.TabIndex = 7;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -93,9 +93,9 @@
             // 
             // ClearButton
             // 
-            this.ClearButton.Location = new System.Drawing.Point(12, 315);
+            this.ClearButton.Location = new System.Drawing.Point(37, 301);
             this.ClearButton.Name = "ClearButton";
-            this.ClearButton.Size = new System.Drawing.Size(71, 31);
+            this.ClearButton.Size = new System.Drawing.Size(103, 45);
             this.ClearButton.TabIndex = 12;
             this.ClearButton.Text = "Очистить";
             this.ClearButton.UseVisualStyleBackColor = true;
@@ -116,10 +116,10 @@
             this.OneShip.Checked = true;
             this.OneShip.Location = new System.Drawing.Point(3, 3);
             this.OneShip.Name = "OneShip";
-            this.OneShip.Size = new System.Drawing.Size(85, 17);
+            this.OneShip.Size = new System.Drawing.Size(124, 17);
             this.OneShip.TabIndex = 14;
             this.OneShip.TabStop = true;
-            this.OneShip.Text = "radioButton1";
+            this.OneShip.Text = "Однопалубник (0/4)";
             this.OneShip.UseVisualStyleBackColor = true;
             // 
             // TwoShip
@@ -127,9 +127,9 @@
             this.TwoShip.AutoSize = true;
             this.TwoShip.Location = new System.Drawing.Point(3, 26);
             this.TwoShip.Name = "TwoShip";
-            this.TwoShip.Size = new System.Drawing.Size(85, 17);
+            this.TwoShip.Size = new System.Drawing.Size(123, 17);
             this.TwoShip.TabIndex = 15;
-            this.TwoShip.Text = "radioButton2";
+            this.TwoShip.Text = "Двухпалубник (0/3)";
             this.TwoShip.UseVisualStyleBackColor = true;
             // 
             // ThreeShip
@@ -137,9 +137,9 @@
             this.ThreeShip.AutoSize = true;
             this.ThreeShip.Location = new System.Drawing.Point(3, 49);
             this.ThreeShip.Name = "ThreeShip";
-            this.ThreeShip.Size = new System.Drawing.Size(85, 17);
+            this.ThreeShip.Size = new System.Drawing.Size(122, 17);
             this.ThreeShip.TabIndex = 16;
-            this.ThreeShip.Text = "radioButton3";
+            this.ThreeShip.Text = "Трехпалубник (0/2)";
             this.ThreeShip.UseVisualStyleBackColor = true;
             // 
             // FourShip
@@ -147,9 +147,9 @@
             this.FourShip.AutoSize = true;
             this.FourShip.Location = new System.Drawing.Point(3, 72);
             this.FourShip.Name = "FourShip";
-            this.FourShip.Size = new System.Drawing.Size(85, 17);
+            this.FourShip.Size = new System.Drawing.Size(142, 17);
             this.FourShip.TabIndex = 17;
-            this.FourShip.Text = "radioButton4";
+            this.FourShip.Text = "Четырехпалубник (0/1)";
             this.FourShip.UseVisualStyleBackColor = true;
             // 
             // panel1
@@ -158,16 +158,16 @@
             this.panel1.Controls.Add(this.FourShip);
             this.panel1.Controls.Add(this.TwoShip);
             this.panel1.Controls.Add(this.ThreeShip);
-            this.panel1.Location = new System.Drawing.Point(12, 148);
+            this.panel1.Location = new System.Drawing.Point(15, 175);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(91, 104);
+            this.panel1.Size = new System.Drawing.Size(150, 104);
             this.panel1.TabIndex = 18;
             // 
             // GameForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(847, 358);
+            this.ClientSize = new System.Drawing.Size(929, 358);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.ClearButton);

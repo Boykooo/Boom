@@ -32,6 +32,8 @@ namespace Client.Game
             form.EnemyBoxMouseClick += EnemyMouseClick;
             form.EnemyBoxMouseMove += EnemyMouseMove;
 
+            form.ClearButtonState = false;
+
             p = new Paint(form.YoursBox.Width, form.YoursBox.Height);
         }
         public void Detach()

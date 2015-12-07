@@ -60,6 +60,7 @@ namespace Client.Game
        
 
         Action<PictureBox, Bitmap> safeImageSet = (p, i) => { p.Image = i; };
+        Action<Control, string> safeControlTextSet = (x, y) => x.Text = y;
 
         public ShipCount Ships
         {
@@ -125,12 +126,89 @@ namespace Client.Game
             {
                 if (label1.InvokeRequired)
                 {
-                    Action<Label, string> tmp = (x, y) => x.Text = y;
-                    label1.Invoke(tmp, label1, value);
+
+                    label1.Invoke(safeControlTextSet, label1, value);
                 }
                 else
                 {
                     label1.Text = value;
+                }
+            }
+        }
+
+
+        public void SetNameButton(ShipCount ship, string name)
+        {
+            RadioButton button;
+            switch (ship)
+            {
+                case ShipCount.One:
+                    button = OneShip;
+                    break;
+                case ShipCount.Two:
+                    button = TwoShip;
+                    break;
+                case ShipCount.Three:
+                    button = ThreeShip;
+                    break;
+                case ShipCount.Four:
+                    button = FourShip;
+                    break;
+                default:
+                    throw new ArgumentException();
+            }
+            if (button.InvokeRequired)
+            {
+                button.Invoke(safeControlTextSet, button, name);
+            }
+            else
+            {
+                button.Text = name;
+            }
+        }
+        public void SwitchButton(ShipCount ship, bool state)
+        {
+            RadioButton button;
+            switch (ship)
+            {
+                case ShipCount.One:
+                    button = OneShip;
+                    break;
+                case ShipCount.Two:
+                    button = TwoShip;
+                    break;
+                case ShipCount.Three:
+                    button = ThreeShip;
+                    break;
+                case ShipCount.Four:
+                    button = FourShip;
+                    break;
+                default:
+                    throw new ArgumentException();
+            }
+
+            button.Enabled = state;
+        }
+
+
+
+
+        public bool ClearButtonState
+        {
+            get
+            {
+                return ClearButton.Enabled;
+            }
+            set
+            {
+                if (ClearButton.InvokeRequired)
+                {
+                    Action<Control, bool> tmp = (x, y) => x.Enabled = y;
+                    ClearButton.Invoke(tmp, ClearButton, value);
+                }
+                else
+                {
+                    ClearButton.Enabled = value;
                 }
             }
         }

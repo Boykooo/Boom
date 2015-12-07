@@ -17,7 +17,11 @@ namespace Client.Game
         PictureBox YoursBox { get; set; }
         PictureBox EnemyBox { get; set; }
         string MessageString { get; set; }
+        bool ClearButtonState { get; set; }
 
+        void SetNameButton(ShipCount ship, string name);
+        void SwitchButton(ShipCount ship, bool state);
+       
         event Action<object, MouseEventArgs> yoursBoxClick;
         event Action<object, MouseEventArgs> EnemyBoxMouseClick;
         event Action<object, MouseEventArgs> YoursBoxMouseMove;
