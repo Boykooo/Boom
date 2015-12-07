@@ -34,7 +34,7 @@ namespace Server
                 turn = !turn;
             }
 
-            BigStaticClass.logger.Log(gamers[0].client.nick + " и " + gamers[1].client.nick + " вошли в игру");
+            MainController.Instance.logger.Log(gamers[0].client.nick + " и " + gamers[1].client.nick + " вошли в игру");
             Start();
         }
         void Step(Messages message)
@@ -100,12 +100,12 @@ namespace Server
                 gamers[i].client.Send(new EndOfGameMessage(gamers[i].turn));
             }
 
-            BigStaticClass.logger.Log(
+            MainController.Instance.logger.Log(
                 "Игрок " + gamers.First(x=> x.turn).client.nick 
               + " одержал победу над игроком " + gamers.First( x=> !x.turn).client.nick
               );
 
-            BigStaticClass.GameOver(this);
+            MainController.Instance.GameOver(this);
         }
     }
 

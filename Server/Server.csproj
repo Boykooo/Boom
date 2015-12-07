@@ -42,7 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ServerLogic\BigStaticClass.cs" />
+    <Compile Include="ServerLogic\MainController.cs" />
     <Compile Include="Communication\Client.cs" />
     <Compile Include="Communication\ConnectManager.cs" />
     <Compile Include="GameLogic\Game.cs" />

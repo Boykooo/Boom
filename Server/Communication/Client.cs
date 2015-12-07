@@ -18,6 +18,8 @@ namespace Server
             this.Id = id;
             nick = "";
 
+            Task task = new Task(Listen);
+            task.Start();
         }
 
         public string nick;
@@ -39,7 +41,7 @@ namespace Server
             }
             catch (Exception e)
             {
-                BigStaticClass.logger.Log(e.ToString());
+                MainController.Instance.logger.Log(e.ToString());
                
             }
         }
@@ -56,34 +58,35 @@ namespace Server
             }
             catch
             {
-                BigStaticClass.Disconnect(this);
+                MainController.Instance.Disconnect(this);
             }
         }
         void Parse(byte[] bytes)
         {
-            Messages m = BigStaticClass.serializer.Deserialize(bytes);
+            Messages m = MainController.Instance.serializer.Deserialize(bytes);
             m.Id = this.Id;
             switch (m.GetType().Name)
             {
               
                 case "RegistrationMessage":
                     this.nick = (m as RegistrationMessage).nick;
-                    BigStaticClass.logger.Log(nick + " вошел");
+                    MainController.Instance.logger.Log(nick + " вошел");
                     Send(new RegistrationResultMessage(this.Id));
                     break;
                 case "SearchMessage":
                     this.search = true;
                     this.gameField = (m as SearchMessage).field;
-                    BigStaticClass.TryCreateGame();
+                    SearchGame();
                     break;
                 case "ShootMessage":
-                    if (Step != null)
-                        Step(m);
+                    Step(m);
                     break;
 
             }
         }
-        public event Action<Messages> Step;
+
+        public event Action<Messages> Step = (x) => { };
+        public event Action SearchGame = () => { };
 
     }
 }

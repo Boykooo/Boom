@@ -16,7 +16,7 @@ namespace Server
             IPEndPoint endPoint = new IPEndPoint(IPAddress.Any, 8888); //!!!
 
 
-            ConnectManager cnm = new ConnectManager(adress, endPoint);
+            ConnectManager cnm = new ConnectManager(endPoint);
 
             cnm.Start();
 

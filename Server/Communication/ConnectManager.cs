@@ -13,15 +13,12 @@ namespace Server
 {
     class ConnectManager
     {       
-        public ConnectManager(IPAddress ipAdress, IPEndPoint endPoint)
+        public ConnectManager(IPEndPoint endPoint)
         {
 
-            //this.ipAdress = ipAdress;
             this.endPoint = endPoint;
         }
-        private IPAddress ipAdress;
         private IPEndPoint endPoint;
-        private int idCount;
 
         public void Start()
         {
@@ -44,7 +41,7 @@ namespace Server
 
                     Socket newClient = mainSocket.Accept();
 
-                    BigStaticClass.Registration(newClient);
+                    MainController.Instance.Registration(newClient);
                 }
             }
             catch (Exception e)
