@@ -63,9 +63,9 @@ namespace Client.Game
 
             //form.YoursBox.Image = p.TempBitmapYours;
             //form.EnemyBox.Image = p.TempBitmapEnemy;
-
-            this.turn = turn;
+           
             form.MessageString = turn ? "Ваш ход" : "Ход противника";
+            this.turn = turn;
             ok = true;
 
         }
@@ -78,8 +78,9 @@ namespace Client.Game
                 {
                     if (oldEnemyField.field[tempLoc.X, tempLoc.Y] == CellType.None)
                     {
-                        Program.serverManager.SendMessage(new ShootMessage(tempLoc.X, tempLoc.Y));
-                        // p.FixImage(); зачем?
+                        turn = false;
+
+                        Program.serverManager.SendMessage(new ShootMessage(tempLoc.X, tempLoc.Y));                   
                     }
                 }
 

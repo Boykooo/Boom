@@ -36,8 +36,8 @@ public class ServerManager
     void Listen()
     {
         byte[] tmp = new byte[100000];
-        //try
-        //{
+        try
+        {
             while (true)
             {
                 int i = socket.Receive(tmp);
@@ -65,11 +65,11 @@ public class ServerManager
                         break;
                 }
             }
-       // }
-        //catch
-        //{
-        //    Program.Disconnected();
-        //}
+        }
+        catch
+        {
+            Program.Disconnected();
+        }
     }
     byte[] Serialize(Messages m)
     {
